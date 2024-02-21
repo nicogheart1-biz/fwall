@@ -1,0 +1,32 @@
+{
+  "brand1": {
+    "name": "Brand1",
+    "id": "brand1",
+    "category": "",
+    "subcategories": [""],
+    "types": [""],
+    "website": "",
+    "active": true,
+    "color": "#016fd0"
+  },
+  "brand2": {
+    "name": "Brand2",
+    "id": "brand2",
+    "category": "",
+    "subcategories": [""],
+    "types": [""],
+    "website": "",
+    "active": true,
+    "color": "#ef363f"
+  },
+  "brand3": {
+    "name": "Brand3",
+    "id": "brand3",
+    "category": "",
+    "subcategories": [""],
+    "types": [""],
+    "website": "",
+    "active": true,
+    "color": "#f47429"
+  }
+}

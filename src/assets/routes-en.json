@@ -1,0 +1,66 @@
+{
+  "home": {
+    "url": "/",
+    "label": "Home",
+    "menu": {
+      "mobile": false,
+      "desktop": false,
+      "header": false,
+      "footer": false
+    },
+    "private": false,
+    "roles": []
+  },
+  "about": {
+    "url": "/about",
+    "label": "About",
+    "title": "About",
+    "menu": {
+      "mobile": true,
+      "desktop": true,
+      "header": true,
+      "footer": true
+    },
+    "private": false,
+    "roles": []
+  },
+  "contacts": {
+    "url": "/contacts",
+    "label": "Contacts",
+    "title": "Contacts",
+    "menu": {
+      "mobile": true,
+      "desktop": true,
+      "header": false,
+      "footer": true
+    },
+    "private": false,
+    "roles": []
+  },
+  "termsConditions": {
+    "url": "/terms-and-conditions",
+    "label": "Terms & Conditions",
+    "title": "Terms & Conditions",
+    "menu": {
+      "mobile": true,
+      "desktop": true,
+      "header": false,
+      "footer": true
+    },
+    "private": false,
+    "roles": []
+  },
+  "privacyPolicy": {
+    "url": "/privacy-policy",
+    "label": "Privacy Policy",
+    "title": "Privacy Policy",
+    "menu": {
+      "mobile": true,
+      "desktop": true,
+      "header": false,
+      "footer": true
+    },
+    "private": false,
+    "roles": []
+  }
+}

@@ -1,0 +1,15 @@
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+  	function signedInOrPublic() {
+      return request.auth.uid != null || resource.data.visibility == 'public';
+    }
+    match /images/profile/{anyUserFile=**} {
+    	// check authentication
+      allow read: if signedInOrPublic();
+      // check authentication and file size smaller than 5MB
+  		allow write: if signedInOrPublic() && request.resource.size < 5 * 1024 * 1024;
+    }
+  }
+}

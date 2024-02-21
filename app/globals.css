@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-rgb: 254, 254, 254;
+  --background-rgb: 3, 4, 6;
+
+  --font-rgb: 250, 235, 237;
+  --background-rgb: 2, 6, 14;
+}
+
+body {
+  background-color: rgb(var(--background-rgb));
+  color: rgb(var(--font-rgb));
+}
