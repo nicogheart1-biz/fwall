@@ -25,10 +25,16 @@ const getCmsData = cache(async () => {
 
 export default async function TermsAndConditions() {
   const data = (await getCmsData()) as CmsPageI;
-  const { title = "Terms & Conditions", text } = data;
+  const { title = "Terms & Conditions", text, html } = data;
   return (
     <section className="py-4">
       <SimplePage title={title} text={text} />
+      {html ? (
+        <div
+          className="mx-auto max-w-screen-xl py-4 sm:px-6 lg:px-8"
+          dangerouslySetInnerHTML={{ __html: html as TrustedHTML }}
+        />
+      ) : null}
     </section>
   );
 }

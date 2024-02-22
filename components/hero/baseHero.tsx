@@ -36,7 +36,7 @@ const BaseHero = (props: BaseHeroI) => {
               {title}
               <br />
               {subtitle ? (
-                <strong className="font-extrabold text-primary-700 sm:block">
+                <strong className="font-extrabold text-secondary-500 sm:block">
                   {subtitle}
                 </strong>
               ) : null}

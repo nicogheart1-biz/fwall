@@ -17,7 +17,7 @@ const SimplePage = (props: SimplePageI) => {
         centered && "items-center"
       )}
     >
-      <div className={clsx("max-w-xl", centered && "mx-auto text-center")}>
+      <div className={clsx(centered && "max-w-xl mx-auto text-center")}>
         <h1 className="text-2xl font-bold sm:text-3xl">{title}</h1>
 
         {text ? <p className="mt-4 text-white-100">{text}</p> : null}
