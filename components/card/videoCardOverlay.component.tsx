@@ -3,7 +3,7 @@
 const VideoCardOverlay = () => {
   return (
     <div
-      className="absolute w-full h-full bg-transparent top-0 left-0 pointer-events-none"
+      className="absolute w-full h-full bg-transparent top-0 left-0"
       onClick={() => console.log("video clicked")}
     ></div>
   );

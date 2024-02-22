@@ -29,6 +29,10 @@ const ToastManagerComponent = dynamic(
   () => import("@/components/@core/toastManager/toastManager.component"),
   { ssr: false }
 );
+const AdsBanner = dynamic(
+  () => import("@/components/ads/adsBanner.component"),
+  { ssr: false }
+);
 
 const rubik = Rubik({ subsets: ["latin"] });
 
@@ -69,9 +73,10 @@ export default function RootLayout({
         <body className={clsx(rubik.className, "overflow-x-hidden")}>
           <SkipContentComponent />
           <Header />
-          <main id="MainContent" className="min-h-screen pt-16">
+          <main id="MainContent" className="min-h-screen pt-20">
             {children}
           </main>
+          <AdsBanner />
           <Footer />
           <GlobalLoaderManager />
           <ToastManagerComponent />
