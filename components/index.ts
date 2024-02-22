@@ -10,6 +10,7 @@ import Logo from "./logo/logo";
 import SimplePage from "./simplePage/simplePage";
 import TabGroup from "./tabGroup/tabGroup";
 import Toast from "./toast/toast";
+import VideoCard from './card/videoCard.component';
 
 export {
   Avatar,
@@ -24,4 +25,5 @@ export {
   SimplePage,
   TabGroup,
   Toast,
+  VideoCard,
 };

@@ -4,6 +4,14 @@ const { PHASE_DEVELOPMENT_SERVER } = require("next/constants");
 const commonConfig = {
   reactStrictMode: false,
   poweredByHeader: false,
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "static-ca-cdn.eporner.com",
+      },
+    ],
+  },
 };
 
 module.exports = (phase, { defaultConfig }) => {

@@ -1,14 +1,14 @@
 "use client";
 
-import { UserService } from "@/src/services";
+import { VideoProvidersService } from "@/src/services/videoProviders.service";
 import { useEffect } from "react";
 
 const PlaygroundComponent = (props: { data: any }) => {
   const { data = "{}" } = props;
   const test = async () => {
     try {
-      const user = await UserService.getUser();
-      console.log('PlaygroundComponent test', user);
+      const response = await VideoProvidersService.getVideosWall();
+      console.log('response', response)
     } catch (error) {
       console.error(error);
     }

@@ -1,0 +1,67 @@
+import Image from "next/image";
+import VideoCardOverlay from "./videoCardOverlay.component";
+import Link from "next/link";
+import { ChartBarIcon, ClockIcon, PlayCircleIcon } from "@heroicons/react/24/outline";
+
+type VideoCardI = {
+  length?: string;
+  provider: string;
+  rate?: string;
+  title: string;
+  thumbs?: string[];
+  url: string;
+  views?: string;
+};
+
+const VideoCard = (props: VideoCardI) => {
+  const { length, provider, rate, title, thumbs = [], url, views } = props;
+
+  //console.log('props', props)
+  return (
+    <div className="relative p-2 bg-background-100/10 overflow-hidden rounded transition hover:bg-background-100/25">
+      <VideoCardOverlay />
+      <div className="flex flex-col justify-between gap-2">
+        <Link
+          href={url}
+          target="_blank"
+          className="flex flex-col justify-between gap-2"
+        >
+          <div className="mx-auto w-full">
+            <Image alt="video-preview" src={thumbs[0]} width={560} />
+          </div>
+          <div className="capitalize text-ellipsis overflow-hidden text-nowrap">
+            {title}
+          </div>
+        </Link>
+
+        <div className="w-full mt-2 flex gap-4 items-center justify-end">
+        {views ? (
+            <span className="text-xs items-center inline-flex gap-1">
+              <PlayCircleIcon className="h-4 w-4 text-secondary-500" />
+              {views}
+            </span>
+          ) : null}
+          {length ? (
+            <span className="text-xs items-center inline-flex gap-1">
+              <ClockIcon className="h-4 w-4 text-secondary-500" />
+              {length}
+            </span>
+          ) : null}
+          {rate ? (
+            <span className="text-xs items-center inline-flex gap-1">
+              <ChartBarIcon className="h-4 w-4 text-secondary-500" />
+              {rate}
+            </span>
+          ) : null}
+          <Image
+            className="h-4 w-4"
+            alt={provider}
+            src={require(`@/src/assets/videoProviders/logos/${provider}.png`)}
+          />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default VideoCard;

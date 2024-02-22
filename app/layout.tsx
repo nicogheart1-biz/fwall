@@ -1,4 +1,4 @@
-import { Inter } from "next/font/google";
+import { Rubik } from "next/font/google";
 import "./globals.css";
 import dynamic from "next/dynamic";
 import { Footer, Header } from "@/components";
@@ -30,7 +30,7 @@ const ToastManagerComponent = dynamic(
   { ssr: false }
 );
 
-const inter = Inter({ subsets: ["latin"] });
+const rubik = Rubik({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: {
@@ -66,7 +66,7 @@ export default function RootLayout({
             content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
           />
         </head>
-        <body className={clsx(inter.className, "overflow-x-hidden")}>
+        <body className={clsx(rubik.className, "overflow-x-hidden")}>
           <SkipContentComponent />
           <Header />
           <main id="MainContent" className="min-h-screen pt-16">

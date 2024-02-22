@@ -1,7 +1,5 @@
-import { HeadersEnum } from "@/src/enums/headers.enums";
 import { useAppStore } from "@/src/store/app/app.store";
 import { isServer } from "@/src/utils/common.utils";
-import { AuthService, UserService } from "@/src/services";
 
 export class ApiService {
   private static init: RequestInit = {
@@ -129,29 +127,10 @@ export class ApiService {
     url: string,
     optInit: RequestInit = {}
   ) => {
-    // region AUTH HEADERS
-    const results = await Promise.allSettled([
-      AuthService.getAuthToken(),
-      AuthService.getAppToken(),
-    ]);
-    const fulfilledValues = results
-      .filter(
-        <T>(p: PromiseSettledResult<T>): p is PromiseFulfilledResult<T> =>
-          p.status === "fulfilled"
-      )
-      .map((p) => p.value);
-
-    const { uid: user = "" } = (await UserService.getUser()) || {};
-    const authToken = fulfilledValues[0] || "";
-    const appToken = fulfilledValues[1] || "";
-    // endregion AUTH HEADERS
 
     const basicHeaders = {
       ...ApiService.init.headers,
       ...{ ...(optInit.headers || {}) },
-      [HeadersEnum.USER]: user?.toString(),
-      [HeadersEnum.AUTH_TOKEN]: authToken.toString(),
-      [HeadersEnum.APP_TOKEN]: appToken.toString(),
     };
     const headers = new Headers(basicHeaders);
 
