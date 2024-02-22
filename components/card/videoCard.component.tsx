@@ -1,7 +1,11 @@
 import Image from "next/image";
 import VideoCardOverlay from "./videoCardOverlay.component";
 import Link from "next/link";
-import { ChartBarIcon, ClockIcon, PlayCircleIcon } from "@heroicons/react/24/outline";
+import {
+  ChartBarIcon,
+  ClockIcon,
+  PlayCircleIcon,
+} from "@heroicons/react/24/outline";
 
 type VideoCardI = {
   length?: string;
@@ -27,7 +31,14 @@ const VideoCard = (props: VideoCardI) => {
           className="flex flex-col justify-between gap-2"
         >
           <div className="mx-auto w-full">
-            <Image alt="video-preview" src={thumbs[0]} width={560} />
+            <Image
+            className="h-36 object-cover"
+              alt="video-preview"
+              src={thumbs[0]}
+              width={560}
+              height={320}
+              priority={false}
+            />
           </div>
           <div className="capitalize text-ellipsis overflow-hidden text-nowrap">
             {title}
@@ -35,7 +46,7 @@ const VideoCard = (props: VideoCardI) => {
         </Link>
 
         <div className="w-full mt-2 flex gap-4 items-center justify-end">
-        {views ? (
+          {views ? (
             <span className="text-xs items-center inline-flex gap-1">
               <PlayCircleIcon className="h-4 w-4 text-secondary-500" />
               {views}

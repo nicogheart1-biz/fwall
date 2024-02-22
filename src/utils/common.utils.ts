@@ -3,7 +3,9 @@ import { useAppStore } from "@/src/store/app/app.store";
 import { ToastStatusEnum } from "@/src/enums/toast.enum";
 import { ToastI } from "@/src/types/toast.type";
 
-export const isServer = typeof window === "undefined";
+export const isServer = typeof window === "undefined"
+
+export const formatSeconds = (s: number) => (s - (s %= 60)) / 60 + (9 < s ? ":" : ":0") + s;
 
 export const downloadFile = (
   file: string,

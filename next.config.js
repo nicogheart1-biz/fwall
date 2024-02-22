@@ -10,6 +10,10 @@ const commonConfig = {
         protocol: "https",
         hostname: "static-ca-cdn.eporner.com",
       },
+      {
+        protocol: "https",
+        hostname: "ei.phncdn.com",
+      },
     ],
   },
 };

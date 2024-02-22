@@ -18,6 +18,7 @@
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.49.2",
+    "xml-js": "^1.6.11",
     "zustand": "^4.4.7"
   },
   "devDependencies": {
