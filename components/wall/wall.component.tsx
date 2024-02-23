@@ -17,13 +17,32 @@ const WallComponent = (props: WallComponentI) => {
             const data = JSON.parse(contents[videoProvider]);
             Object.values(data).forEach((video: any) => {
               videos.push({
-                ...video,
+                //...video,
+                cover: video.thumb_large || video.thumb,
                 id: new Date(video.pubDate).getTime(),
-                url: video.link,
                 length: formatSeconds(Number(video.duration)),
                 provider: videoProvider,
-                cover: video.thumb_large || video.thumb,
                 title: video.title.toLowerCase() || "Feet",
+                thumbs: video.thumbs || [],
+                url: video.link,
+              });
+            });
+            break;
+          }
+          case "redtube": {
+            contents[videoProvider].forEach(({ video }: { video: any }) => {
+              videos.push({
+                //...video,
+                //embed_url
+                cover: video.thumbs[0] || video.thumb || video.default_thumb,
+                id: video.video_id,
+                length: video.duration,
+                provider: videoProvider,
+                rate: video.rating,
+                title: video.title.toLowerCase() || "Feet",
+                thumbs: video.thumbs || [],
+                url: video.url,
+                views: video.views,
               });
             });
             break;
@@ -32,11 +51,16 @@ const WallComponent = (props: WallComponentI) => {
           default: {
             contents[videoProvider].forEach((video: any) => {
               videos.push({
-                ...video,
+                //...video,
                 cover: video.default_thumb || video.thumbs[0],
+                id: video.id,
                 length: video.length_min,
-                title: video.title.toLowerCase() || "Feet",
                 provider: videoProvider,
+                rate: video.rate,
+                title: video.title.toLowerCase() || "Feet",
+                thumbs: video.thumbs || [],
+                url: video.url,
+                views: video.views,
               });
             });
             break;

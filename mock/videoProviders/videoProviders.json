@@ -16,5 +16,15 @@
     "id": "pornhub",
     "website": "https://www.pornhub.com/",
     "api": "https://pornhub.com/feed/feet"
+  },
+  "redtube": {
+    "name": "Redtube",
+    "id": "redtube",
+    "website": "https://redtube.com/",
+    "api": "https://api.redtube.com/",
+    "queries": [
+      "?data=redtube.Videos.searchVideos&output=json&search=feet worship&thumbsize=big&page=1&ordering=newest&period=weekly",
+      "?data=redtube.Videos.searchVideos&output=json&search=socks&thumbsize=big&page=1&ordering=newest&period=weekly"
+    ]
   }
 }
