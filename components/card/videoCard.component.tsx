@@ -10,8 +10,13 @@ import dynamic from "next/dynamic";
 const VideoCardOverlay = dynamic(() => import("./videoCardOverlay.component"), {
   ssr: false,
 });
+const VideoCardPreview = dynamic(() => import("./videoCardPreview.component"), {
+  ssr: false,
+});
 
 type VideoCardI = {
+  id: string;
+  cover: string;
   length?: string;
   provider: string;
   rate?: string;
@@ -22,7 +27,7 @@ type VideoCardI = {
 };
 
 const VideoCard = (props: VideoCardI) => {
-  const { length, provider, rate, title, thumbs = [], url, views } = props;
+  const { cover, id, length, provider, rate, title, thumbs = [], url, views } = props;
 
   //console.log('props', props)
   return (
@@ -34,15 +39,16 @@ const VideoCard = (props: VideoCardI) => {
       <div className="relative p-2 bg-background-100/10 overflow-hidden rounded transition hover:bg-background-100/25">
         <VideoCardOverlay />
         <div className="flex flex-col justify-between gap-2">
-          <div className="mx-auto w-full">
+          <div className="relative mx-auto w-full">
             <Image
               className="h-32 object-cover"
               alt="video-preview"
-              src={thumbs[0]}
+              src={cover}
               width={560}
               height={320}
               priority={false}
             />
+            {thumbs?.length ? <VideoCardPreview id={id} thumbs={thumbs} /> : null}
           </div>
           <div className="capitalize text-ellipsis overflow-hidden text-nowrap">
             {title}

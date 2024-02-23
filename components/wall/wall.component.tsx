@@ -23,7 +23,7 @@ const WallComponent = (props: WallComponentI) => {
                 url: video.link,
                 length: formatSeconds(Number(video.duration)),
                 provider: videoProvider,
-                thumbs: [video.thumb_large, video.thumb],
+                cover: video.thumb_large || video.thumb,
                 title: video.title.toLowerCase() || "Feet",
               });
             });
@@ -34,6 +34,7 @@ const WallComponent = (props: WallComponentI) => {
             contents[videoProvider].forEach((video: any) => {
               videos.push({
                 ...video,
+                cover: video.default_thumb || video.thumbs[0],
                 length: video.length_min,
                 title: video.title.toLowerCase() || "Feet",
                 provider: videoProvider,
