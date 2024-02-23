@@ -1,4 +1,11 @@
 {
+  "pornhub": {
+    "name": "Pornhub",
+    "id": "pornhub",
+    "website": "https://www.pornhub.com/",
+    "api": "https://pornhub.com/feed/feet",
+    "active": false
+  },
   "eporner": {
     "name": "Eporner",
     "id": "eporner",
@@ -9,13 +16,8 @@
       "?query=feet worship&per_page=6&page=1&thumbsize=medium&order=top-weekly&gay=0&lq=0&format=json",
       "?query=socks&per_page=5&page=1&thumbsize=medium&order=latest&gay=0&lq=0&format=json",
       "?query=socks&per_page=5&page=1&thumbsize=medium&order=top-weekly&gay=0&lq=0&format=json"
-    ]
-  },
-  "pornhub": {
-    "name": "Pornhub",
-    "id": "pornhub",
-    "website": "https://www.pornhub.com/",
-    "api": "https://pornhub.com/feed/feet"
+    ],
+    "active": true
   },
   "redtube": {
     "name": "Redtube",
@@ -25,6 +27,7 @@
     "queries": [
       "?data=redtube.Videos.searchVideos&output=json&search=feet worship&thumbsize=big&page=1&ordering=newest&period=weekly",
       "?data=redtube.Videos.searchVideos&output=json&search=socks&thumbsize=big&page=1&ordering=newest&period=weekly"
-    ]
+    ],
+    "active": true
   }
 }

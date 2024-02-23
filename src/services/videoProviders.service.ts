@@ -80,31 +80,36 @@ export const VideoProvidersService = {
     new Promise(async (resolve, reject) => {
       try {
         const promises: Promise<any>[] = [];
-        Object.values(VideoProviders).forEach((videoProvider) => {
-          switch (videoProvider.id) {
-            case "pornhub": {
-              promises.push(VideoProvidersService.getPornhubVideos());
-              break;
+        Object.values(VideoProviders)
+          .filter((videoProvider) => videoProvider.active)
+          .forEach((videoProvider) => {
+            switch (videoProvider.id) {
+              case "pornhub": {
+                promises.push(VideoProvidersService.getPornhubVideos());
+                break;
+              }
+              case "eporner":
+              case "redtube":
+              default: {
+                promises.push(
+                  VideoProvidersService.getProviderVideos(videoProvider)
+                );
+                break;
+              }
             }
-            case "eporner":
-            default: {
-              promises.push(
-                VideoProvidersService.getProviderVideos(videoProvider)
-              );
-              break;
-            }
-          }
-        });
+          });
         const results = await Promise.allSettled(promises);
         if (results?.length) {
           const response: { [key: string]: any } = {};
-          Object.values(VideoProviders).forEach((videoProvider, i) => {
-            // @ts-ignore
-            if (results[i]?.status === "fulfilled" && results[i]?.value) {
+          Object.values(VideoProviders)
+            .filter((videoProvider) => videoProvider.active)
+            .forEach((videoProvider, i) => {
               // @ts-ignore
-              response[videoProvider.id] = results[i].value;
-            }
-          });
+              if (results[i]?.status === "fulfilled" && results[i]?.value) {
+                // @ts-ignore
+                response[videoProvider.id] = results[i].value;
+              }
+            });
           resolve(response);
         } else {
           reject();

@@ -14,7 +14,7 @@ const WallComponent = (props: WallComponentI) => {
       if (contents[videoProvider]?.length) {
         switch (videoProvider) {
           case "pornhub": {
-            const data = JSON.parse(contents[videoProvider]);
+            const data = JSON.parse(contents[videoProvider] || "{}");
             Object.values(data).forEach((video: any) => {
               videos.push({
                 //...video,
