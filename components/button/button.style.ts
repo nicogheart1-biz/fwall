@@ -10,7 +10,7 @@ const textBtnStyle =
 const dangerBtnStyle =
   "border-red-500 bg-red-500 text-white-100 hover:bg-white-100 hover:text-red-500";
 
-const disabledBtnStyle = "opacity-50";
+const disabledBtnStyle = "opacity-50 cursor-not-allowed";
 const loadingBtnStyle = "cursor-wait";
 const fullBtnStyle = "w-full justify-center";
 

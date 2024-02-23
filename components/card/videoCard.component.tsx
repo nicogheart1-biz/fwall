@@ -6,6 +6,7 @@ import {
   PlayCircleIcon,
 } from "@heroicons/react/24/outline";
 import dynamic from "next/dynamic";
+import { Routes } from "@/src/routes";
 
 const VideoCardOverlay = dynamic(() => import("./videoCardOverlay.component"), {
   ssr: false,
@@ -27,12 +28,22 @@ type VideoCardI = {
 };
 
 const VideoCard = (props: VideoCardI) => {
-  const { cover, id, length, provider, rate, title, thumbs = [], url, views } = props;
+  const {
+    cover,
+    id,
+    length,
+    provider,
+    rate,
+    title,
+    thumbs = [],
+    url,
+    views,
+  } = props;
 
   //console.log('props', props)
   return (
     <Link
-      href={url}
+      href={`${Routes.contentRedirect.url}${encodeURIComponent(url)}`}
       target="_blank"
       className="flex flex-col justify-between gap-2"
     >
@@ -48,15 +59,17 @@ const VideoCard = (props: VideoCardI) => {
               height={320}
               priority={false}
             />
-            {thumbs?.length ? <VideoCardPreview id={id} thumbs={thumbs} /> : null}
+            {thumbs?.length ? (
+              <VideoCardPreview id={id} thumbs={thumbs} />
+            ) : null}
           </div>
-          <div className="capitalize text-ellipsis overflow-hidden text-nowrap">
+          <div className="capitalize whitespace-nowrap text-ellipsis overflow-hidden text-nowrap">
             {title}
           </div>
 
           <div className="w-full mt-2 flex gap-4 items-center justify-end">
             {views ? (
-              <span className="text-xs items-center inline-flex gap-1">
+              <span className="hidden md:inline-flex text-xs items-center gap-1">
                 <PlayCircleIcon className="h-4 w-4 text-secondary-500" />
                 {views}
               </span>
@@ -68,7 +81,7 @@ const VideoCard = (props: VideoCardI) => {
               </span>
             ) : null}
             {rate ? (
-              <span className="text-xs items-center inline-flex gap-1">
+              <span className="hidden md:inline-flex text-xs items-center gap-1">
                 <ChartBarIcon className="h-4 w-4 text-secondary-500" />
                 {rate}
               </span>

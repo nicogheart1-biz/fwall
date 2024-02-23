@@ -1,8 +1,11 @@
 import Link from "next/link";
 import clsx from "clsx";
 import { ButtonStyle } from "./button.style";
+import { Button } from "@/components";
 
 type ButtonLinkI = React.AnchorHTMLAttributes<HTMLAnchorElement> & {
+  disabled?: boolean;
+  isLoading?: boolean;
   label: string;
   primary?: boolean;
   secondary?: boolean;
@@ -12,6 +15,8 @@ type ButtonLinkI = React.AnchorHTMLAttributes<HTMLAnchorElement> & {
 
 const ButtonLink = (props: ButtonLinkI) => {
   const {
+    disabled = false,
+    isLoading = false,
     label,
     href = "/",
     primary = true,
@@ -29,6 +34,10 @@ const ButtonLink = (props: ButtonLinkI) => {
       ? ButtonStyle.primaryBtnStyle
       : ""
   }`;
+
+  if (disabled) {
+    return <Button disabled isLoading={isLoading} label={label} />;
+  }
 
   return (
     <Link

@@ -1,4 +1,3 @@
-import clsx from "clsx";
 import { VideoCard } from "@/components";
 import { formatSeconds } from "@/src/utils/common.utils";
 
@@ -49,9 +48,7 @@ const WallComponent = (props: WallComponentI) => {
   };
 
   return (
-    <section
-      className={clsx("mx-auto max-w-screen-xl py-4 px-4 sm:px-6 lg:px-8")}
-    >
+    <section className="mx-auto max-w-screen-xl py-4 px-4 sm:px-6 lg:px-8">
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 lg:gap-6">
         {getVideos()
           .sort(() => Math.random() - 0.5)

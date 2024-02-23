@@ -12,6 +12,7 @@ import { AppConstants } from "@/src/constants";
 import clsx from "clsx";
 import { calcDelay } from "@/src/utils/common.utils";
 import { FrequencyEnum } from "@/src/enums/common.enums";
+import { AdsBlockTypeEnum } from "@/src/enums/ads.enums";
 
 const AdultsBanner = dynamic(
   () => import("@/components/@core/AdultsBanner/adultsBanner.component"),
@@ -33,10 +34,9 @@ const ToastManagerComponent = dynamic(
   () => import("@/components/@core/toastManager/toastManager.component"),
   { ssr: false }
 );
-const AdsBanner = dynamic(
-  () => import("@/components/ads/adsBanner.component"),
-  { ssr: false }
-);
+const AdsBlock = dynamic(() => import("@/components/ads/adsBlock.component"), {
+  ssr: false,
+});
 
 const rubik = Rubik({ subsets: ["latin"] });
 
@@ -77,10 +77,10 @@ export default function RootLayout({
         <body className={clsx(rubik.className, "overflow-x-hidden")}>
           <SkipContentComponent />
           <Header />
-          <main id="MainContent" className="min-h-screen pt-20">
+          <main id="MainContent" className="relative min-h-screen pt-20">
             {children}
+            <AdsBlock type={AdsBlockTypeEnum.HORIZONTAL} />
           </main>
-          <AdsBanner />
           <Footer />
           <GlobalLoaderManager />
           <ToastManagerComponent />
