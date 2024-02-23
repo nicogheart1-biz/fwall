@@ -73,6 +73,7 @@ export default function RootLayout({
             name="viewport"
             content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
           />
+          <meta name="RATING" content="RTA-5042-1996-1400-1577-RTA" />
         </head>
         <body className={clsx(rubik.className, "overflow-x-hidden")}>
           <SkipContentComponent />
