@@ -65,7 +65,7 @@ export const VideoProvidersService = {
           method: "GET",
         });
         const test = await data.text();
-        console.log("Pornhub response obtained:", test);
+        console.log("Pornhub response obtained:", xml2json(test));
         const response = extractPornhubVideos(
           JSON.parse(xml2json(await data.text()))?.elements?.[1]?.elements
         );
