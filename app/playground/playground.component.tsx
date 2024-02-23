@@ -1,5 +1,4 @@
 "use client";
-
 import { VideoProvidersService } from "@/src/services/videoProviders.service";
 import { useEffect } from "react";
 
@@ -15,7 +14,7 @@ const PlaygroundComponent = (props: { data: any }) => {
   };
 
   useEffect(() => {
-    test();
+    //test();
   }, []);
 
   console.log("data", JSON.parse(data));
