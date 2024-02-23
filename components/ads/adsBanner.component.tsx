@@ -2,7 +2,7 @@
 
 const AdsBanner = () => {
   return (
-    <div className="relative w-full mx-auto max-w-screen-xl py-4 px-4 sm:px-6 lg:px-8">
+    <div className="relative w-full mx-auto max-w-screen-xl inline-flex justify-center py-4 px-4 sm:px-6 lg:px-8">
       <iframe
         style={{ backgroundColor: "white" }}
         width="900"
