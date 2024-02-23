@@ -11,6 +11,18 @@
     "private": false,
     "roles": []
   },
+  "contentRedirect": {
+    "url": "/content-redirect/",
+    "label": "Content Redirect",
+    "menu": {
+      "mobile": false,
+      "desktop": false,
+      "header": false,
+      "footer": false
+    },
+    "private": false,
+    "roles": []
+  },
   "about": {
     "url": "/about",
     "label": "About",

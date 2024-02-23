@@ -23,6 +23,7 @@ type ButtonI = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 const Button = (props: ButtonI) => {
   const {
     action = () => ({}),
+    disabled = false,
     label,
     primary = true,
     secondary = false,
@@ -33,7 +34,9 @@ const Button = (props: ButtonI) => {
   } = props;
 
   const btnClass = `${ButtonStyle.baseBtnStyle} ${
-    danger
+    disabled
+      ? ButtonStyle.disabledBtnStyle
+      : danger
       ? ButtonStyle.dangerBtnStyle
       : text
       ? ButtonStyle.textBtnStyle
