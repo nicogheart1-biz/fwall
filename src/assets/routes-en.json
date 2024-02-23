@@ -62,5 +62,18 @@
     },
     "private": false,
     "roles": []
+  },
+  "cookiePolicy": {
+    "url": "/cookie-policy",
+    "label": "Cookie Policy",
+    "title": "Cookie Policy",
+    "menu": {
+      "mobile": false,
+      "desktop": false,
+      "header": false,
+      "footer": false
+    },
+    "private": false,
+    "roles": []
   }
 }

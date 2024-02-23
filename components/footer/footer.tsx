@@ -2,6 +2,7 @@ import { NavigationUtils } from "@/src/utils/navigation.utils";
 import clsx from "clsx";
 import Link from "next/link";
 import { Logo } from "@/components";
+import { Routes } from "@/src/routes";
 
 const Footer = () => {
   return (
@@ -55,6 +56,14 @@ const Footer = () => {
               </Link>
             </li>
           ))}
+          <li className="block">
+            <Link
+              className="text-white-700 transition hover:text-white-900"
+              href={Routes.cookiePolicy.url}
+            >
+              {Routes.cookiePolicy.label}
+            </Link>
+          </li>
         </ul>
 
         <ul className="mt-12 flex justify-center gap-6 md:gap-8">

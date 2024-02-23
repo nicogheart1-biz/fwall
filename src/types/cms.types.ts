@@ -15,7 +15,8 @@ export type CmsPageFormI = {
   fields?: {
     id: string;
     label?: string;
-    type?: "text" | "number" | "term";
+    type?: "text" | "number" | "term" | "toggle";
+    text?: string;
     required?: boolean;
   }[];
 };

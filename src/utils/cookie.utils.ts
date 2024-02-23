@@ -1,4 +1,5 @@
 export const CookieUtils = {
+  CookieCheck: "cookiesBanner",
   getCookie: (name: string) => {
     const value = " " + document.cookie;
     const parts = value.split(" " + name + "=");

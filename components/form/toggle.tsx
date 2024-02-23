@@ -4,7 +4,7 @@ type ToggleI = React.InputHTMLAttributes<HTMLInputElement> & {
 };
 
 const Toggle = (props: ToggleI) => {
-  const { id, name, label, withIcon = false } = props;
+  const { checked, id, name, label, withIcon = false } = props;
   return (
     <label
       htmlFor={name || label}
@@ -13,6 +13,7 @@ const Toggle = (props: ToggleI) => {
       <input
         {...{ ...props, withIcon: undefined }}
         id={id || name || label}
+        checked={checked}
         type="checkbox"
         className="peer sr-only [&:checked_+_span_svg[data-checked-icon]]:block [&:checked_+_span_svg[data-unchecked-icon]]:hidden"
       />
