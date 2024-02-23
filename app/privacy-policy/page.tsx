@@ -8,7 +8,7 @@ import { Metadata } from "next";
 import { cache } from "react";
 
 // cache revalidation
-export const revalidate = calcDelay(8, FrequencyEnum.HOURS);
+export const revalidate = calcDelay(12, FrequencyEnum.HOURS);
 
 export const metadata: Metadata = {
   title: Routes.privacyPolicy.title,
@@ -25,10 +25,10 @@ const getCmsData = cache(async () => {
 
 export default async function PrivacyPolicy() {
   const data = (await getCmsData()) as CmsPageI;
-  const { title = "Privacy Policy", text } = data;
+  const { title = "Privacy Policy", text, html } = data;
   return (
     <section className="py-4">
-      <SimplePage title={title} text={text} />
+      <SimplePage title={title} text={text} html={html} />
     </section>
   );
 }

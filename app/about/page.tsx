@@ -25,10 +25,10 @@ const getCmsData = cache(async () => {
 
 export default async function About() {
   const data = (await getCmsData()) as CmsPageI;
-  const { title = "About", text } = data;
+  const { title = "About", text, html } = data;
   return (
     <section className="py-4">
-      <SimplePage title={title} text={text} />
+      <SimplePage title={title} text={text} html={html} />
     </section>
   );
 }

@@ -18,7 +18,7 @@
     "menu": {
       "mobile": true,
       "desktop": true,
-      "header": true,
+      "header": false,
       "footer": true
     },
     "private": false,

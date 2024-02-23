@@ -8,7 +8,7 @@ import { Metadata } from "next";
 import { cache } from "react";
 
 // cache revalidation
-export const revalidate = calcDelay(8, FrequencyEnum.HOURS);
+export const revalidate = calcDelay(12, FrequencyEnum.HOURS);
 
 export const metadata: Metadata = {
   title: Routes.termsConditions.title,
@@ -28,13 +28,7 @@ export default async function TermsAndConditions() {
   const { title = "Terms & Conditions", text, html } = data;
   return (
     <section className="py-4">
-      <SimplePage title={title} text={text} />
-      {html ? (
-        <div
-          className="mx-auto max-w-screen-xl py-4 sm:px-6 lg:px-8"
-          dangerouslySetInnerHTML={{ __html: html as TrustedHTML }}
-        />
-      ) : null}
+      <SimplePage title={title} text={text} html={html} />
     </section>
   );
 }
