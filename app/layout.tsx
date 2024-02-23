@@ -13,6 +13,10 @@ import clsx from "clsx";
 import { calcDelay } from "@/src/utils/common.utils";
 import { FrequencyEnum } from "@/src/enums/common.enums";
 
+const AdultsBanner = dynamic(
+  () => import("@/components/@core/AdultsBanner/adultsBanner.component"),
+  { ssr: false }
+);
 const CookieBannerComponent = dynamic(
   () => import("@/components/@core/cookieBanner/cookie-banner.component"),
   { ssr: false }
@@ -80,6 +84,7 @@ export default function RootLayout({
           <Footer />
           <GlobalLoaderManager />
           <ToastManagerComponent />
+          <AdultsBanner />
           <CookieBannerComponent />
         </body>
       </html>
