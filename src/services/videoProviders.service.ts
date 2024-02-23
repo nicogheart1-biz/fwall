@@ -64,9 +64,12 @@ export const VideoProvidersService = {
         const data = await fetch(VideoProviders.pornhub.api, {
           method: "GET",
         });
+        const test = await data.text();
+        console.log("Pornhub response obtained:", test);
         const response = extractPornhubVideos(
           JSON.parse(xml2json(await data.text()))?.elements?.[1]?.elements
         );
+        console.log("Pornhub response extracted", JSON.stringify(response));
         resolve(JSON.stringify(response));
       } catch (error) {
         console.error(`VideoProvidersService getPornhubVideos error:`, error);
