@@ -8,9 +8,10 @@ import {
 import dynamic from "next/dynamic";
 import { Routes } from "@/src/routes";
 
-const VideoCardOverlay = dynamic(() => import("./videoCardOverlay.component"), {
+/*const VideoCardOverlay = dynamic(() => import("./videoCardOverlay.component"), {
   ssr: false,
-});
+});*/
+
 const VideoCardPreview = dynamic(() => import("./videoCardPreview.component"), {
   ssr: false,
 });
@@ -48,17 +49,19 @@ const VideoCard = (props: VideoCardI) => {
       className="flex flex-col justify-between gap-2"
     >
       <div className="relative p-2 bg-background-100/10 overflow-hidden rounded transition hover:bg-background-100/25">
-        <VideoCardOverlay />
+        {/*<VideoCardOverlay />*/}
         <div className="flex flex-col justify-between gap-2">
           <div className="relative mx-auto w-full">
-            <Image
-              className="h-32 object-cover"
-              alt="video-preview"
-              src={cover}
-              width={560}
-              height={320}
-              priority={false}
-            />
+            {cover ? (
+              <Image
+                className="h-32 object-cover"
+                alt="video-preview"
+                src={cover}
+                width={560}
+                height={320}
+                priority={false}
+              />
+            ) : null}
             {thumbs?.length ? (
               <VideoCardPreview id={id} thumbs={thumbs} />
             ) : null}
@@ -86,11 +89,13 @@ const VideoCard = (props: VideoCardI) => {
                 {rate}
               </span>
             ) : null}
-            <Image
-              className="h-4 w-4"
-              alt={provider}
-              src={require(`@/src/assets/videoProviders/logos/${provider}.png`)}
-            />
+            {provider ? (
+              <Image
+                className="h-4 w-4"
+                alt={provider}
+                src={require(`@/src/assets/videoProviders/logos/${provider}.png`)}
+              />
+            ) : null}
           </div>
         </div>
       </div>
