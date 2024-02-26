@@ -11,12 +11,6 @@
     "id": "eporner",
     "website": "https://www.eporner.com/",
     "api": "https://www.eporner.com/api/v2/video/search/",
-    "queries": [
-      "?query=feet worship&per_page=6&page=1&thumbsize=medium&order=latest&gay=0&lq=0&format=json",
-      "?query=feet worship&per_page=6&page=1&thumbsize=medium&order=top-weekly&gay=0&lq=0&format=json",
-      "?query=socks&per_page=5&page=1&thumbsize=medium&order=latest&gay=0&lq=0&format=json",
-      "?query=socks&per_page=5&page=1&thumbsize=medium&order=top-weekly&gay=0&lq=0&format=json"
-    ],
     "active": true
   },
   "redtube": {
@@ -24,10 +18,6 @@
     "id": "redtube",
     "website": "https://redtube.com/",
     "api": "https://api.redtube.com/",
-    "queries": [
-      "?data=redtube.Videos.searchVideos&output=json&search=feet worship&thumbsize=big&page=1&ordering=newest&period=weekly",
-      "?data=redtube.Videos.searchVideos&output=json&search=socks&thumbsize=big&page=1&ordering=newest&period=weekly"
-    ],
     "active": true
   }
 }

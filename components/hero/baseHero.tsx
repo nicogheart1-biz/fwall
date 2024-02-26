@@ -29,7 +29,7 @@ const BaseHero = (props: BaseHeroI) => {
 
   return (
     <div className={bgColor}>
-      <div className="relative mx-auto max-w-screen-xl px-4 py-32 ">
+      <div className="relative mx-auto max-w-screen-xl px-4 py-8 md:py-12">
         <div className="mx-auto max-w-xl text-center">
           {title || subtitle ? (
             <h1 className="text-3xl font-extrabold sm:text-5xl">

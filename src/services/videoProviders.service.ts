@@ -1,4 +1,3 @@
-import VideoProviders from "@/mock/videoProviders/videoProviders.json";
 import { ApiService } from "@/src/services";
 import { VideoProviderI } from "@/src/types/videoProvider.types";
 import { xml2json } from "xml-js";
@@ -59,10 +58,10 @@ export const VideoProvidersService = {
         reject();
       }
     }),
-  getPornhubVideos: async () =>
+  getPornhubVideos: async (videoProvider: VideoProviderI) =>
     new Promise(async (resolve, reject) => {
       try {
-        const data = await fetch(VideoProviders.pornhub.api, {
+        const data = await fetch(videoProvider.api, {
           method: "GET",
         });
         const test = await data.text();
@@ -77,16 +76,20 @@ export const VideoProvidersService = {
         reject();
       }
     }),
-  getVideosWall: async () =>
+  getVideos: async (videoProviders: {
+    [videoProvider: string]: VideoProviderI;
+  }) =>
     new Promise(async (resolve, reject) => {
       try {
         const promises: Promise<any>[] = [];
-        Object.values(VideoProviders)
+        Object.values(videoProviders)
           .filter((videoProvider) => videoProvider.active)
           .forEach((videoProvider) => {
             switch (videoProvider.id) {
               case "pornhub": {
-                promises.push(VideoProvidersService.getPornhubVideos());
+                promises.push(
+                  VideoProvidersService.getPornhubVideos(videoProvider)
+                );
                 break;
               }
               case "eporner":
@@ -102,7 +105,7 @@ export const VideoProvidersService = {
         const results = await Promise.allSettled(promises);
         if (results?.length) {
           const response: { [key: string]: any } = {};
-          Object.values(VideoProviders)
+          Object.values(videoProviders)
             .filter((videoProvider) => videoProvider.active)
             .forEach((videoProvider, i) => {
               // @ts-ignore

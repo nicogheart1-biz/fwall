@@ -9,10 +9,11 @@ const WallClient = dynamic(() => import("./wallClient.component"), {
 
 type WallComponentI = {
   contents?: { [videoProvider: string]: any };
+  title?: string;
 };
 
 const WallComponent = (props: WallComponentI) => {
-  const { contents = {} } = props;
+  const { contents = {}, title } = props;
   //console.log("contents", contents);
 
   const videos = VideoProvidersService.formatVideos(contents).sort(
@@ -21,8 +22,9 @@ const WallComponent = (props: WallComponentI) => {
 
   return (
     <>
-      <WallClient videos={videos} />
+      <WallClient title={title} videos={videos} />
       <section className="sr-only mx-auto max-w-screen-xl py-4 px-4 sm:px-6 lg:px-8">
+        {title ? <h2>{title}</h2> : null}
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 lg:gap-6">
           {videos.map((video) => (
             <VideoCard key={video.id} {...video} />
