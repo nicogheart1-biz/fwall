@@ -39,6 +39,8 @@ const VideoCardPreview = (props: VideoCardPreviewI) => {
       className="absolute w-full h-full bg-transparent top-0 left-0"
       onMouseOver={startAutoplay}
       onMouseLeave={stopAutoplay}
+      onTouchStart={startAutoplay}
+      onTouchEnd={stopAutoplay}
     >
       {autoplay && thumbs?.length ? (
         <Swiper
