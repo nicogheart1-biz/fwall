@@ -16,7 +16,7 @@ const PaginationComponent = (props: PaginationComponentI) => {
   const [activePage, setActivePage] = useState(currentPage);
 
   const handleChangePage = (newPage: number) => {
-    const page = Math.max(1, Math.min(newPage, Math.floor(pages)));
+    const page = Math.max(1, Math.min(newPage, Math.ceil(pages)));
     if (page !== activePage) {
       setActivePage(page);
       onPageChange(page);
@@ -36,7 +36,7 @@ const PaginationComponent = (props: PaginationComponentI) => {
           </button>
         </li>
 
-        {Array.from(Array(Math.floor(pages)).keys()).map((page) => (
+        {Array.from(Array(Math.ceil(pages)).keys()).map((page) => (
           <li key={`page-${page + 1}`}>
             <button
               onClick={

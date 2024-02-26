@@ -7,6 +7,8 @@ import { VideoProvidersService } from "@/src/services/videoProviders.service";
 import WallComponent from "@/components/wall/wall.component";
 import VideoProviders from "@/mock/videoProviders/videoProviders.json";
 import { PageComponent } from "@/components/page";
+import { Metadata } from "next";
+import { Routes } from "@/src/routes";
 
 const pageKeywords = ["feet worship", "socks"];
 
@@ -32,6 +34,10 @@ const videoProviders = {
 
 // cache revalidation
 export const revalidate = calcDelay(30, FrequencyEnum.MINUTES);
+
+export const metadata: Metadata = {
+  title: Routes.home.title,
+};
 
 const getCmsData = cache(async () => {
   try {
@@ -60,7 +66,7 @@ export default async function Home() {
   return (
     <>
       <PageComponent hero={mainHero} />
-      <WallComponent contents={contents} title="Latest Feet Videos" />
+      <WallComponent contents={contents} title={Routes.home.title} />
     </>
   );
 }

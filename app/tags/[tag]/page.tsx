@@ -1,0 +1,90 @@
+import { CmsService } from "@/src/services";
+import { CmsPageI } from "@/src/types/cms.types";
+import { calcDelay, capitalize } from "@/src/utils/common.utils";
+import { FrequencyEnum } from "@/src/enums/common.enums";
+import { cache } from "react";
+import { VideoProvidersService } from "@/src/services/videoProviders.service";
+import WallComponent from "@/components/wall/wall.component";
+import VideoProviders from "@/mock/videoProviders/videoProviders.json";
+import { PageComponent } from "@/components/page";
+import TagList from "@/mock/tags/tags.json";
+import { SsrRedirect } from "@/src/utils/ssr.utils";
+
+// cache revalidation
+export const revalidate = calcDelay(6, FrequencyEnum.HOURS);
+
+const getCmsData = cache(async () => {
+  try {
+    const response = await CmsService.getLocalPage("home");
+    return response;
+  } catch (error) {
+    throw new Error("Failed to fetch home data");
+  }
+});
+
+const getVideosWall = cache(async (searchParam: string) => {
+  try {
+    const videoProviders = {
+      ...VideoProviders,
+      eporner: {
+        ...VideoProviders.eporner,
+        queries: [
+          `?query=${searchParam}&per_page=16&page=1&thumbsize=medium&order=most-popular&gay=0&lq=0&format=json`,
+          `?query=${searchParam}&per_page=12&page=1&thumbsize=medium&order=top-rated&gay=0&lq=0&format=json`,
+        ],
+      },
+      redtube: {
+        ...VideoProviders.redtube,
+        queries: [
+          `?data=redtube.Videos.searchVideos&output=json&search=${searchParam}&thumbsize=big&page=1&ordering=mostviewed&period=alltime`,
+        ],
+      },
+    };
+    const response = await VideoProvidersService.getVideos(videoProviders);
+    return response;
+  } catch (error) {
+    throw new Error(`Failed to fetch trending videos data, ${error}`);
+  }
+});
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { tag: string };
+}) {
+  const tag = decodeURIComponent(params.tag);
+  if (TagList.tags.indexOf(tag) !== -1) {
+    return {
+      title: `${capitalize(tag)} Videos`,
+    };
+  }
+}
+
+export async function generateStaticParams() {
+  return TagList.tags;
+}
+
+export default async function Tag({ params }: { params: { tag: string } }) {
+  const tag = decodeURIComponent(params.tag);
+  if (TagList.tags.indexOf(tag) === -1) {
+    SsrRedirect("/404");
+    return null;
+  }
+
+  const data = (await getCmsData()) as CmsPageI;
+  const { ["main-hero"]: mainHero } = data;
+
+  const contents = (await getVideosWall(tag)) as {
+    [videoProvider: string]: any;
+  };
+
+  return (
+    <>
+      <PageComponent hero={mainHero} />
+      <WallComponent
+        contents={contents}
+        title={`"${capitalize(tag)}" Videos`}
+      />
+    </>
+  );
+}

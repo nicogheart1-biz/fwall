@@ -2,6 +2,7 @@
   "home": {
     "url": "/",
     "label": "Home",
+    "title": "Latest Feet Videos",
     "menu": {
       "mobile": false,
       "desktop": false,
@@ -14,6 +15,19 @@
   "trending": {
     "url": "/trending",
     "label": "Trending Videos",
+    "title": "Trending Feet Videos",
+    "menu": {
+      "mobile": false,
+      "desktop": true,
+      "header": true,
+      "footer": false
+    },
+    "private": false,
+    "roles": []
+  },
+  "tags": {
+    "url": "/tags",
+    "label": "Tag",
     "menu": {
       "mobile": false,
       "desktop": true,

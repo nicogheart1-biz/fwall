@@ -24,7 +24,7 @@ const WallComponent = (props: WallComponentI) => {
     <>
       <WallClient title={title} videos={videos} />
       <section className="sr-only mx-auto max-w-screen-xl py-4 px-4 sm:px-6 lg:px-8">
-        {title ? <h2>{title}</h2> : null}
+        {title ? <h2 className="py-4 text-lg font-medium">{title}</h2> : null}
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 lg:gap-6">
           {videos.map((video) => (
             <VideoCard key={video.id} {...video} />

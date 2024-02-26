@@ -7,6 +7,8 @@ import { VideoProvidersService } from "@/src/services/videoProviders.service";
 import WallComponent from "@/components/wall/wall.component";
 import VideoProviders from "@/mock/videoProviders/videoProviders.json";
 import { PageComponent } from "@/components/page";
+import { Routes } from "@/src/routes";
+import { Metadata } from "next";
 
 const pageKeywords = ["feet worship", "socks"];
 
@@ -31,7 +33,11 @@ const videoProviders = {
 };
 
 // cache revalidation
-export const revalidate = calcDelay(30, FrequencyEnum.MINUTES);
+export const revalidate = calcDelay(4, FrequencyEnum.HOURS);
+
+export const metadata: Metadata = {
+  title: Routes.trending.title,
+};
 
 const getCmsData = cache(async () => {
   try {
@@ -60,7 +66,7 @@ export default async function Trending() {
   return (
     <>
       <PageComponent hero={mainHero} />
-      <WallComponent contents={contents} title="Trending Feet Videos" />
+      <WallComponent contents={contents} title={Routes.trending.title} />
     </>
   );
 }
