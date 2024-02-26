@@ -18,6 +18,10 @@ const commonConfig = {
         protocol: "https",
         hostname: "ei-ph.rdtcdn.com",
       },
+      {
+        protocol: "https",
+        hostname: "ei.rdtcdn.com",
+      },
     ],
   },
 };

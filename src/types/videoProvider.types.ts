@@ -4,4 +4,5 @@ export type VideoProviderI = {
     website: string;
     api: string;
     queries?: string[];
+    active?: boolean;
 }

@@ -2,10 +2,36 @@
   "home": {
     "url": "/",
     "label": "Home",
+    "title": "Latest Feet Videos",
     "menu": {
       "mobile": false,
       "desktop": false,
       "header": false,
+      "footer": false
+    },
+    "private": false,
+    "roles": []
+  },
+  "trending": {
+    "url": "/trending",
+    "label": "Trending Videos",
+    "title": "Trending Feet Videos",
+    "menu": {
+      "mobile": false,
+      "desktop": true,
+      "header": true,
+      "footer": false
+    },
+    "private": false,
+    "roles": []
+  },
+  "tags": {
+    "url": "/tags",
+    "label": "Tag",
+    "menu": {
+      "mobile": false,
+      "desktop": true,
+      "header": true,
       "footer": false
     },
     "private": false,
@@ -79,6 +105,19 @@
     "url": "/cookie-policy",
     "label": "Cookie Policy",
     "title": "Cookie Policy",
+    "menu": {
+      "mobile": false,
+      "desktop": false,
+      "header": false,
+      "footer": false
+    },
+    "private": false,
+    "roles": []
+  },
+  "rta": {
+    "url": "/rta",
+    "label": "RTA",
+    "title": "RTA",
     "menu": {
       "mobile": false,
       "desktop": false,

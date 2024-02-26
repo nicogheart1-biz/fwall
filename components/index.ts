@@ -7,6 +7,7 @@ import Footer from "./footer/footer";
 import Header from "./header/header";
 import LoaderSpinner from "./loaderSpinner/loaderSpinner";
 import Logo from "./logo/logo";
+import PaginationComponent from "./pagination/pagination.component";
 import SimplePage from "./simplePage/simplePage";
 import TabGroup from "./tabGroup/tabGroup";
 import Toast from "./toast/toast";
@@ -22,6 +23,7 @@ export {
   Header,
   LoaderSpinner,
   Logo,
+  PaginationComponent,
   SimplePage,
   TabGroup,
   Toast,

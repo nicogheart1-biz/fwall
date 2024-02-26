@@ -1,7 +1,7 @@
-import VideoProviders from "@/mock/videoProviders/videoProviders.json";
 import { ApiService } from "@/src/services";
 import { VideoProviderI } from "@/src/types/videoProvider.types";
 import { xml2json } from "xml-js";
+import { formatSeconds } from "@/src/utils/common.utils";
 
 const extractPornhubVideos = (elements: any[] = []) => {
   try {
@@ -58,10 +58,10 @@ export const VideoProvidersService = {
         reject();
       }
     }),
-  getPornhubVideos: async () =>
+  getPornhubVideos: async (videoProvider: VideoProviderI) =>
     new Promise(async (resolve, reject) => {
       try {
-        const data = await fetch(VideoProviders.pornhub.api, {
+        const data = await fetch(videoProvider.api, {
           method: "GET",
         });
         const test = await data.text();
@@ -76,16 +76,20 @@ export const VideoProvidersService = {
         reject();
       }
     }),
-  getVideosWall: async () =>
+  getVideos: async (videoProviders: {
+    [videoProvider: string]: VideoProviderI;
+  }) =>
     new Promise(async (resolve, reject) => {
       try {
         const promises: Promise<any>[] = [];
-        Object.values(VideoProviders)
+        Object.values(videoProviders)
           .filter((videoProvider) => videoProvider.active)
           .forEach((videoProvider) => {
             switch (videoProvider.id) {
               case "pornhub": {
-                promises.push(VideoProvidersService.getPornhubVideos());
+                promises.push(
+                  VideoProvidersService.getPornhubVideos(videoProvider)
+                );
                 break;
               }
               case "eporner":
@@ -101,7 +105,7 @@ export const VideoProvidersService = {
         const results = await Promise.allSettled(promises);
         if (results?.length) {
           const response: { [key: string]: any } = {};
-          Object.values(VideoProviders)
+          Object.values(videoProviders)
             .filter((videoProvider) => videoProvider.active)
             .forEach((videoProvider, i) => {
               // @ts-ignore
@@ -119,4 +123,73 @@ export const VideoProvidersService = {
         reject();
       }
     }),
+  formatVideos: (contents: { [videoProvider: string]: any }) => {
+    try {
+      const videos: any[] = [];
+      Object.keys(contents).forEach((videoProvider) => {
+        if (contents[videoProvider]?.length) {
+          switch (videoProvider) {
+            case "pornhub": {
+              const data = JSON.parse(contents[videoProvider] || "{}");
+              Object.values(data).forEach((video: any) => {
+                videos.push({
+                  //...video,
+                  cover: video.thumb_large || video.thumb,
+                  id: new Date(video.pubDate).getTime(),
+                  length: formatSeconds(Number(video.duration)),
+                  provider: videoProvider,
+                  title: video.title.toLowerCase() || "Feet",
+                  thumbs: video.thumbs || [],
+                  url: video.link,
+                });
+              });
+              break;
+            }
+            case "redtube": {
+              contents[videoProvider].forEach(({ video }: { video: any }) => {
+                videos.push({
+                  //...video,
+                  //embed_url
+                  cover: video.thumbs[0] || video.thumb || video.default_thumb,
+                  id: video.video_id,
+                  length: video.duration,
+                  provider: videoProvider,
+                  rate: video.rating,
+                  title: video.title.toLowerCase() || "Feet",
+                  thumbs: video.thumbs || [],
+                  url: video.url,
+                  views: video.views,
+                });
+              });
+              break;
+            }
+            case "eporner":
+            default: {
+              contents[videoProvider].forEach((video: any) => {
+                videos.push({
+                  //...video,
+                  cover: video.default_thumb || video.thumbs[0],
+                  id: video.id,
+                  length: video.length_min,
+                  provider: videoProvider,
+                  rate: video.rate,
+                  title: video.title.toLowerCase() || "Feet",
+                  thumbs: video.thumbs || [],
+                  url: video.url,
+                  views: video.views,
+                });
+              });
+              break;
+            }
+          }
+        }
+      });
+      return videos.filter(
+        (a, i) => videos.findIndex((s) => a.id === s.id) === i
+      );
+    } catch (error) {
+      console.error("VideoProvidersService formatVideos error:", error);
+      return [];
+    }
+  },
 };

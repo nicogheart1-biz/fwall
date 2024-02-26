@@ -3,6 +3,9 @@ import clsx from "clsx";
 import Link from "next/link";
 import { Logo } from "@/components";
 import { Routes } from "@/src/routes";
+import { AppConstants } from "@/src/constants";
+import RtaLogo from "@/src/assets/img/rta-logo.gif";
+import Image from "next/image";
 
 const Footer = () => {
   return (
@@ -39,7 +42,7 @@ const Footer = () => {
           curated selection of feet videos caters to every desire and fantasy.
         </p>
 
-        <ul className="mt-12 flex flex-wrap justify-center gap-6 md:gap-8 lg:gap-12">
+        <ul className="mt-10 flex flex-wrap justify-center gap-6 md:gap-8 lg:gap-12">
           {NavigationUtils.getFooterMenu().map((route) => (
             <li
               key={route.label}
@@ -66,7 +69,7 @@ const Footer = () => {
           </li>
         </ul>
 
-        <ul className="mt-12 flex justify-center gap-6 md:gap-8">
+        <ul className="mt-10 flex justify-center gap-6 md:gap-8">
           <li>
             <a
               href="/"
@@ -92,7 +95,7 @@ const Footer = () => {
 
           <li>
             <a
-              href="/"
+              href="https://www.instagram.com/feetvideocom"
               rel="noreferrer"
               target="_blank"
               className="text-white-900 transition hover:text-white-900/75"
@@ -131,30 +134,19 @@ const Footer = () => {
               </svg>
             </a>
           </li>
-
-          <li>
-            <a
-              href="/"
-              rel="noreferrer"
-              target="_blank"
-              className="text-white-900 transition hover:text-white-900/75"
-            >
-              <span className="sr-only">GitHub</span>
-              <svg
-                className="h-6 w-6"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </a>
-          </li>
         </ul>
+
+        <div className="w-full mx-auto mt-6 inline-flex justify-center items-center gap-6 leading-relaxed text-xs text-white-900">
+          <span>&#169;&nbsp;{AppConstants.title} &nbsp;2024</span>
+          <Link href={Routes.rta.url}>
+            <Image
+              alt={Routes.rta.label}
+              src={RtaLogo}
+              height={30}
+              width={60}
+            />
+          </Link>
+        </div>
       </div>
     </footer>
   );
