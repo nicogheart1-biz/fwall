@@ -3,6 +3,9 @@ import clsx from "clsx";
 import Link from "next/link";
 import { Logo } from "@/components";
 import { Routes } from "@/src/routes";
+import { AppConstants } from "@/src/constants";
+import RtaLogo from "@/src/assets/img/rta-logo.gif";
+import Image from "next/image";
 
 const Footer = () => {
   return (
@@ -39,7 +42,7 @@ const Footer = () => {
           curated selection of feet videos caters to every desire and fantasy.
         </p>
 
-        <ul className="mt-12 flex flex-wrap justify-center gap-6 md:gap-8 lg:gap-12">
+        <ul className="mt-10 flex flex-wrap justify-center gap-6 md:gap-8 lg:gap-12">
           {NavigationUtils.getFooterMenu().map((route) => (
             <li
               key={route.label}
@@ -66,7 +69,7 @@ const Footer = () => {
           </li>
         </ul>
 
-        <ul className="mt-12 flex justify-center gap-6 md:gap-8">
+        <ul className="mt-10 flex justify-center gap-6 md:gap-8">
           <li>
             <a
               href="/"
@@ -132,6 +135,18 @@ const Footer = () => {
             </a>
           </li>
         </ul>
+
+        <div className="w-full mx-auto mt-6 inline-flex justify-center items-center gap-6 leading-relaxed text-xs text-white-900">
+          <span>&#169;&nbsp;{AppConstants.title} &nbsp;2024</span>
+          <Link href={Routes.rta.url}>
+            <Image
+              alt={Routes.rta.label}
+              src={RtaLogo}
+              height={30}
+              width={60}
+            />
+          </Link>
+        </div>
       </div>
     </footer>
   );
