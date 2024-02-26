@@ -11,6 +11,18 @@
     "private": false,
     "roles": []
   },
+  "trending": {
+    "url": "/trending",
+    "label": "Trending Videos",
+    "menu": {
+      "mobile": false,
+      "desktop": true,
+      "header": true,
+      "footer": false
+    },
+    "private": false,
+    "roles": []
+  },
   "contentRedirect": {
     "url": "/content-redirect/",
     "label": "Content Redirect",

@@ -1,11 +1,11 @@
 import { BaseHero } from "@/components/hero";
 import { CmsPageHeroI } from "@/src/types/cms.types";
 
-type HomeComponentI = {
+type PageComponentI = {
   hero?: CmsPageHeroI;
 };
 
-const HomeComponent = (props: HomeComponentI) => {
+const PageComponent = (props: PageComponentI) => {
   const { hero } = props;
   return (
     <section>
@@ -36,4 +36,4 @@ const HomeComponent = (props: HomeComponentI) => {
   );
 };
 
-export default HomeComponent;
+export default PageComponent;
