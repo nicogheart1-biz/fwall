@@ -10,7 +10,11 @@
       "footer": false
     },
     "private": false,
-    "roles": []
+    "roles": [],
+    "seo": {
+      "changeFrequency": "hourly",
+      "priority": 1
+    }
   },
   "trending": {
     "url": "/trending",
@@ -23,11 +27,16 @@
       "footer": false
     },
     "private": false,
-    "roles": []
+    "roles": [],
+    "seo": {
+      "changeFrequency": "hourly",
+      "priority": 1
+    }
   },
   "tags": {
     "url": "/tags",
     "label": "Tag",
+    "title": "Tags",
     "menu": {
       "mobile": true,
       "desktop": true,
@@ -35,7 +44,11 @@
       "footer": false
     },
     "private": false,
-    "roles": []
+    "roles": [],
+    "seo": {
+      "changeFrequency": "weekly",
+      "priority": 1
+    }
   },
   "contentRedirect": {
     "url": "/content-redirect/",
@@ -47,7 +60,10 @@
       "footer": false
     },
     "private": false,
-    "roles": []
+    "roles": [],
+    "seo": {
+      "index": false
+    }
   },
   "about": {
     "url": "/about",
@@ -60,7 +76,11 @@
       "footer": true
     },
     "private": false,
-    "roles": []
+    "roles": [],
+    "seo": {
+      "changeFrequency": "weekly",
+      "priority": 1
+    }
   },
   "contacts": {
     "url": "/contacts",
@@ -73,7 +93,11 @@
       "footer": true
     },
     "private": false,
-    "roles": []
+    "roles": [],
+    "seo": {
+      "changeFrequency": "weekly",
+      "priority": 1
+    }
   },
   "termsConditions": {
     "url": "/terms-and-conditions",
@@ -86,7 +110,11 @@
       "footer": true
     },
     "private": false,
-    "roles": []
+    "roles": [],
+    "seo": {
+      "changeFrequency": "monthly",
+      "priority": 0.8
+    }
   },
   "privacyPolicy": {
     "url": "/privacy-policy",
@@ -99,7 +127,11 @@
       "footer": true
     },
     "private": false,
-    "roles": []
+    "roles": [],
+    "seo": {
+      "changeFrequency": "monthly",
+      "priority": 0.8
+    }
   },
   "cookiePolicy": {
     "url": "/cookie-policy",
@@ -112,7 +144,11 @@
       "footer": false
     },
     "private": false,
-    "roles": []
+    "roles": [],
+    "seo": {
+      "changeFrequency": "monthly",
+      "priority": 0.8
+    }
   },
   "rta": {
     "url": "/rta",
@@ -125,6 +161,10 @@
       "footer": false
     },
     "private": false,
-    "roles": []
+    "roles": [],
+    "seo": {
+      "changeFrequency": "yearly",
+      "priority": 0.8
+    }
   }
 }

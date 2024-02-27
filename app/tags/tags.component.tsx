@@ -18,7 +18,9 @@ const TagsComponent = (props: TagsComponentI) => {
         {tags.sort().map((tag) => (
           <Link
             key={tag}
-            href={`${Routes.tags.url}/${encodeURIComponent(tag)}`}
+            href={`${Routes.tags.url}/${tag
+              .toLowerCase()
+              .replaceAll(" ", "-")}`}
           >
             <span className="bg-background-500 text-secondary-100 py-2 px-4 rounded-lg transition hover:bg-background-500/50 hover:text-secondary-500">
               {capitalize(tag)}

@@ -53,7 +53,7 @@ export async function generateMetadata({
 }: {
   params: { tag: string };
 }) {
-  const tag = decodeURIComponent(params.tag);
+  const tag = params.tag.replaceAll("-", " ");
   if (TagList.tags.indexOf(tag) !== -1) {
     return {
       title: `${capitalize(tag)} Videos`,
@@ -66,7 +66,7 @@ export async function generateStaticParams() {
 }
 
 export default async function Tag({ params }: { params: { tag: string } }) {
-  const tag = decodeURIComponent(params.tag);
+  const tag = params.tag.replaceAll("-", " ");
   if (TagList.tags.indexOf(tag) === -1) {
     SsrRedirect("/404");
     return null;

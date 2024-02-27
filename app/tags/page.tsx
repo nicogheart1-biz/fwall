@@ -6,9 +6,15 @@ import { cache } from "react";
 import { PageComponent } from "@/components/page";
 import TagList from "@/mock/tags/tags.json";
 import TagsComponent from "./tags.component";
+import { Metadata } from "next";
+import { Routes } from "@/src/routes";
 
 // cache revalidation
 export const revalidate = calcDelay(24, FrequencyEnum.HOURS);
+
+export const metadata: Metadata = {
+  title: Routes.tags.title,
+};
 
 const getCmsData = cache(async () => {
   try {

@@ -9,6 +9,7 @@ import VideoProviders from "@/mock/videoProviders/videoProviders.json";
 import { PageComponent } from "@/components/page";
 import { Metadata } from "next";
 import { Routes } from "@/src/routes";
+import { AppConstants } from "@/src/constants";
 
 const pageKeywords = ["feet worship", "socks"];
 
@@ -38,7 +39,7 @@ const videoProviders = {
 export const revalidate = calcDelay(30, FrequencyEnum.MINUTES);
 
 export const metadata: Metadata = {
-  title: Routes.home.title,
+  title: `${Routes.home.title} | ${AppConstants.title}`,
 };
 
 const getCmsData = cache(async () => {

@@ -10,4 +10,4 @@ Disallow: /user
 User-agent: *
 Allow: /
 
-Sitemap: https://starter-nextjs-tailwind-firebase.vercel.app/sitemap.xml
+Sitemap: https://www.feet-video.com/sitemap.xml
