@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -53,13 +54,14 @@ const VideoCard = (props: VideoCardI) => {
         <div className="flex flex-col justify-between gap-2">
           <div className="relative mx-auto w-full">
             {cover ? (
-              <Image
+              <img
                 className="h-32 object-cover"
                 alt="video-preview"
                 src={cover}
                 width={560}
                 height={320}
-                priority={false}
+                loading="lazy"
+                //priority={false}
               />
             ) : null}
             {thumbs?.length ? (
@@ -94,6 +96,7 @@ const VideoCard = (props: VideoCardI) => {
                 className="h-4 w-4"
                 alt={provider}
                 src={require(`@/src/assets/videoProviders/logos/${provider}.png`)}
+                priority={false}
               />
             ) : null}
           </div>

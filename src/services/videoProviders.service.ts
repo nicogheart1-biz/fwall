@@ -139,7 +139,7 @@ export const VideoProvidersService = {
                   length: formatSeconds(Number(video.duration)),
                   provider: videoProvider,
                   title: video.title.toLowerCase() || "Feet",
-                  thumbs: video.thumbs || [],
+                  thumbs: video.thumbs?.map((thumb: any) => thumb?.src || thumb) || [],
                   url: video.link,
                 });
               });
@@ -150,13 +150,17 @@ export const VideoProvidersService = {
                 videos.push({
                   //...video,
                   //embed_url
-                  cover: video.thumbs[0] || video.thumb || video.default_thumb,
+                  cover:
+                    video.thumbs[0]?.src ||
+                    video.thumbs[0] ||
+                    video.thumb ||
+                    video.default_thumb,
                   id: video.video_id,
                   length: video.duration,
                   provider: videoProvider,
                   rate: video.rating,
                   title: video.title.toLowerCase() || "Feet",
-                  thumbs: video.thumbs || [],
+                  thumbs: video.thumbs?.map((thumb: any) => thumb?.src || thumb) || [],
                   url: video.url,
                   views: video.views,
                 });
@@ -168,13 +172,16 @@ export const VideoProvidersService = {
               contents[videoProvider].forEach((video: any) => {
                 videos.push({
                   //...video,
-                  cover: video.default_thumb || video.thumbs[0],
+                  cover:
+                    video.default_thumb?.src ||
+                    video.default_thumb ||
+                    video.thumbs[0],
                   id: video.id,
                   length: video.length_min,
                   provider: videoProvider,
                   rate: video.rate,
                   title: video.title.toLowerCase() || "Feet",
-                  thumbs: video.thumbs || [],
+                  thumbs: video.thumbs?.map((thumb: any) => thumb?.src || thumb) || [],
                   url: video.url,
                   views: video.views,
                 });

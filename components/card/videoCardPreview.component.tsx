@@ -1,7 +1,7 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, EffectFade } from "swiper/modules";
-import Image from "next/image";
 import "swiper/css";
 import "swiper/css/effect-fade";
 import { useEffect, useState } from "react";
@@ -53,13 +53,14 @@ const VideoCardPreview = (props: VideoCardPreviewI) => {
         >
           {thumbs.map((thumb, i) => (
             <SwiperSlide key={`${id}-${i}`}>
-              <Image
+              <img
                 className="h-32 object-cover"
                 alt={`video-preview-${i}`}
                 src={thumb}
                 width={560}
                 height={320}
-                priority={false}
+                loading="lazy"
+                //priority={false}
               />
             </SwiperSlide>
           ))}
