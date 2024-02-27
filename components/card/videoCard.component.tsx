@@ -8,6 +8,7 @@ import {
 } from "@heroicons/react/24/outline";
 import dynamic from "next/dynamic";
 import { Routes } from "@/src/routes";
+import clsx from "clsx";
 
 /*const VideoCardOverlay = dynamic(() => import("./videoCardOverlay.component"), {
   ssr: false,
@@ -49,13 +50,13 @@ const VideoCard = (props: VideoCardI) => {
       target="_blank"
       className="flex flex-col justify-between gap-2"
     >
-      <div className="relative p-2 bg-background-100/10 overflow-hidden rounded transition hover:bg-background-100/25">
+      <div className="relative p-2 bg-background-500/10 overflow-hidden rounded transition text-white-500 hover:bg-background-500/25 hover:text-white-100">
         {/*<VideoCardOverlay />*/}
         <div className="flex flex-col justify-between gap-2">
           <div className="relative mx-auto w-full">
             {cover ? (
               <img
-                className="h-32 object-cover"
+                className="h-48 object-fill"
                 alt="video-preview"
                 src={cover}
                 width={560}
@@ -67,22 +68,43 @@ const VideoCard = (props: VideoCardI) => {
             {thumbs?.length ? (
               <VideoCardPreview id={id} thumbs={thumbs} />
             ) : null}
+            {provider ? (
+              <span className="absolute top-1 right-1 z-40">
+                <Image
+                  className="h-4 w-4"
+                  alt={provider}
+                  src={require(`@/src/assets/videoProviders/logos/${provider}.png`)}
+                  priority={false}
+                />
+              </span>
+            ) : null}
+            {length ? (
+              <span
+                className={clsx(
+                  "text-xs items-center inline-flex gap-1 text-white-500",
+                  "absolute bottom-1 right-1 bg-background-500/75 p-1 rounded z-40"
+                )}
+              >
+                <ClockIcon className="h-4 w-4 text-secondary-500" />
+                {length}
+              </span>
+            ) : null}
           </div>
-          <div className="capitalize whitespace-nowrap text-ellipsis overflow-hidden text-nowrap">
+          <div
+            className={clsx(
+              "capitalize text-ellipsis overflow-hidden",
+              "h-12",
+              //"whitespace-nowrap text-nowrap"
+            )}
+          >
             {title}
           </div>
 
-          <div className="w-full mt-2 flex gap-4 items-center justify-end">
+          {/*<div className="w-full mt-2 flex gap-4 items-center justify-end">
             {views ? (
               <span className="hidden md:inline-flex text-xs items-center gap-1">
                 <PlayCircleIcon className="h-4 w-4 text-secondary-500" />
                 {views}
-              </span>
-            ) : null}
-            {length ? (
-              <span className="text-xs items-center inline-flex gap-1">
-                <ClockIcon className="h-4 w-4 text-secondary-500" />
-                {length}
               </span>
             ) : null}
             {rate ? (
@@ -99,7 +121,7 @@ const VideoCard = (props: VideoCardI) => {
                 priority={false}
               />
             ) : null}
-          </div>
+          </div>*/}
         </div>
       </div>
     </Link>

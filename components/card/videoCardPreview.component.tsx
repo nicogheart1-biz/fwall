@@ -54,7 +54,7 @@ const VideoCardPreview = (props: VideoCardPreviewI) => {
           {thumbs.map((thumb, i) => (
             <SwiperSlide key={`${id}-${i}`}>
               <img
-                className="h-32 object-cover"
+                className="h-48 object-fill"
                 alt={`video-preview-${i}`}
                 src={thumb}
                 width={560}

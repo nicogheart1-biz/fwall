@@ -21,7 +21,7 @@ const WallClient = (props: WallClientI) => {
       id="video-grid"
     >
       {title ? <h2 className="py-4 text-lg font-medium">{title}</h2> : null}
-      <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 lg:gap-6">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 lg:gap-6">
         {videos
           .slice((page - 1) * pageSize, (page - 1) * pageSize + pageSize)
           .map((video) => (
