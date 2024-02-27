@@ -1,8 +1,9 @@
 "use client";
-
 import { PaginationComponent, VideoCard } from "@/components";
 import { scrollToId } from "@/src/utils/common.utils";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import AdsBlock from "@/components/ads/adsBlock.component";
+import { AdsBlockTypeEnum } from "@/src/enums/ads.enums";
 
 type WallClientI = {
   title?: string;
@@ -15,19 +16,53 @@ const WallClient = (props: WallClientI) => {
   const { title, videos = [] } = props;
   const [page, setPage] = useState(1);
 
+  const getVideoPage = () =>
+    videos.slice((page - 1) * pageSize, (page - 1) * pageSize + pageSize);
+
+  const [videoSection, setVideoSection] = useState<{
+    first: any[];
+    second: any[];
+  }>({
+    first: [],
+    second: [],
+  });
+
+  useEffect(() => {
+    const secondSection =
+      getVideoPage().length >= 12 && getVideoPage().length % 6 === 0;
+    setVideoSection({
+      first: getVideoPage().slice(
+        0,
+        secondSection ? getVideoPage().length / 2 : getVideoPage().length
+      ),
+      second: secondSection
+        ? getVideoPage().slice(getVideoPage().length / 2, getVideoPage().length)
+        : [],
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page]);
+
   return (
     <section
       className="mx-auto max-w-screen-xl py-4 px-4 sm:px-6 lg:px-8"
       id="video-grid"
     >
       {title ? <h2 className="py-4 text-lg font-medium">{title}</h2> : null}
-      <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 lg:gap-6">
-        {videos
-          .slice((page - 1) * pageSize, (page - 1) * pageSize + pageSize)
-          .map((video) => (
-            <VideoCard key={video.id} {...video} />
-          ))}
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 lg:gap-6">
+        {videoSection.first.map((video) => (
+          <VideoCard key={video.id} {...video} />
+        ))}
       </div>
+      {videoSection.second?.length ? (
+        <>
+          <AdsBlock type={AdsBlockTypeEnum.HORIZONTAL} />
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 lg:gap-6">
+            {videoSection.second.map((video) => (
+              <VideoCard key={video.id} {...video} />
+            ))}
+          </div>
+        </>
+      ) : null}
       <PaginationComponent
         pages={videos.length / pageSize}
         currentPage={page}

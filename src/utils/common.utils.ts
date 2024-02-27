@@ -48,7 +48,7 @@ export const scrollToId = (id: string, ref?: HTMLElement) => {
     element = document.querySelector(`#${id}`) as HTMLElement;
   }
   if (element) {
-    scrollTo(element.offsetTop);
+    scrollTo(element.offsetTop - 50);
   }
 };
 

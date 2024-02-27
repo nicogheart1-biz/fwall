@@ -20,9 +20,9 @@ const MenuMobile = () => {
   const MenuLinkItem = (route: RouteI) => (
     <Link
       className={clsx(
-        "block rounded px-4 py-2 text-sm font-medium text-gray-500 transition hover:bg-gray-100 hover:text-gray-700",
+        "block rounded px-4 py-2 font-medium text-white-600 transition hover:bg-primary-900 hover:text-secondary-300",
         pathname === route?.url &&
-          "active bg-gray-100 text-primary-500 hover:text-primary-600"
+          "active bg-primary-900 text-secondary-300 hover:text-white-600"
       )}
       href={route?.url}
     >
@@ -39,9 +39,9 @@ const MenuMobile = () => {
         className="rounded bg-transparent p-2"
       >
         {isOpen ? (
-          <XMarkIcon className="h-6 w-6 text-gray-600 transition hover:text-gray-600/75" />
+          <XMarkIcon className="h-6 w-6 text-secondary-500 transition hover:text-secondary-300" />
         ) : (
-          <Bars3Icon className="h-6 w-6 text-primary-200 transition hover:text-primary-500/75" />
+          <Bars3Icon className="h-6 w-6 text-secondary-500 transition hover:text-secondary-300" />
         )}
       </button>
       <nav
@@ -49,11 +49,11 @@ const MenuMobile = () => {
         id="MenuMobile"
         style={!isOpen ? { right: "-100vw" } : {}}
         className={clsx(
-          "absolute md:hidden transition-all mt-2 w-full h-screen p-4 bg-white-100 z-40 shadow",
+          "absolute sm:hidden transition-all mt-2 w-full h-screen p-4 bg-background-900 z-40 shadow",
           isOpen ? "block right-0" : "hidden"
         )}
       >
-        <ul className="relative divide-y divide-gray-100">
+        <ul className="relative divide-y divide-primary-500/75">
           {NavigationUtils.getHeaderMenu()
             .filter((route) => route?.menu?.mobile)
             .map((route) => (

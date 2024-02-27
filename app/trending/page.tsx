@@ -17,17 +17,19 @@ const videoProviders = {
   eporner: {
     ...VideoProviders.eporner,
     queries: [
-      `?query=${pageKeywords[0]}&per_page=6&page=1&thumbsize=medium&order=most-popular&gay=0&lq=0&format=json`,
-      `?query=${pageKeywords[0]}&per_page=6&page=1&thumbsize=medium&order=top-rated&gay=0&lq=0&format=json`,
-      `?query=${pageKeywords[1]}&per_page=6&page=1&thumbsize=medium&order=most-popular&gay=0&lq=0&format=json`,
-      `?query=${pageKeywords[1]}&per_page=6&page=1&thumbsize=medium&order=top-rated&gay=0&lq=0&format=json`,
+      `?query=${pageKeywords[0]}&per_page=12&page=1&thumbsize=medium&order=most-popular&gay=0&lq=0&format=json`,
+      `?query=${pageKeywords[0]}&per_page=12&page=1&thumbsize=medium&order=top-rated&gay=0&lq=0&format=json`,
+      `?query=${pageKeywords[1]}&per_page=12&page=1&thumbsize=medium&order=most-popular&gay=0&lq=0&format=json`,
+      `?query=${pageKeywords[1]}&per_page=12&page=1&thumbsize=medium&order=top-rated&gay=0&lq=0&format=json`,
     ],
   },
   redtube: {
     ...VideoProviders.redtube,
     queries: [
       `?data=redtube.Videos.searchVideos&output=json&search=${pageKeywords[0]}&thumbsize=big&page=1&ordering=mostviewed&period=weekly`,
+      `?data=redtube.Videos.searchVideos&output=json&search=${pageKeywords[0]}&thumbsize=big&page=2&ordering=mostviewed&period=weekly`,
       `?data=redtube.Videos.searchVideos&output=json&search=${pageKeywords[1]}&thumbsize=big&page=1&ordering=mostviewed&period=weekly`,
+      `?data=redtube.Videos.searchVideos&output=json&search=${pageKeywords[1]}&thumbsize=big&page=2&ordering=mostviewed&period=weekly`,
     ],
   },
 };

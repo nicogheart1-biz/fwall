@@ -17,7 +17,7 @@
     "label": "Trending Videos",
     "title": "Trending Feet Videos",
     "menu": {
-      "mobile": false,
+      "mobile": true,
       "desktop": true,
       "header": true,
       "footer": false
@@ -29,7 +29,7 @@
     "url": "/tags",
     "label": "Tag",
     "menu": {
-      "mobile": false,
+      "mobile": true,
       "desktop": true,
       "header": true,
       "footer": false
