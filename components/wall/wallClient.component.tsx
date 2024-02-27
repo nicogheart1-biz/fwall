@@ -1,9 +1,8 @@
 "use client";
-
 import { PaginationComponent, VideoCard } from "@/components";
 import { scrollToId } from "@/src/utils/common.utils";
 import { useEffect, useState } from "react";
-import AdsBlock from "../ads/adsBlock.component";
+import AdsBlock from "@/components/ads/adsBlock.component";
 import { AdsBlockTypeEnum } from "@/src/enums/ads.enums";
 
 type WallClientI = {
@@ -42,8 +41,6 @@ const WallClient = (props: WallClientI) => {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
-
-  console.log("videoSection", videoSection);
 
   return (
     <section

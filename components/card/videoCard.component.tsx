@@ -93,7 +93,7 @@ const VideoCard = (props: VideoCardI) => {
           <div
             className={clsx(
               "capitalize text-ellipsis overflow-hidden",
-              "h-12",
+              "sm:h-12",
               //"whitespace-nowrap text-nowrap"
             )}
           >
