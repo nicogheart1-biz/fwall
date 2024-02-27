@@ -29,14 +29,15 @@ const getVideosWall = cache(async (searchParam: string) => {
       eporner: {
         ...VideoProviders.eporner,
         queries: [
-          `?query=${searchParam}&per_page=16&page=1&thumbsize=medium&order=most-popular&gay=0&lq=0&format=json`,
-          `?query=${searchParam}&per_page=12&page=1&thumbsize=medium&order=top-rated&gay=0&lq=0&format=json`,
+          `?query=${searchParam}&per_page=24&page=1&thumbsize=medium&order=most-popular&gay=0&lq=0&format=json`,
+          `?query=${searchParam}&per_page=24&page=1&thumbsize=medium&order=top-rated&gay=0&lq=0&format=json`,
         ],
       },
       redtube: {
         ...VideoProviders.redtube,
         queries: [
           `?data=redtube.Videos.searchVideos&output=json&search=${searchParam}&thumbsize=big&page=1&ordering=mostviewed&period=alltime`,
+          `?data=redtube.Videos.searchVideos&output=json&search=${searchParam}&thumbsize=big&page=2&ordering=mostviewed&period=alltime`,
         ],
       },
     };
