@@ -15,7 +15,7 @@ const Menu = () => {
             )}
           >
             <Link
-              className="text-primary-200 transition hover:text-primary-500"
+              className="text-secondary-300 transition hover:text-white-600"
               href={route.url}
             >
               {route.label}
