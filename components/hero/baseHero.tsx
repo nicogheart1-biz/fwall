@@ -29,7 +29,7 @@ const BaseHero = (props: BaseHeroI) => {
 
   return (
     <div className={bgColor}>
-      <div className="relative mx-auto max-w-screen-xl px-4 py-8 md:py-12">
+      <div className="relative mx-auto max-w-screen-xl px-4 py-6 sm:py-8 md:py-12">
         <div className="mx-auto max-w-xl text-center">
           {title || subtitle ? (
             <h1 className="text-3xl font-extrabold sm:text-5xl">
@@ -40,7 +40,7 @@ const BaseHero = (props: BaseHeroI) => {
                   {title && subtitle ? (
                     <span className="sr-only">|</span>
                   ) : null}
-                  <strong className="font-extrabold text-secondary-500 sm:block">
+                  <strong className="font-bold text-xl sm:text-4xl text-secondary-500 sm:block">
                     {subtitle}
                   </strong>
                 </>

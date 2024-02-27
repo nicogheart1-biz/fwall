@@ -5,7 +5,7 @@ import Link from "next/link";
 const Menu = () => {
   return (
     <nav aria-label="menu" className="hidden sm:block" id="Menu">
-      <ul className="flex items-center gap-6 text-sm">
+      <ul className="flex items-center gap-6">
         {NavigationUtils.getHeaderMenu().map((route) => (
           <li
             key={route.label}

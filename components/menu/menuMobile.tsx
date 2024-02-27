@@ -20,7 +20,7 @@ const MenuMobile = () => {
   const MenuLinkItem = (route: RouteI) => (
     <Link
       className={clsx(
-        "block rounded px-4 py-2 text-sm font-medium text-white-600 transition hover:bg-primary-900 hover:text-secondary-300",
+        "block rounded px-4 py-2 font-medium text-white-600 transition hover:bg-primary-900 hover:text-secondary-300",
         pathname === route?.url &&
           "active bg-primary-900 text-secondary-300 hover:text-white-600"
       )}
