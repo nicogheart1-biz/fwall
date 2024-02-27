@@ -37,6 +37,12 @@ const ToastManagerComponent = dynamic(
 const AdsBlock = dynamic(() => import("@/components/ads/adsBlock.component"), {
   ssr: false,
 });
+const AdsColumn = dynamic(
+  () => import("@/components/ads/adsColumn.component"),
+  {
+    ssr: false,
+  }
+);
 
 const rubik = Rubik({ subsets: ["latin"] });
 
@@ -79,7 +85,9 @@ export default function RootLayout({
           <SkipContentComponent />
           <Header />
           <main id="MainContent" className="relative min-h-screen pt-20">
+            <AdsColumn position="left" />
             {children}
+            <AdsColumn position="right" />
             <AdsBlock type={AdsBlockTypeEnum.HORIZONTAL} />
           </main>
           <Footer />
