@@ -101,6 +101,12 @@ export default async function Tag({ params }: { params: { tag: string } }) {
     [videoProvider: string]: any;
   };
 
+  if (!contents.pornhub?.length) {
+    contents.pornhub = (
+      await import(`@/mock/videoProviders/pornhub/tag/${params.tag}.json`)
+    ).videos;
+  }
+
   return (
     <>
       <PageComponent hero={mainHero} />
