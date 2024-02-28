@@ -75,6 +75,10 @@ export default async function Trending() {
 
   const contents = (await getVideosWall()) as { [videoProvider: string]: any };
 
+  if (!contents.pornhub?.length) {
+    contents.pornhub = (await import(`@/mock/videoProviders/pornhub/trending.json`)).videos; 
+  }
+
   return (
     <>
       <PageComponent hero={mainHero} />
