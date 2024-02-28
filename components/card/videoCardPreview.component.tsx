@@ -5,18 +5,14 @@ import { Autoplay, EffectFade } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/effect-fade";
 import { useEffect, useState } from "react";
-
-type VideoCardPreviewI = {
-  id: string;
-  thumbs?: string[];
-};
+import { VideoCardI } from "@/src/types/videoProvider.types";
 
 const autoplayConfig = {
   delay: 500,
   disableOnInteraction: false,
 };
 
-const VideoCardPreview = (props: VideoCardPreviewI) => {
+const VideoCardPreview = (props: VideoCardI) => {
   const { id, thumbs = [] } = props;
   const [autoplay, setAutoplay] = useState(false);
 

@@ -1,14 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
 import Image from "next/image";
 import Link from "next/link";
-import {
-  ChartBarIcon,
-  ClockIcon,
-  PlayCircleIcon,
-} from "@heroicons/react/24/outline";
+import { ClockIcon } from "@heroicons/react/24/outline";
 import dynamic from "next/dynamic";
 import { Routes } from "@/src/routes";
 import clsx from "clsx";
+import { VideoCardI } from "@/src/types/videoProvider.types";
 
 /*const VideoCardOverlay = dynamic(() => import("./videoCardOverlay.component"), {
   ssr: false,
@@ -18,30 +15,8 @@ const VideoCardPreview = dynamic(() => import("./videoCardPreview.component"), {
   ssr: false,
 });
 
-type VideoCardI = {
-  id: string;
-  cover: string;
-  length?: string;
-  provider: string;
-  rate?: string;
-  title: string;
-  thumbs?: string[];
-  url: string;
-  views?: string;
-};
-
 const VideoCard = (props: VideoCardI) => {
-  const {
-    cover,
-    id,
-    length,
-    provider,
-    rate,
-    title,
-    thumbs = [],
-    url,
-    views,
-  } = props;
+  const { cover, id, length, provider, title, thumbs = [], url } = props;
 
   //console.log('props', props)
   return (
@@ -65,14 +40,14 @@ const VideoCard = (props: VideoCardI) => {
                 //priority={false}
               />
             ) : null}
-            {thumbs?.length ? (
-              <VideoCardPreview id={id} thumbs={thumbs} />
-            ) : null}
+            {thumbs?.length ? <VideoCardPreview {...props} /> : null}
             {provider ? (
               <span className="absolute top-1 right-1 z-40">
                 <Image
                   className="h-4 w-4"
                   alt={provider}
+                  height={16}
+                  width={16}
                   src={require(`@/src/assets/videoProviders/logos/${provider}.png`)}
                   priority={false}
                 />
@@ -93,7 +68,7 @@ const VideoCard = (props: VideoCardI) => {
           <div
             className={clsx(
               "capitalize text-ellipsis overflow-hidden",
-              "sm:h-12",
+              "sm:h-12"
               //"whitespace-nowrap text-nowrap"
             )}
           >

@@ -15,6 +15,15 @@ const pageKeywords = ["feet worship", "socks"];
 
 const videoProviders = {
   ...VideoProviders,
+  pornhub: {
+    ...VideoProviders.pornhub,
+    queries: pageKeywords.map((keyword) => ({
+      keyword: keyword,
+      ordering: "newest",
+      page: 1,
+      period: "weekly",
+    })),
+  },
   eporner: {
     ...VideoProviders.eporner,
     queries: [
@@ -53,6 +62,7 @@ const getCmsData = cache(async () => {
 
 const getVideosWall = cache(async () => {
   try {
+    // @ts-ignore
     const response = await VideoProvidersService.getVideos(videoProviders);
     return response;
   } catch (error) {

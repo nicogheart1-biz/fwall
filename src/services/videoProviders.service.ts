@@ -1,28 +1,9 @@
 import { ApiService } from "@/src/services";
-import { VideoProviderI } from "@/src/types/videoProvider.types";
-import { xml2json } from "xml-js";
-import { formatSeconds } from "@/src/utils/common.utils";
-
-const extractPornhubVideos = (elements: any[] = []) => {
-  try {
-    let a: { [key: string]: any } = {};
-    elements.forEach((el: { name: string; elements: any[] }, i) => {
-      if (el.name === "item") {
-        el.elements.forEach(({ name, elements: els }) => {
-          a[i] = {
-            ...a[i],
-            [name]: els[0].cdata || els[0].text,
-          };
-        });
-      } else {
-        a = { ...a, ...extractPornhubVideos(el.elements) };
-      }
-    });
-    return a;
-  } catch (error) {
-    console.error(`VideoProvidersService extractPornhubVideos error:`, error);
-  }
-};
+import {
+  VideoProviderI,
+  VideoProviderQueryI,
+} from "@/src/types/videoProvider.types";
+import { PornHub, WebmasterSearchOptions } from "pornhub.js";
 
 export const VideoProvidersService = {
   getProviderVideos: async (videoProvider: VideoProviderI) =>
@@ -33,7 +14,7 @@ export const VideoProvidersService = {
           videoProvider.queries.forEach((query) => {
             promises.push(ApiService.get(`${videoProvider.api}${query}`));
           });
-        } else {
+        } else if (videoProvider.api) {
           promises.push(ApiService.get(videoProvider.api));
         }
         const results = await Promise.allSettled(promises);
@@ -61,16 +42,41 @@ export const VideoProvidersService = {
   getPornhubVideos: async (videoProvider: VideoProviderI) =>
     new Promise(async (resolve, reject) => {
       try {
-        const data = await fetch(videoProvider.api, {
-          method: "GET",
-        });
-        const test = await data.text();
-        console.log("Pornhub response obtained:", xml2json(test));
-        const response = extractPornhubVideos(
-          JSON.parse(xml2json(await data.text()))?.elements?.[1]?.elements
-        );
-        console.log("Pornhub response extracted", JSON.stringify(response));
-        resolve(JSON.stringify(response));
+        const pornhub = new PornHub();
+        const promises = [];
+        const defaultPornHubQuery: WebmasterSearchOptions = {
+          page: 1,
+          ordering: "newest",
+          period: "weekly",
+          thumbsize: "large_hd",
+        };
+        if (videoProvider.queries?.length) {
+          videoProvider.queries.forEach((q) => {
+            const query = q as VideoProviderQueryI;
+            promises.push(
+              pornhub.webMaster.search(query.keyword, {
+                ...defaultPornHubQuery,
+                ...(q as WebmasterSearchOptions),
+              })
+            );
+          });
+        } else {
+          promises.push(pornhub.webMaster.search("feet", defaultPornHubQuery));
+        }
+        const results = await Promise.allSettled(promises);
+        if (results?.length) {
+          let response: any[] = [];
+          results.forEach((result) => {
+            // @ts-ignore
+            if (result.status === "fulfilled" && result?.value?.length) {
+              // @ts-ignore
+              response = [...response, ...(result.value || [])];
+            }
+          });
+          resolve(response);
+        } else {
+          reject();
+        }
       } catch (error) {
         console.error(`VideoProvidersService getPornhubVideos error:`, error);
         reject();
@@ -130,17 +136,20 @@ export const VideoProvidersService = {
         if (contents[videoProvider]?.length) {
           switch (videoProvider) {
             case "pornhub": {
-              const data = JSON.parse(contents[videoProvider] || "{}");
-              Object.values(data).forEach((video: any) => {
+              const data = contents[videoProvider] || [];
+              data.forEach((video: any) => {
                 videos.push({
                   //...video,
-                  cover: video.thumb_large || video.thumb,
-                  id: new Date(video.pubDate).getTime(),
-                  length: formatSeconds(Number(video.duration)),
+                  cover: video.preview || video.thumb || video.default_thumb,
+                  id: video.id || video.video_id || `ph-${new Date().getTime()}`,
+                  length: video.duration,
                   provider: videoProvider,
                   title: video.title.toLowerCase() || "Feet",
-                  thumbs: video.thumbs?.map((thumb: any) => thumb?.src || thumb) || [],
-                  url: video.link,
+                  thumbs:
+                    video.thumbs?.map((thumb: any) => thumb?.src || thumb) ||
+                    [],
+                  url: video.url,
+                  views: video.views,
                 });
               });
               break;
@@ -160,7 +169,9 @@ export const VideoProvidersService = {
                   provider: videoProvider,
                   rate: video.rating,
                   title: video.title.toLowerCase() || "Feet",
-                  thumbs: video.thumbs?.map((thumb: any) => thumb?.src || thumb) || [],
+                  thumbs:
+                    video.thumbs?.map((thumb: any) => thumb?.src || thumb) ||
+                    [],
                   url: video.url,
                   views: video.views,
                 });
@@ -181,7 +192,9 @@ export const VideoProvidersService = {
                   provider: videoProvider,
                   rate: video.rate,
                   title: video.title.toLowerCase() || "Feet",
-                  thumbs: video.thumbs?.map((thumb: any) => thumb?.src || thumb) || [],
+                  thumbs:
+                    video.thumbs?.map((thumb: any) => thumb?.src || thumb) ||
+                    [],
                   url: video.url,
                   views: video.views,
                 });

@@ -26,6 +26,23 @@ const getVideosWall = cache(async (searchParam: string) => {
   try {
     const videoProviders = {
       ...VideoProviders,
+      pornhub: {
+        ...VideoProviders.pornhub,
+        queries: [
+          {
+            keyword: searchParam,
+            ordering: "mostviewed",
+            page: 1,
+            period: "alltime",
+          },
+          {
+            keyword: searchParam,
+            ordering: "rating",
+            page: 1,
+            period: "alltime",
+          },
+        ],
+      },
       eporner: {
         ...VideoProviders.eporner,
         queries: [
@@ -41,6 +58,7 @@ const getVideosWall = cache(async (searchParam: string) => {
         ],
       },
     };
+    // @ts-ignore
     const response = await VideoProvidersService.getVideos(videoProviders);
     return response;
   } catch (error) {

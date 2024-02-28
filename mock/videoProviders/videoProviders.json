@@ -3,8 +3,7 @@
     "name": "Pornhub",
     "id": "pornhub",
     "website": "https://www.pornhub.com/",
-    "api": "https://pornhub.com/feed/feet",
-    "active": false
+    "active": true
   },
   "eporner": {
     "name": "Eporner",
