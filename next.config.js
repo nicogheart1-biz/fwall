@@ -39,6 +39,11 @@ module.exports = (phase, { defaultConfig }) => {
     ...commonConfig,
     redirects: () => [
       {
+        source: "/local",
+        destination: "/",
+        permanent: true,
+      },
+      {
         source: "/playground",
         destination: "/",
         permanent: true,

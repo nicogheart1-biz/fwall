@@ -3,8 +3,8 @@
     "name": "Pornhub",
     "id": "pornhub",
     "website": "https://www.pornhub.com/",
-    "api": "https://pornhub.com/feed/feet",
-    "active": false
+    "api": "https://it.pornhub.com/webmasters/search?search=feet%2Bworship&page=1&period=weekly&ordering=mostviewed&thumbsize=large_hd",
+    "active": true
   },
   "eporner": {
     "name": "Eporner",

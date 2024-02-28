@@ -6,14 +6,17 @@ import AdsBlock from "@/components/ads/adsBlock.component";
 import { AdsBlockTypeEnum } from "@/src/enums/ads.enums";
 
 type WallClientI = {
+  contents?: any;
   title?: string;
+  videoProviders?: { [videoProvider: string]: any };
   videos: any[];
 };
 
 const pageSize = 24;
 
 const WallClient = (props: WallClientI) => {
-  const { title, videos = [] } = props;
+  const { contents, videoProviders = {}, title, videos: eVideos = [] } = props;
+  const [videos, setVideos] = useState(eVideos);
   const [page, setPage] = useState(1);
 
   const getVideoPage = () =>
@@ -41,6 +44,41 @@ const WallClient = (props: WallClientI) => {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
+
+  /*const getPornHubVideos = async () => {
+    try {
+      if (videoProviders?.pornhub) {
+        const response = await ApiService.post(apiVideoProvider.PORNHUB(), {
+          ...videoProviders.pornhub,
+          active: true,
+        });
+        // @ts-ignore
+        if (response?.data?.length) {
+          setVideos(
+            // @ts-ignore
+            VideoProvidersUtils.randomSort([...videos, ...response.data])
+          );
+        }
+      }
+      const response = await fetch("https://pornhub.com/webmasters/search?search=feet%2Bworship&page=1&period=weekly&ordering=mostviewed&thumbsize=large_hd", {
+      method: "GET",
+      headers: {
+          "Content-Type": "application/json",
+        }
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };*/
+
+  /*useEffect(() => {
+    if (!contents.pornhub?.length) {
+      getPornHubVideos();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [contents]);*/
+
+  //console.log('contents', contents);
 
   return (
     <section
