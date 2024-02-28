@@ -8,12 +8,13 @@ import { AdsBlockTypeEnum } from "@/src/enums/ads.enums";
 type WallClientI = {
   title?: string;
   videos: any[];
+  contents?: any;
 };
 
 const pageSize = 24;
 
 const WallClient = (props: WallClientI) => {
-  const { title, videos = [] } = props;
+  const { contents, title, videos = [] } = props;
   const [page, setPage] = useState(1);
 
   const getVideoPage = () =>
@@ -41,6 +42,8 @@ const WallClient = (props: WallClientI) => {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
+
+  //console.log('contents', contents);
 
   return (
     <section

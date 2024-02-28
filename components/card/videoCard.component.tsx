@@ -1,5 +1,4 @@
 /* eslint-disable @next/next/no-img-element */
-import Image from "next/image";
 import Link from "next/link";
 import { ClockIcon } from "@heroicons/react/24/outline";
 import dynamic from "next/dynamic";
@@ -43,13 +42,14 @@ const VideoCard = (props: VideoCardI) => {
             {thumbs?.length ? <VideoCardPreview {...props} /> : null}
             {provider ? (
               <span className="absolute top-1 right-1 z-40">
-                <Image
+                <img
                   className="h-4 w-4"
                   alt={provider}
                   height={16}
                   width={16}
-                  src={require(`@/src/assets/videoProviders/logos/${provider}.png`)}
-                  priority={false}
+                  src={`/videoProviders/logos/${provider}.png`}
+                  loading="lazy"
+                  //priority={false}
                 />
               </span>
             ) : null}

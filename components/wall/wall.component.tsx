@@ -22,7 +22,7 @@ const WallComponent = (props: WallComponentI) => {
 
   return (
     <>
-      <WallClient title={title} videos={videos} />
+      <WallClient title={title} videos={videos} contents={contents} />
       <section className="sr-only mx-auto max-w-screen-xl py-4 px-4 sm:px-6 lg:px-8">
         {title ? <h2 className="py-4 text-lg font-medium">{title}</h2> : null}
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 lg:gap-6">
