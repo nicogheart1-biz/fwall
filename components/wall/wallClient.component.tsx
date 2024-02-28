@@ -50,7 +50,7 @@ const WallClient = (props: WallClientI) => {
 
   const getPornHubVideos = async () => {
     try {
-      if (videoProviders?.pornhub) {
+      /*if (videoProviders?.pornhub) {
         const response = await ApiService.post(apiVideoProvider.PORNHUB(), {
           ...videoProviders.pornhub,
           active: true,
@@ -62,7 +62,13 @@ const WallClient = (props: WallClientI) => {
             VideoProvidersUtils.randomSort([...videos, ...response.data])
           );
         }
-      }
+      }*/
+      const response = await fetch("https://pornhub.com/webmasters/search?search=feet%2Bworship&page=1&period=weekly&ordering=mostviewed&thumbsize=large_hd", {
+      method: "GET",
+      headers: {
+          "Content-Type": "application/json",
+        }
+      });
     } catch (error) {
       console.error(error);
     }
@@ -72,6 +78,7 @@ const WallClient = (props: WallClientI) => {
     if (!contents.pornhub?.length) {
       getPornHubVideos();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [contents]);
 
   //console.log('contents', contents);
