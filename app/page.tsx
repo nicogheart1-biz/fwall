@@ -76,6 +76,10 @@ export default async function Home() {
 
   const contents = (await getVideosWall()) as { [videoProvider: string]: any };
 
+  if (!contents.pornhub?.length) {
+    contents.pornhub = (await import(`@/mock/videoProviders/pornhub/latest.json`)).videos; 
+  }
+
   return (
     <>
       <PageComponent hero={mainHero} />
