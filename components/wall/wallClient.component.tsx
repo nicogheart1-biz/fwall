@@ -4,17 +4,22 @@ import { scrollToId } from "@/src/utils/common.utils";
 import { useEffect, useState } from "react";
 import AdsBlock from "@/components/ads/adsBlock.component";
 import { AdsBlockTypeEnum } from "@/src/enums/ads.enums";
+import { ApiService } from "@/src/services";
+import { apiVideoProvider } from "@/src/constants/api.constants";
+import { VideoProvidersUtils } from "@/src/utils/videoProviders.utils";
 
 type WallClientI = {
-  title?: string;
-  videos: any[];
   contents?: any;
+  title?: string;
+  videoProviders?: { [videoProvider: string]: any };
+  videos: any[];
 };
 
 const pageSize = 24;
 
 const WallClient = (props: WallClientI) => {
-  const { contents, title, videos = [] } = props;
+  const { contents, videoProviders = {}, title, videos: eVideos = [] } = props;
+  const [videos, setVideos] = useState(eVideos);
   const [page, setPage] = useState(1);
 
   const getVideoPage = () =>
@@ -42,6 +47,32 @@ const WallClient = (props: WallClientI) => {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
+
+  const getPornHubVideos = async () => {
+    try {
+      if (videoProviders?.pornhub) {
+        const response = await ApiService.post(apiVideoProvider.PORNHUB(), {
+          ...videoProviders.pornhub,
+          active: true,
+        });
+        // @ts-ignore
+        if (response?.data?.length) {
+          setVideos(
+            // @ts-ignore
+            VideoProvidersUtils.randomSort([...videos, ...response.data])
+          );
+        }
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    if (!contents.pornhub?.length) {
+      getPornHubVideos();
+    }
+  }, [contents]);
 
   //console.log('contents', contents);
 

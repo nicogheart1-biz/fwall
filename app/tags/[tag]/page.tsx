@@ -22,44 +22,48 @@ const getCmsData = cache(async () => {
   }
 });
 
+const calcVideoProviders = (searchParam: string) => ({
+  ...VideoProviders,
+  pornhub: {
+    ...VideoProviders.pornhub,
+    queries: [
+      {
+        keyword: searchParam,
+        ordering: "mostviewed",
+        page: 1,
+        period: "alltime",
+      },
+      {
+        keyword: searchParam,
+        ordering: "rating",
+        page: 1,
+        period: "alltime",
+      },
+    ],
+  },
+  eporner: {
+    ...VideoProviders.eporner,
+    queries: [
+      `?query=${searchParam}&per_page=24&page=1&thumbsize=medium&order=most-popular&gay=0&lq=0&format=json`,
+      `?query=${searchParam}&per_page=24&page=1&thumbsize=medium&order=top-rated&gay=0&lq=0&format=json`,
+    ],
+  },
+  redtube: {
+    ...VideoProviders.redtube,
+    queries: [
+      `?data=redtube.Videos.searchVideos&output=json&search=${searchParam}&thumbsize=big&page=1&ordering=mostviewed&period=alltime`,
+      `?data=redtube.Videos.searchVideos&output=json&search=${searchParam}&thumbsize=big&page=2&ordering=mostviewed&period=alltime`,
+    ],
+  },
+});
+
 const getVideosWall = cache(async (searchParam: string) => {
   try {
-    const videoProviders = {
-      ...VideoProviders,
-      pornhub: {
-        ...VideoProviders.pornhub,
-        queries: [
-          {
-            keyword: searchParam,
-            ordering: "mostviewed",
-            page: 1,
-            period: "alltime",
-          },
-          {
-            keyword: searchParam,
-            ordering: "rating",
-            page: 1,
-            period: "alltime",
-          },
-        ],
-      },
-      eporner: {
-        ...VideoProviders.eporner,
-        queries: [
-          `?query=${searchParam}&per_page=24&page=1&thumbsize=medium&order=most-popular&gay=0&lq=0&format=json`,
-          `?query=${searchParam}&per_page=24&page=1&thumbsize=medium&order=top-rated&gay=0&lq=0&format=json`,
-        ],
-      },
-      redtube: {
-        ...VideoProviders.redtube,
-        queries: [
-          `?data=redtube.Videos.searchVideos&output=json&search=${searchParam}&thumbsize=big&page=1&ordering=mostviewed&period=alltime`,
-          `?data=redtube.Videos.searchVideos&output=json&search=${searchParam}&thumbsize=big&page=2&ordering=mostviewed&period=alltime`,
-        ],
-      },
-    };
     // @ts-ignore
-    const response = await VideoProvidersService.getVideos(videoProviders);
+    const response = await VideoProvidersService.getVideos(
+      // @ts-ignore
+      calcVideoProviders(searchParam)
+    );
     return response;
   } catch (error) {
     throw new Error(`Failed to fetch trending videos data, ${error}`);
@@ -103,6 +107,7 @@ export default async function Tag({ params }: { params: { tag: string } }) {
       <WallComponent
         contents={contents}
         title={`"${capitalize(tag)}" Videos`}
+        videoProviders={calcVideoProviders(tag)}
       />
     </>
   );

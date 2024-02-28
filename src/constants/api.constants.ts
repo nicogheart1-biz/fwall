@@ -41,17 +41,7 @@ const apiControllers = {
     `${apiBase.V1(isMock)}/validate-recaptcha`,
   // endregion reCAPTCHA
 
-  // region USER
-  USER: (isMock?: boolean): string => `${apiBase.V1(isMock)}/user`,
-  // endregion USER
-};
-
-export const apiUser = {
-  SIGNUP: (isMock?: boolean): string => `${apiControllers.USER(isMock)}/signup`,
-  DETAILS: (uid: User["uid"], isMock?: boolean): string =>
-    `${apiControllers.USER(isMock)}/${isMock ? "user" : uid}`,
-  TERMS: (uid: User["uid"], isMock?: boolean): string =>
-    `${apiControllers.USER(isMock)}/${uid}/terms`,
+  VIDEO_PROVIDERS: (isMock?: boolean): string => `${apiBase.V1(isMock)}/video-providers`,
 };
 
 export const apiRecaptcha = {
@@ -66,4 +56,8 @@ export const apiCms = {
   ): string => apiControllers.CONTENT(contentType, contentId, isMock),
   CONTENT_SSR: (pathToDocument: string) =>
     `${apiRoot.FIRESTORE_DB}/${pathToDocument}`,
+};
+
+export const apiVideoProvider = {
+  PORNHUB: (isMock?: boolean) => `${apiControllers.VIDEO_PROVIDERS(isMock)}/pornhub`,
 };
