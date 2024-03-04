@@ -96,7 +96,7 @@ const CookieBannerComponent = () => {
   if (!showCookieBanner) return null;
 
   return (
-    <div className="fixed bottom-0 w-full">
+    <div className="fixed bottom-0 w-full z-50">
       <div className="relative">
         <section
           aria-label="cookies banner"
