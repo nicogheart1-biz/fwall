@@ -2,14 +2,41 @@ import { VideoProvidersService } from "@/src/services/videoProviders.service";
 import WallComponent from "@/components/wall/wall.component";
 import VideoProviders from "@/mock/videoProviders/videoProviders.json";
 import dynamic from "next/dynamic";
+import TagList from "@/mock/tags/tags.json";
 
 const PornhubLocal = dynamic(() => import("./pornhubLocal.component"), {
   ssr: false,
 });
 
-const pageKeywords = ["feet worship", "socks"];
-const tag = "feet";
+const latest = {
+  ordering: ["newest"],
+  period: "weekly",
+  keywords: ["feet-worship", "socks"],
+};
+const trending = {
+  ordering: ["mostviewed"],
+  period: "weekly",
+  keywords: ["feet-worship", "socks"],
+};
+const tags = TagList.tags.map(tag => ({
+  ordering: ["mostviewed", "rating"],
+  period: "alltime",
+  keywords: [tag.replace(" ", "-")],
+}));
 
+const section = tags[15];
+
+const queries: any[] = [];
+section.keywords.forEach((key) => {
+  section.ordering.forEach((order) =>
+    queries.push({
+      keyword: key,
+      ordering: order,
+      page: 1,
+      period: section.period || "alltime",
+    })
+  );
+});
 const videoProviders = {
   pornhub: {
     ...VideoProviders.pornhub,
@@ -19,25 +46,13 @@ const videoProviders = {
       page: 1,
       period: "weekly",
     })),*/
-    queries: [
-      {
-        keyword: tag,
-        ordering: "mostviewed",
-        page: 1,
-        period: "alltime",
-      },
-      {
-        keyword: tag,
-        ordering: "rating",
-        page: 1,
-        period: "alltime",
-      },
-    ]
+    queries,
   },
 };
 
 const getVideosWall = async () => {
   try {
+    console.log("videoProviders", videoProviders.pornhub.queries);
     // @ts-ignore
     const response = await VideoProvidersService.getVideos(videoProviders);
     return response;
@@ -52,10 +67,7 @@ export default async function LocalPornhub() {
   return (
     <>
       <PornhubLocal contents={contents.pornhub} />
-      <WallComponent
-        contents={contents}
-        title="Local Pornhub"
-      />
+      <WallComponent contents={contents} title="Local Pornhub" />
     </>
   );
 }

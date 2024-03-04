@@ -4,7 +4,8 @@ import { ClockIcon } from "@heroicons/react/24/outline";
 import dynamic from "next/dynamic";
 import { Routes } from "@/src/routes";
 import clsx from "clsx";
-import { VideoCardI } from "@/src/types/videoProvider.types";
+import { VideoI } from "@/src/types/videoProvider.types";
+import { universalBtoa } from "@/src/utils/common.utils";
 
 /*const VideoCardOverlay = dynamic(() => import("./videoCardOverlay.component"), {
   ssr: false,
@@ -14,13 +15,20 @@ const VideoCardPreview = dynamic(() => import("./videoCardPreview.component"), {
   ssr: false,
 });
 
+type VideoCardI = VideoI & {
+  page?: string;
+};
+
 const VideoCard = (props: VideoCardI) => {
-  const { cover, id, length, provider, title, thumbs = [], url } = props;
+  const { cover, id, length, page, provider, title, thumbs = [], url } = props;
 
   //console.log('props', props)
   return (
     <Link
-      href={`${Routes.contentRedirect.url}${encodeURIComponent(url)}`}
+      //href={`${Routes.contentRedirect.url}${encodeURIComponent(url)}`}
+      href={`${Routes.video.url}${encodeURIComponent(
+        universalBtoa(`${provider};${id}${page ? `;${page}` : ""}`)
+      )}`}
       target="_blank"
       className="flex flex-col justify-between gap-2"
     >

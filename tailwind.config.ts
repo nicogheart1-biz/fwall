@@ -66,6 +66,14 @@ const config: Config = {
         pureWhite: "#faebed",
         // endregion WHITE
       },
+      height: {
+        '112': "26rem",
+        '128': "30rem",
+        '144': "36rem",
+        '160': "40rem",
+        '176': "44rem",
+        '192': '48rem',
+      },
     },
   },
   plugins: [],

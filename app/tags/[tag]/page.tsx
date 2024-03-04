@@ -9,6 +9,7 @@ import VideoProviders from "@/mock/videoProviders/videoProviders.json";
 import { PageComponent } from "@/components/page";
 import TagList from "@/mock/tags/tags.json";
 import { SsrRedirect } from "@/src/utils/ssr.utils";
+import { AppConstants } from "@/src/constants";
 
 // cache revalidation
 export const revalidate = calcDelay(6, FrequencyEnum.HOURS);
@@ -79,6 +80,7 @@ export async function generateMetadata({
   if (TagList.tags.indexOf(tag) !== -1) {
     return {
       title: `${capitalize(tag)} Videos`,
+      description: `Selection of ${tag} videos. ${AppConstants.description}`,
     };
   }
 }
@@ -113,7 +115,7 @@ export default async function Tag({ params }: { params: { tag: string } }) {
       <WallComponent
         contents={contents}
         title={`"${capitalize(tag)}" Videos`}
-        videoProviders={calcVideoProviders(tag)}
+        page={`tag/${params.tag}`}
       />
     </>
   );
