@@ -7,15 +7,19 @@ import { AdsBlockTypeEnum } from "@/src/enums/ads.enums";
 
 type WallClientI = {
   contents?: any;
+  page?: string;
   title?: string;
-  videoProviders?: { [videoProvider: string]: any };
   videos: any[];
 };
 
 const pageSize = 24;
 
 const WallClient = (props: WallClientI) => {
-  const { contents, videoProviders = {}, title, videos: eVideos = [] } = props;
+  const {
+    page: pageName,
+    title,
+    videos: eVideos = [],
+  } = props;
   const [videos, setVideos] = useState(eVideos);
   const [page, setPage] = useState(1);
 
@@ -45,40 +49,7 @@ const WallClient = (props: WallClientI) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
 
-  /*const getPornHubVideos = async () => {
-    try {
-      if (videoProviders?.pornhub) {
-        const response = await ApiService.post(apiVideoProvider.PORNHUB(), {
-          ...videoProviders.pornhub,
-          active: true,
-        });
-        // @ts-ignore
-        if (response?.data?.length) {
-          setVideos(
-            // @ts-ignore
-            VideoProvidersUtils.randomSort([...videos, ...response.data])
-          );
-        }
-      }
-      const response = await fetch("https://pornhub.com/webmasters/search?search=feet%2Bworship&page=1&period=weekly&ordering=mostviewed&thumbsize=large_hd", {
-      method: "GET",
-      headers: {
-          "Content-Type": "application/json",
-        }
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  };*/
-
-  /*useEffect(() => {
-    if (!contents.pornhub?.length) {
-      getPornHubVideos();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [contents]);*/
-
-  //console.log('contents', contents);
+  //console.log('contents', props.contents);
 
   return (
     <section
@@ -88,7 +59,7 @@ const WallClient = (props: WallClientI) => {
       {title ? <h2 className="py-4 text-lg font-medium">{title}</h2> : null}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 lg:gap-6">
         {videoSection.first.map((video) => (
-          <VideoCard key={video.id} {...video} />
+          <VideoCard key={video.id} {...video} page={pageName} />
         ))}
       </div>
       {videoSection.second?.length ? (
@@ -96,7 +67,7 @@ const WallClient = (props: WallClientI) => {
           <AdsBlock type={AdsBlockTypeEnum.HORIZONTAL} />
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 lg:gap-6">
             {videoSection.second.map((video) => (
-              <VideoCard key={video.id} {...video} />
+              <VideoCard key={video.id} {...video} page={pageName} />
             ))}
           </div>
         </>

@@ -50,6 +50,23 @@
       "priority": 1
     }
   },
+  "video": {
+    "url": "/video/",
+    "label": "Video",
+    "title": "Video",
+    "menu": {
+      "mobile": false,
+      "desktop": false,
+      "header": false,
+      "footer": false
+    },
+    "private": false,
+    "roles": [],
+    "seo": {
+      "changeFrequency": "hourly",
+      "priority": 0.9
+    }
+  },
   "contentRedirect": {
     "url": "/content-redirect/",
     "label": "Content Redirect",

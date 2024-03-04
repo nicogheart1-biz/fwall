@@ -42,6 +42,8 @@ export const scrollTo = (y: number) => {
     });
 };
 
+export const getElement = (ref: string) => document.querySelector(ref) as HTMLElement;
+
 export const scrollToId = (id: string, ref?: HTMLElement) => {
   let element = ref;
   if (!ref && !isServer) {
@@ -64,6 +66,15 @@ export const focusId = (id: string, scroll = true) => {
       elementToFocus.onblur = () => {
         elementToFocus?.removeAttribute("tabindex");
       };
+    }
+  }
+};
+
+export const hideElement = (ref: string) => {
+  if (!isServer) {
+    const elementToHide = getElement(ref);
+    if (elementToHide) {
+      elementToHide.style.display = "none";
     }
   }
 };
@@ -135,3 +146,25 @@ export const capitalize = (text: string) =>
     .split(" ")
     .map((s) => `${s.charAt(0).toUpperCase()}${s.slice(1)}`)
     .join(" ");
+
+export const universalBtoa = (
+  str: string,
+  encoding: "utf8" | "binary" = "utf8"
+) => {
+  try {
+    return btoa(str);
+  } catch (error) {
+    return Buffer.from(str, encoding).toString("base64");
+  }
+};
+
+export const universalAtob = (
+  base64: string,
+  encoding: "utf8" | "binary" = "utf8"
+) => {
+  try {
+    return atob(base64);
+  } catch (error) {
+    return Buffer.from(base64, "base64").toString(encoding);
+  }
+};

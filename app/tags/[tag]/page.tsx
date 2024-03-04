@@ -115,7 +115,7 @@ export default async function Tag({ params }: { params: { tag: string } }) {
       <WallComponent
         contents={contents}
         title={`"${capitalize(tag)}" Videos`}
-        videoProviders={calcVideoProviders(tag)}
+        page={`tag/${params.tag}`}
       />
     </>
   );
