@@ -11,6 +11,7 @@
     "id": "eporner",
     "website": "https://www.eporner.com/",
     "api": "https://www.eporner.com/api/v2/video/search/",
+    "details": "https://www.eporner.com/api/v2/video/id/?id=*VIDEOID*&format=json&thumbsize=big",
     "active": true
   },
   "redtube": {
@@ -18,6 +19,7 @@
     "id": "redtube",
     "website": "https://redtube.com/",
     "api": "https://api.redtube.com/",
+    "details": "https://api.redtube.com/?data=redtube.Videos.getVideoById&video_id=*VIDEOID*V&output=json&thumbsize=all",
     "active": true
   }
 }

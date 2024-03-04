@@ -1,3 +1,6 @@
+import VideoProviders from "@/mock/videoProviders/videoProviders.json";
+import { VideoProviderI } from "@/src/types/videoProvider.types";
+
 export const VideoProvidersUtils = {
   formatVideos: (contents: { [videoProvider: string]: any }) => {
     try {
@@ -35,6 +38,7 @@ export const VideoProvidersUtils = {
                     video.thumbs[0] ||
                     video.thumb ||
                     video.default_thumb,
+                  embedUrl: video.embed_url,
                   id: video.video_id,
                   length: video.duration,
                   provider: videoProvider,
@@ -58,6 +62,7 @@ export const VideoProvidersUtils = {
                     video.default_thumb?.src ||
                     video.default_thumb ||
                     video.thumbs[0],
+                  embedUrl: video.embed,
                   id: video.id,
                   length: video.length_min,
                   provider: videoProvider,
@@ -84,4 +89,14 @@ export const VideoProvidersUtils = {
     }
   },
   randomSort: (array: any[]) => array.sort(() => Math.random() - 0.5),
+  getVideoProvider: (provider: string): VideoProviderI | undefined => {
+    try {
+      return Object.values(VideoProviders).find(
+        (videoProvider: VideoProviderI) => videoProvider.id === provider
+      );
+    } catch (error) {
+      console.error("VideoProvidersUtils getVideoProvider error:", error);
+      return;
+    }
+  },
 };
