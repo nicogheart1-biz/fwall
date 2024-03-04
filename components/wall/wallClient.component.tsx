@@ -16,7 +16,6 @@ const pageSize = 24;
 
 const WallClient = (props: WallClientI) => {
   const {
-    contents,
     page: pageName,
     title,
     videos: eVideos = [],
@@ -50,7 +49,7 @@ const WallClient = (props: WallClientI) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
 
-  //console.log('contents', contents);
+  //console.log('contents', props.contents);
 
   return (
     <section
