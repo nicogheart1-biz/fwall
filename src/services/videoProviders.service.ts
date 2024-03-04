@@ -83,13 +83,32 @@ export const VideoProvidersService = {
         reject();
       }
     }),
-  getVideoDetails: async (provider: VideoProviderI["id"], videoId: string) =>
+  getVideoDetails: async (
+    provider: VideoProviderI["id"],
+    videoId: string,
+    page?: string
+  ) =>
     new Promise(async (resolve, reject) => {
       try {
         const videoProvider = VideoProvidersUtils.getVideoProvider(provider);
         if (videoProvider) {
           switch (videoProvider.id) {
             case "pornhub": {
+              if (page) {
+                const { videos = [] } = await import(
+                  `@/mock/videoProviders/pornhub/${page}.json`
+                );
+                const video = videos.find((v: any) => v.video_id === videoId);
+                if (video) {
+                  resolve(
+                    VideoProvidersUtils.formatVideos({
+                      [videoProvider.id]: [video],
+                    })
+                  );
+                } else {
+                  reject();
+                }
+              }
               break;
             }
             case "eporner":

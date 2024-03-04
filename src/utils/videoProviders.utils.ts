@@ -14,6 +14,7 @@ export const VideoProvidersUtils = {
                 videos.push({
                   //...video,
                   cover: video.preview || video.thumb || video.default_thumb,
+                  embedUrl: `https://www.pornhub.com/embed/${video.id || video.video_id || `ph-${new Date().getTime()}`}`,
                   id:
                     video.id || video.video_id || `ph-${new Date().getTime()}`,
                   length: video.duration,

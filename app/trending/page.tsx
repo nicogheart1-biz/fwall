@@ -87,7 +87,7 @@ export default async function Trending() {
       <WallComponent
         contents={contents}
         title={Routes.trending.title}
-        videoProviders={videoProviders}
+        page="trending"
       />
     </>
   );

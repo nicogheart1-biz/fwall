@@ -11,7 +11,7 @@ import { Metadata } from "next";
 import { Routes } from "@/src/routes";
 import { AppConstants } from "@/src/constants";
 
-const pageKeywords = ["feet worship", "socks"];
+const pageKeywords = ["feet-worship", "socks"];
 
 const videoProviders = {
   ...VideoProviders,
@@ -88,7 +88,7 @@ export default async function Home() {
       <WallComponent
         contents={contents}
         title={Routes.home.title}
-        videoProviders={videoProviders}
+        page="latest"
       />
     </>
   );

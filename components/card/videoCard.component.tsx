@@ -15,14 +15,20 @@ const VideoCardPreview = dynamic(() => import("./videoCardPreview.component"), {
   ssr: false,
 });
 
-const VideoCard = (props: VideoI) => {
-  const { cover, id, length, provider, title, thumbs = [], url } = props;
+type VideoCardI = VideoI & {
+  page?: string;
+};
+
+const VideoCard = (props: VideoCardI) => {
+  const { cover, id, length, page, provider, title, thumbs = [], url } = props;
 
   //console.log('props', props)
   return (
     <Link
       //href={`${Routes.contentRedirect.url}${encodeURIComponent(url)}`}
-      href={`${Routes.video.url}${encodeURIComponent(universalBtoa(`${provider};${id}`))}`}
+      href={`${Routes.video.url}${encodeURIComponent(
+        universalBtoa(`${provider};${id}${page ? `;${page}` : ""}`)
+      )}`}
       target="_blank"
       className="flex flex-col justify-between gap-2"
     >

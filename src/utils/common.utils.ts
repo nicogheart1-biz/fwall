@@ -42,6 +42,8 @@ export const scrollTo = (y: number) => {
     });
 };
 
+export const getElement = (ref: string) => document.querySelector(ref) as HTMLElement;
+
 export const scrollToId = (id: string, ref?: HTMLElement) => {
   let element = ref;
   if (!ref && !isServer) {
@@ -64,6 +66,15 @@ export const focusId = (id: string, scroll = true) => {
       elementToFocus.onblur = () => {
         elementToFocus?.removeAttribute("tabindex");
       };
+    }
+  }
+};
+
+export const hideElement = (ref: string) => {
+  if (!isServer) {
+    const elementToHide = getElement(ref);
+    if (elementToHide) {
+      elementToHide.style.display = "none";
     }
   }
 };
