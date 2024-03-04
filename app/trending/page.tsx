@@ -10,7 +10,7 @@ import { PageComponent } from "@/components/page";
 import { Routes } from "@/src/routes";
 import { Metadata } from "next";
 
-const pageKeywords = ["feet worship", "socks"];
+const pageKeywords = ["feet-worship", "socks"];
 
 const videoProviders = {
   ...VideoProviders,
