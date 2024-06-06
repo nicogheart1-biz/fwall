@@ -1,3 +1,5 @@
 export enum AnalyticsEventEnum {
+  ADULT_BANNER_ENTER = "ADULT_BANNER_ENTER",
+  ADULT_BANNER_EXIT = "ADULT_BANNER_EXIT",
   GO_TO_VIDEO = "GO_TO_VIDEO",
 }
