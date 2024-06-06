@@ -3,9 +3,8 @@
 import { VideoProvidersUtils } from "@/src/utils/videoProviders.utils";
 
 const PornhubLocal = (props: { contents: any }) => {
-  console.log(
-    "contents",
-    VideoProvidersUtils.randomSort(
+  console.log("contents", {
+    videos: VideoProvidersUtils.randomSort(
       props.contents.map((item: any) => ({
         ...item,
         categories: undefined,
@@ -14,8 +13,8 @@ const PornhubLocal = (props: { contents: any }) => {
         tags: undefined,
         vote: undefined,
       }))
-    )
-  );
+    ),
+  });
 
   return null;
 };

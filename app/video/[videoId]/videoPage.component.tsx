@@ -40,6 +40,19 @@ const VideoPageComponent = (props: VideoPageComponentI) => {
                     <Button
                       label="Close & Play"
                       action={() => setShowAdvBlock(false)}
+                      analyticEvent={{
+                        event: AnalyticsEventEnum.CLOSE_AND_PLAY,
+                        payload: {
+                          id: videoDetails.id,
+                          provider: videoDetails.provider,
+                          embedUrl: videoDetails.embedUrl,
+                          length: videoDetails.length || "-",
+                          rate: videoDetails.rate || "-",
+                          title: videoDetails.title,
+                          url: videoDetails.url,
+                          views: videoDetails.views || "-",
+                        },
+                      }}
                     />
                   </div>
                 </div>

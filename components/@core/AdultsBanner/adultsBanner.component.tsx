@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { CookieUtils } from "@/src/utils/cookie.utils";
 import { Button, Logo } from "@/components";
 import { AppConstants } from "@/src/constants";
+import { AnalyticsEventEnum } from "@/src/enums/analytics.enums";
 
 const adultsBannerCheck = "adultsBanner";
 
@@ -30,7 +31,7 @@ const AdultsBanner = () => {
   if (!showAdultBanner) return null;
 
   return (
-    <div className="adult-banner fixed h-screen w-full top-0 left-0 bg-background-900 z-50">
+    <div className="adult-banner fixed h-screen w-full top-0 left-0 bg-background-900 z-50 pointer-events-auto">
       <div className="relative h-screen w-full inline-flex items-center">
         <section
           aria-label="adults banner"
@@ -59,11 +60,13 @@ const AdultsBanner = () => {
             </>
             <Button
               action={closeAdultBanner}
+              analyticEvent={{ event: AnalyticsEventEnum.ADULT_BANNER_ENTER }}
               primary
               label="I'm 18 years old or older - Enter"
             />
             <Button
               action={exitWebsite}
+              analyticEvent={{ event: AnalyticsEventEnum.ADULT_BANNER_EXIT }}
               secondary
               label="I am under 18 years old - Leave"
             />

@@ -3,6 +3,8 @@
 import clsx from "clsx";
 import dynamic from "next/dynamic";
 import { ButtonStyle } from "./button.style";
+import { AnalyticsUtils } from "@/src/utils/analytics.utils";
+import { AnalyticsEventEnum } from "@/src/enums/analytics.enums";
 
 const LoaderSpinner = dynamic(
   () => import("@/components/loaderSpinner/loaderSpinner"),
@@ -11,6 +13,10 @@ const LoaderSpinner = dynamic(
 
 type ButtonI = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   action?: () => void;
+  analyticEvent?: {
+    event: AnalyticsEventEnum | string;
+    payload?: { [key: string]: string | number };
+  };
   danger?: boolean;
   label: string;
   primary?: boolean;
@@ -23,6 +29,7 @@ type ButtonI = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 const Button = (props: ButtonI) => {
   const {
     action = () => ({}),
+    analyticEvent,
     disabled = false,
     label,
     primary = true,
@@ -60,6 +67,7 @@ const Button = (props: ButtonI) => {
       {...{
         ...props,
         action: undefined,
+        analyticEvent: undefined,
         primary: undefined,
         secondary: undefined,
         danger: undefined,
@@ -68,7 +76,12 @@ const Button = (props: ButtonI) => {
         full: undefined,
       }}
       disabled={isDisabled}
-      onClick={action}
+      onClick={() => {
+        if (analyticEvent) {
+          AnalyticsUtils.logEvent(analyticEvent.event, analyticEvent.payload);
+        }
+        action?.();
+      }}
     >
       {isLoading ? (
         <span className="mr-2">

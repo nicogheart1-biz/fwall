@@ -27,7 +27,7 @@ export const AnalyticsUtils = {
     if (isSupported && AppInstance) initializeAnalytics(AppInstance);
   },
   logEvent: (
-    eventName: AnalyticsEventEnum,
+    eventName: AnalyticsEventEnum | string,
     payload?: { [key: string]: string | number }
   ) => {
     if (analytics && isSupported) {

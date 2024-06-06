@@ -93,8 +93,8 @@ export default function RootLayout({
           <Footer />
           <GlobalLoaderManager />
           <ToastManagerComponent />
-          <AdultsBanner />
           <CookieBannerComponent />
+          <AdultsBanner />
         </body>
       </html>
     </>
