@@ -51,6 +51,15 @@ const apiControllers = {
     }`,
   // endregion PAYMENT
 
+  // region PREMIUM
+  CREATE_VOUCHER: (isMock?: boolean): string =>
+    `${apiBase.V1(isMock)}/premium/create-voucher`,
+  VERIFY_VOUCHER: (isMock?: boolean): string =>
+    `${apiBase.V1(isMock)}/premium/verify-voucher`,
+  PREMIUM_VIDEOS: (isMock?: boolean): string =>
+    `${apiBase.V1(isMock)}/premium/videos`,
+  // endregion PREMIUM
+
   VIDEO_PROVIDERS: (isMock?: boolean): string =>
     `${apiBase.V1(isMock)}/video-providers`,
 };
@@ -81,4 +90,13 @@ export const apiPayment = {
     apiControllers.VERIFY_PAYMENT_INTENT(isMock),
   INTENT: (paymentIntentId?: string, isMock?: boolean): string =>
     apiControllers.PAYMENT_INTENT(paymentIntentId, isMock),
+};
+
+export const apiPremium = {
+  CREATE_VOUCHER: (isMock?: boolean): string =>
+    apiControllers.CREATE_VOUCHER(isMock),
+  VERIFY_VOUCHER: (isMock?: boolean): string =>
+    apiControllers.VERIFY_VOUCHER(isMock),
+  VIDEOS: (isMock?: boolean): string =>
+    apiControllers.PREMIUM_VIDEOS(isMock),
 };

@@ -1,10 +1,16 @@
 import { ApiService } from "@/src/services";
 import { apiPayment } from "@/src/constants/api.constants";
+import { PremiumConstants } from "@/src/constants/premium.constants";
 
 export type CreatePaymentIntentRequest = {
   user?: string;
   amount: number;
   currency: string;
+  metadata?: {
+    type?: 'premium_access';
+    duration?: string;
+    [key: string]: any;
+  };
 };
 
 export type CreatePaymentIntentResponse = {
@@ -23,6 +29,10 @@ export type VerifyPaymentIntentResponse = {
     userId?:string;
     created: number;
     succeeded: boolean;
+    metadata?: {
+      type?: string;
+      [key: string]: any;
+    };
   };
   code: number;
 };
@@ -58,5 +68,19 @@ export const PaymentService = {
       });
       throw error;
     }
+  },
+
+  // Crea un payment intent per l'accesso premium giornaliero
+  createPremiumPaymentIntent: async (): Promise<CreatePaymentIntentResponse> => {
+    const request: CreatePaymentIntentRequest = {
+      amount: PremiumConstants.DAILY_ACCESS_PRICE,
+      currency: PremiumConstants.CURRENCY,
+      metadata: {
+        type: 'premium_access',
+        duration: '24h'
+      }
+    };
+    
+    return PaymentService.createPaymentIntent(request);
   },
 };

@@ -9,6 +9,10 @@ const MenuMobile = dynamic(() => import("@/components/menu/menuMobile"), {
   ssr: false,
 });
 
+const PremiumHeader = dynamic(() => import("@/components/premium/premiumHeader.component"), {
+  ssr: false,
+});
+
 const Header = () => {
   return (
     <header className="fixed top-0 left-0 w-full shadow z-50 bg-background-900">
@@ -16,7 +20,7 @@ const Header = () => {
         <div className="flex h-16 items-center justify-between">
           <div className="flex-1 text-lg md:flex md:items-center md:gap-12">
             <Link
-              className="block inline-flex gap-1 items-center"
+              className="inline-flex gap-1 items-center"
               href={Routes.home.url}
             >
               <span className="sr-only">{Routes.home.label}</span>
@@ -26,6 +30,7 @@ const Header = () => {
           </div>
 
           <div className="flex items-center gap-4">
+            <PremiumHeader />
             <Menu />
             <div className="block sm:hidden">
               <MenuMobile />
