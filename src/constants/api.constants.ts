@@ -1,4 +1,3 @@
-import { User } from "firebase/auth";
 import { isServer } from "@/src/utils/common.utils";
 import { isMocked, isReleased } from "@/src/utils/envs.utils";
 import { FirebaseConstants } from "@/src/constants/firebase.constants";
@@ -41,7 +40,19 @@ const apiControllers = {
     `${apiBase.V1(isMock)}/validate-recaptcha`,
   // endregion reCAPTCHA
 
-  VIDEO_PROVIDERS: (isMock?: boolean): string => `${apiBase.V1(isMock)}/video-providers`,
+  // region PAYMENT
+  CREATE_PAYMENT_INTENT: (isMock?: boolean): string =>
+    `${apiBase.V1(isMock)}/payment/create-payment-intent`,
+  VERIFY_PAYMENT_INTENT: (isMock?: boolean): string =>
+    `${apiBase.V1(isMock)}/payment/verify-payment-intent`,
+  PAYMENT_INTENT: (paymentIntentId?: string, isMock?: boolean): string =>
+    `${apiBase.V1(isMock)}/payment/intent${
+      paymentIntentId ? `/${paymentIntentId}` : ""
+    }`,
+  // endregion PAYMENT
+
+  VIDEO_PROVIDERS: (isMock?: boolean): string =>
+    `${apiBase.V1(isMock)}/video-providers`,
 };
 
 export const apiRecaptcha = {
@@ -59,5 +70,15 @@ export const apiCms = {
 };
 
 export const apiVideoProvider = {
-  PORNHUB: (isMock?: boolean) => `${apiControllers.VIDEO_PROVIDERS(isMock)}/pornhub`,
+  PORNHUB: (isMock?: boolean) =>
+    `${apiControllers.VIDEO_PROVIDERS(isMock)}/pornhub`,
+};
+
+export const apiPayment = {
+  CREATE_INTENT: (isMock?: boolean): string =>
+    apiControllers.CREATE_PAYMENT_INTENT(isMock),
+  VERIFY_INTENT: (isMock?: boolean): string =>
+    apiControllers.VERIFY_PAYMENT_INTENT(isMock),
+  INTENT: (paymentIntentId?: string, isMock?: boolean): string =>
+    apiControllers.PAYMENT_INTENT(paymentIntentId, isMock),
 };
