@@ -5,9 +5,7 @@ import { NextURL } from "next/dist/server/web/next-url";
 import Stripe from "stripe";
 
 // Inizializzazione Stripe
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: "2024-04-10",
-});
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
 export type StripePaymentVerificationResult = {
   verified: true;

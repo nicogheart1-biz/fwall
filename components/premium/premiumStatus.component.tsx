@@ -11,7 +11,8 @@ type PremiumStatusI = {
 
 const PremiumStatus = (props: PremiumStatusI) => {
   const { onUpgrade } = props;
-  const { hasAccess, timeRemaining, formatTimeRemaining, clearAccess } = usePremium();
+  const { hasAccess, formatTimeRemaining, clearAccess } =
+    usePremium();
 
   if (hasAccess) {
     return (
@@ -29,7 +30,7 @@ const PremiumStatus = (props: PremiumStatusI) => {
             </p>
           </div>
         </div>
-        
+
         <div className="bg-white-100/50 rounded-lg p-4 mb-4">
           <div className="flex items-center gap-2 mb-2">
             <ClockIcon className="h-4 w-4 text-primary-600" />
@@ -42,18 +43,11 @@ const PremiumStatus = (props: PremiumStatusI) => {
           </p>
         </div>
 
-        <div className="flex gap-3">
+        <div>
           <ButtonLink
             primary
             label="Go to premium videos"
             href={Routes.premiumAccess.url}
-            className="flex-1"
-          />
-          <Button
-            secondary
-            label="Logout"
-            action={clearAccess}
-            className="px-4"
           />
         </div>
       </div>
@@ -74,12 +68,7 @@ const PremiumStatus = (props: PremiumStatusI) => {
         </p>
       </div>
 
-      <Button
-        primary
-        full
-        label="Buy Daily Access"
-        action={onUpgrade}
-      />
+      <Button primary full label="Buy Daily Access" action={onUpgrade} />
     </div>
   );
 };

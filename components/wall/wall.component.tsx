@@ -1,4 +1,4 @@
-import { VideoCard } from "@/components";
+import { VideoCard, PremiumVideoCard } from "@/components";
 import React from "react";
 import dynamic from "next/dynamic";
 import { VideoProvidersUtils } from "@/src/utils/videoProviders.utils";
@@ -11,11 +11,12 @@ type WallComponentI = {
   contents?: { [videoProvider: string]: any };
   page?: string;
   title?: string;
-  videoProviders?: {[videoProvider: string]: any};
+  videoProviders?: { [videoProvider: string]: any };
+  premium?: boolean;
 };
 
 const WallComponent = (props: WallComponentI) => {
-  const { contents = {}, page, title } = props;
+  const { contents = {}, page, title, premium = false } = props;
   //console.log("contents", contents);
 
   const videos = VideoProvidersUtils.randomSort(
@@ -29,13 +30,18 @@ const WallComponent = (props: WallComponentI) => {
         videos={videos}
         contents={contents}
         page={page}
+        premium={premium}
       />
       <section className="sr-only mx-auto max-w-screen-xl py-4 px-4 sm:px-6 lg:px-8">
         {title ? <h2 className="py-4 text-lg font-medium">{title}</h2> : null}
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 lg:gap-6">
-          {videos.map((video) => (
-            <VideoCard key={video.id} {...video} page={page} />
-          ))}
+          {videos.map((video) =>
+            premium ? (
+              <PremiumVideoCard key={video.id} video={video} />
+            ) : (
+              <VideoCard key={video.id} {...video} page={page} />
+            )
+          )}
         </div>
       </section>
     </>

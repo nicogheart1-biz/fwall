@@ -30,7 +30,6 @@ const Header = () => {
           </div>
 
           <div className="flex items-center gap-4">
-            <PremiumHeader />
             <Menu />
             <div className="block sm:hidden">
               <MenuMobile />
@@ -38,6 +37,7 @@ const Header = () => {
           </div>
         </div>
       </div>
+      <PremiumHeader />
     </header>
   );
 };

@@ -12,10 +12,10 @@ export const PremiumConstants = {
 };
 
 export const PremiumMessages = {
-  ACCESS_GRANTED: 'Accesso premium attivato con successo!',
-  ACCESS_EXPIRED: 'Il tuo accesso premium è scaduto.',
-  INVALID_VOUCHER: 'Codice di accesso non valido.',
-  VOUCHER_ALREADY_USED: 'Questo codice è già stato utilizzato.',
-  PAYMENT_SUCCESS: 'Pagamento completato con successo!',
-  PAYMENT_ERROR: 'Errore durante il pagamento. Riprova.',
+  ACCESS_GRANTED: 'Premium access granted for 24 hours.',
+  ACCESS_EXPIRED: 'Your premium access has expired.',
+  INVALID_VOUCHER: 'Access denied. Invalid voucher code.',
+  VOUCHER_ALREADY_USED: 'This voucher has already been used.',
+  PAYMENT_SUCCESS: 'Payment successful!',
+  PAYMENT_ERROR: 'Payment failed. Please try again.',
 };

@@ -11,7 +11,9 @@ import {
   StarIcon,
   ClockIcon,
   ExclamationTriangleIcon,
-} from "@heroicons/react/24/outline";
+} from "@heroicons/react/24/solid";
+import { Routes } from "@/src/routes";
+import Link from "next/link";
 
 const PremiumAccessClient = () => {
   const { hasAccess, formatTimeRemaining } = usePremium();
@@ -47,27 +49,27 @@ const PremiumAccessClient = () => {
   const PremiumContent = () => (
     <div className="max-w-7xl mx-auto space-y-8">
       {/* Header con status */}
-      <div className="bg-gradient-to-r from-secondary-100 to-secondary-200 rounded-lg p-6">
+      <div className="border-2 border-primary-500 bg-gradient-to-r from-secondary-700 to-secondary-900 rounded-lg p-6 shadow">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <div className="flex items-center justify-center w-12 h-12 bg-secondary-500 rounded-full">
-              <StarIcon className="h-7 w-7 text-white-100" />
+            <div className="flex items-center justify-center w-12 h-12 bg-primary-700 rounded-full">
+              <StarIcon className="size-8" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-secondary-800">
+              <h1 className="text-2xl font-bold text-primary-700">
                 Premium Area
               </h1>
-              <p className="text-secondary-700">
+              <p className="text-primary-600">
                 Welcome to the exclusive premium content area!
               </p>
             </div>
           </div>
           <div className="text-right">
-            <div className="flex items-center gap-2 text-secondary-700 mb-1">
-              <ClockIcon className="h-4 w-4" />
+            <div className="flex items-center gap-2 text-secondary-100 mb-1">
+              <ClockIcon className="size-4" />
               <span className="text-sm font-medium">Time remaining</span>
             </div>
-            <p className="text-lg font-bold text-secondary-800">
+            <p className="text-lg font-bold text-primary-900">
               {formatTimeRemaining()}
             </p>
           </div>
@@ -77,7 +79,7 @@ const PremiumAccessClient = () => {
       {/* Video Grid */}
       <div>
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-xl font-bold text-gray-900">
+          <h2 className="text-xl font-bold text-secondary-500">
             Exclusive Premium Videos
           </h2>
           <span className="text-sm text-gray-500">
@@ -123,11 +125,11 @@ const PremiumAccessClient = () => {
       </div>
 
       {/* Info sidebar */}
-      <div className="bg-white-100 rounded-lg p-6 shadow-sm">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">
+      <div className="bg-primary-100 rounded-lg p-6 shadow-sm">
+        <h3 className="text-lg font-semibold text-primary-900 mb-4">
           Access Information
         </h3>
-        <div className="space-y-3 text-sm text-gray-600">
+        <div className="space-y-3 text-sm text-primary-600">
           <p>
             • Your access is valid for 24 hours from the moment of purchase.
           </p>
@@ -136,17 +138,19 @@ const PremiumAccessClient = () => {
           <p>• After 24h you have to buy a new Daily pass</p>
         </div>
 
-        <div className="mt-6 pt-4 border-t border-gray-200">
-          <div className="flex justify-between items-center">
-            <span className="text-sm font-medium text-gray-700">
+        <div className="mt-6 pt-4 border-t border-primary-200">
+          <div className="text-center space-y-6">
+            <div className="text-sm font-medium text-primary-700">
               Do you want to extend your access?
-            </span>
-            <a
-              href="/premium"
-              className="text-sm text-secondary-600 hover:text-secondary-700 font-medium"
-            >
-              Buy more time
-            </a>
+            </div>
+            <div>
+              <Link
+                href={Routes.premium.url}
+                className="rounded-lg p-4 bg-primary-500 text-sm text-secondary-500 hover:bg-primary-700 hover:text-secondary-700 font-medium transition"
+              >
+                Buy more time
+              </Link>
+            </div>
           </div>
         </div>
       </div>

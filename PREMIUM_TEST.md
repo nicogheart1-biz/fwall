@@ -6,7 +6,7 @@ Per testare l'area premium senza effettuare pagamenti reali, puoi utilizzare que
 
 ### Formato: XXXX-XXXX-XXXX
 
-- `TEST-PREM-2024` - Voucher di test permanente
+- `TEST-PREM-2025` - Voucher di test permanente
 - `DEMO-USER-TEST` - Voucher demo
 - `FREE-TRIAL-24H` - Trial gratuito 24h
 

@@ -5,6 +5,7 @@ import { LoaderSpinner } from "@/components";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { Routes } from "@/src/routes";
 
 type PremiumGuardI = {
   children: React.ReactNode;
@@ -19,7 +20,7 @@ const PremiumGuard = (props: PremiumGuardI) => {
 
   useEffect(() => {
     if (!isLoading && !hasAccess && redirect) {
-      router.push('/premium');
+      router.push(Routes.premium.url);
     }
   }, [isLoading, hasAccess, redirect, router]);
 
@@ -40,16 +41,16 @@ const PremiumGuard = (props: PremiumGuardI) => {
       <div className="text-center py-12">
         <ExclamationTriangleIcon className="h-16 w-16 text-secondary-500 mx-auto mb-4" />
         <h2 className="text-2xl font-bold text-gray-900 mb-4">
-          Accesso Premium Richiesto
+          Premium Access Required
         </h2>
         <p className="text-gray-600 mb-6">
-          Hai bisogno di un accesso premium valido per visualizzare questo contenuto.
+          You need a premium subscription to access this content.
         </p>
         <a
-          href="/premium"
+          href={Routes.premium.url}
           className="inline-flex items-center px-6 py-3 bg-secondary-600 text-white-100 rounded-lg hover:bg-secondary-700 transition"
         >
-          Acquista accesso premium
+          Buy Daily Access
         </a>
       </div>
     );

@@ -1,23 +1,29 @@
 import { NextRequest, NextResponse } from "next/server";
-import { VerifyVoucherRequest, VerifyVoucherResponse, PremiumSessionI } from "@/src/types/premium.types";
-import { PremiumConstants, PremiumMessages } from "@/src/constants/premium.constants";
+import {
+  VerifyVoucherRequest,
+  VerifyVoucherResponse,
+  PremiumSessionI,
+} from "@/src/types/premium.types";
+import {
+  PremiumConstants,
+  PremiumMessages,
+} from "@/src/constants/premium.constants";
+import { isMocked } from "@/src/utils/envs.utils";
 
 // Storage temporaneo per i voucher (in produzione usare un database)
 const usedVouchers = new Set<string>();
 
 // Voucher di test validi
-const TEST_VOUCHERS = [
-  'TEST-PREM-2024',
-  'DEMO-USER-TEST',
-  'FREE-TRIAL-24H'
-];
+const TEST_VOUCHERS = isMocked
+  ? ["TEST-PREM-2025", "DEMO-USER-TEST", "FREE-TRIAL-24H"]
+  : [];
 
 export async function POST(request: NextRequest) {
   try {
     const body: VerifyVoucherRequest = await request.json();
     const { code } = body;
 
-    if (!code || typeof code !== 'string') {
+    if (!code || typeof code !== "string") {
       return NextResponse.json(
         {
           success: false,
@@ -34,7 +40,7 @@ export async function POST(request: NextRequest) {
     // Verifica il formato del voucher (XXXX-XXXX-XXXX) o se è un voucher di test
     const voucherFormat = /^[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}$/;
     const isTestVoucher = TEST_VOUCHERS.includes(voucherCode);
-    
+
     if (!voucherFormat.test(voucherCode) && !isTestVoucher) {
       return NextResponse.json({
         success: true,
@@ -62,7 +68,7 @@ export async function POST(request: NextRequest) {
 
     // Per i voucher di test o quelli con formato corretto, simuliamo che siano validi
     // In produzione, dovresti fare una verifica reale nel database
-    
+
     const now = Date.now();
     const expiresAt = now + PremiumConstants.ACCESS_DURATION;
 
@@ -87,7 +93,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(response);
   } catch (error) {
     console.error("Error verifying voucher:", error);
-    
+
     return NextResponse.json(
       {
         success: false,

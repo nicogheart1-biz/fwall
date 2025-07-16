@@ -84,7 +84,7 @@ export default function RootLayout({
         <body className={clsx(rubik.className, "overflow-x-hidden")}>
           <SkipContentComponent />
           <Header />
-          <main id="MainContent" className="relative min-h-screen pt-20">
+          <main id="MainContent" className="relative min-h-screen pt-24">
             <AdsColumn position="left" />
             {children}
             <AdsColumn position="right" />

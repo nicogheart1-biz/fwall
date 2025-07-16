@@ -3,7 +3,14 @@
 import { PremiumVideoI } from "@/src/types/premium.types";
 import Image from "next/image";
 import Link from "next/link";
-import { ClockIcon, LockClosedIcon, StarIcon } from "@heroicons/react/24/outline";
+import {
+  ClockIcon,
+  LockClosedIcon,
+  StarIcon,
+} from "@heroicons/react/24/outline";
+import clsx from "clsx";
+import { Routes } from "@/src/routes";
+import { universalBtoa } from "@/src/utils/common.utils";
 
 type PremiumVideoCardI = {
   video: PremiumVideoI;
@@ -22,9 +29,10 @@ const PremiumVideoCard = (props: PremiumVideoCardI) => {
           src={cover}
           width={300}
           height={200}
-          className={`h-48 w-full object-cover transition duration-500 group-hover:scale-105 ${
+          className={clsx(
+            "h-48 w-full object-cover transition duration-500 group-hover:scale-105",
             blur ? "blur-sm" : ""
-          }`}
+          )}
           priority={false}
         />
 
@@ -34,7 +42,7 @@ const PremiumVideoCard = (props: PremiumVideoCardI) => {
         {/* Badge Premium */}
         <div className="absolute top-2 left-2">
           <span className="inline-flex items-center gap-1 rounded-full bg-secondary-500 px-2 py-1 text-xs font-semibold text-white-100">
-            <StarIcon className="h-3 w-3" />
+            <StarIcon className="size-3" />
             PREMIUM
           </span>
         </div>
@@ -43,7 +51,7 @@ const PremiumVideoCard = (props: PremiumVideoCardI) => {
         {duration && (
           <div className="absolute bottom-2 right-2">
             <span className="inline-flex items-center gap-1 rounded bg-black/70 px-2 py-1 text-xs text-white-100">
-              <ClockIcon className="h-3 w-3" />
+              <ClockIcon className="size-3" />
               {duration}
             </span>
           </div>
@@ -85,9 +93,12 @@ const PremiumVideoCard = (props: PremiumVideoCardI) => {
 
       {!blur && (
         <Link
-          href={`/video/${id}`}
+          href={`${Routes.premiumAccessVideo.url}${encodeURIComponent(
+            universalBtoa(`${provider};${id}`)
+          )}`}
+          target="_blank"
           className="absolute inset-0"
-          aria-label={`Guarda ${title}`}
+          aria-label={`Watch ${title}`}
         />
       )}
     </div>

@@ -85,7 +85,7 @@ export const PremiumConstants = {
 
 ### Voucher di Test
 ```
-TEST-PREM-2024
+TEST-PREM-2025
 DEMO-USER-TEST  
 FREE-TRIAL-24H
 ```

@@ -137,7 +137,7 @@ const Footer = () => {
         </ul>
 
         <div className="w-full mx-auto mt-6 inline-flex justify-center items-center gap-6 leading-relaxed text-xs text-white-900">
-          <span>&#169;&nbsp;{AppConstants.title} &nbsp;2024</span>
+          <span>&#169;&nbsp;{AppConstants.title} &nbsp;2025</span>
           <Link href={Routes.rta.url}>
             <Image
               alt={Routes.rta.label}

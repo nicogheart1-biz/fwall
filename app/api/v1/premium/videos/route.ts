@@ -3,12 +3,7 @@ import { PremiumVideosResponse, PremiumVideoI } from "@/src/types/premium.types"
 import premiumVideosMock from "@/mock/premium/videos.json";
 
 export async function GET(request: NextRequest) {
-  try {
-    // In un'implementazione reale, qui potresti:
-    // 1. Verificare che l'utente abbia accesso premium
-    // 2. Recuperare i video dal database
-    // 3. Filtrarli in base ai permessi
-    
+  try {    
     // Cast dei video mock al tipo corretto
     const videos = premiumVideosMock.map(video => ({
       ...video,

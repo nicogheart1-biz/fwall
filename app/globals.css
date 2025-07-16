@@ -14,3 +14,7 @@ body {
   background-color: rgb(var(--background-rgb));
   color: rgb(var(--font-rgb));
 }
+
+.share-video-btn {
+  display: none !important;
+}
