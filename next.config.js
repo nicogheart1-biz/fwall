@@ -4,6 +4,20 @@ const { PHASE_DEVELOPMENT_SERVER } = require("next/constants");
 const commonConfig = {
   reactStrictMode: false,
   poweredByHeader: false,
+  // Configurazione per Tailwind CSS 4 e lightningcss su Vercel
+  experimental: {
+    esmExternals: 'loose',
+  },
+  webpack: (config, { isServer }) => {
+    // Fix per lightningcss su Vercel
+    if (!isServer) {
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        fs: false,
+      };
+    }
+    return config;
+  },
   images: {
     remotePatterns: [
       {
