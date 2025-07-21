@@ -11,6 +11,8 @@ import {
 import clsx from "clsx";
 import { Routes } from "@/src/routes";
 import { universalBtoa } from "@/src/utils/common.utils";
+import { AnalyticsUtils } from "@/src/utils/analytics.utils";
+import { AnalyticsEventEnum } from "@/src/enums/analytics.enums";
 
 type PremiumVideoCardI = {
   video: PremiumVideoI;
@@ -21,9 +23,20 @@ const PremiumVideoCard = (props: PremiumVideoCardI) => {
   const { video, blur = false } = props;
   const { id, title, cover, duration, provider } = video;
 
+  const handleClick = () => {
+    // Log premium content view attempt
+    AnalyticsUtils.logEvent(AnalyticsEventEnum.PREMIUM_CONTENT_VIEW, {
+      video_id: id,
+      title: title,
+      provider: provider,
+      has_blur: blur ? 1 : 0,
+      access_type: blur ? "denied" : "granted",
+    });
+  };
+
   return (
     <div className="group relative block overflow-hidden rounded-lg bg-white-100 shadow-sm transition-transform hover:scale-105">
-      <div className="relative">
+      <div className="relative" onClick={handleClick}>
         <Image
           alt={title}
           src={cover}

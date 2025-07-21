@@ -19,6 +19,8 @@ import { usePremium } from "@/src/hooks/usePremium";
 import { useAppStore } from "@/src/store/app/app.store";
 import { ToastStatusEnum } from "@/src/enums/toast.enum";
 import { CreditCardIcon, StarIcon } from "@heroicons/react/24/solid";
+import { AnalyticsUtils } from "@/src/utils/analytics.utils";
+import { AnalyticsEventEnum } from "@/src/enums/analytics.enums";
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
@@ -65,6 +67,12 @@ const PremiumCheckoutForm = (props: PremiumCheckoutFormI) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    // Log payment started
+    AnalyticsUtils.logEvent(AnalyticsEventEnum.PREMIUM_PAYMENT_STARTED, {
+      price: PremiumConstants.DAILY_ACCESS_PRICE / 100,
+      method: "stripe_card",
+    });
+
     if (!stripe || !elements || !clientSecret) {
       return;
     }
@@ -89,6 +97,12 @@ const PremiumCheckoutForm = (props: PremiumCheckoutFormI) => {
       );
 
       if (error) {
+        // Log payment failed
+        AnalyticsUtils.logEvent(AnalyticsEventEnum.PREMIUM_PAYMENT_FAILED, {
+          error: error.message || "Unknown error",
+          price: PremiumConstants.DAILY_ACCESS_PRICE / 100,
+        });
+        
         showToast({
           type: ToastStatusEnum.ERROR,
           message: error.message || PremiumMessages.PAYMENT_ERROR,
@@ -100,6 +114,12 @@ const PremiumCheckoutForm = (props: PremiumCheckoutFormI) => {
           });
 
           if (voucherResponse.success && voucherResponse.voucher) {
+            // Log voucher created successfully
+            AnalyticsUtils.logEvent(AnalyticsEventEnum.PREMIUM_VOUCHER_CREATED, {
+              voucher_code: voucherResponse.voucher.code,
+              payment_intent_id: paymentIntent.id,
+            });
+            
             showToast({
               type: ToastStatusEnum.SUCCESS,
               message: PremiumMessages.PAYMENT_SUCCESS,

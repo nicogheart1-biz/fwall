@@ -14,6 +14,8 @@ import { StarIcon, LockClosedIcon } from "@heroicons/react/24/solid";
 import { PremiumConstants } from "@/src/constants/premium.constants";
 import { useRouter } from "next/navigation";
 import { Routes } from "@/src/routes";
+import { AnalyticsUtils } from "@/src/utils/analytics.utils";
+import { AnalyticsEventEnum } from "@/src/enums/analytics.enums";
 
 const PremiumPageClient = () => {
   const { hasAccess, isLoading: premiumLoading } = usePremium();
@@ -22,6 +24,13 @@ const PremiumPageClient = () => {
   const [isLoadingVideos, setIsLoadingVideos] = useState(false);
   const [showVoucherSuccess, setShowVoucherSuccess] = useState(false);
   const router = useRouter();
+
+  useEffect(() => {
+    // Log premium page visit
+    AnalyticsUtils.logEvent(AnalyticsEventEnum.PREMIUM_PAGE_VISIT, {
+      has_access: hasAccess ? 1 : 0,
+    });
+  }, [hasAccess]);
 
   useEffect(() => {
     const fetchPremiumVideos = async () => {
@@ -33,6 +42,10 @@ const PremiumPageClient = () => {
         }
       } catch (error) {
         console.error("Errore nel caricamento dei video premium:", error);
+        AnalyticsUtils.logEvent(AnalyticsEventEnum.API_ERROR, {
+          endpoint: "premium_videos",
+          error: error instanceof Error ? error.message : "Unknown error",
+        });
       } finally {
         setIsLoadingVideos(false);
       }
@@ -47,16 +60,34 @@ const PremiumPageClient = () => {
   ];
 
   const handleTabChange = (tab: any) => {
-    setActiveTab(tab.label === "Preview" ? "preview" : "purchase");
+    const newTab = tab.label === "Preview" ? "preview" : "purchase";
+    setActiveTab(newTab);
+    
+    // Log tab change
+    AnalyticsUtils.logEvent(AnalyticsEventEnum.PREMIUM_PAGE_VISIT, {
+      tab: newTab,
+      has_access: hasAccess ? 1 : 0,
+    });
   };
 
   const handlePurchaseSuccess = (voucherCode: string) => {
     setShowVoucherSuccess(true);
     setActiveTab("preview");
+    
+    // Log successful purchase
+    AnalyticsUtils.logEvent(AnalyticsEventEnum.PREMIUM_PAYMENT_SUCCESS, {
+      voucher_code: voucherCode,
+      price: PremiumConstants.DAILY_ACCESS_PRICE / 100,
+    });
   };
 
   const handleVoucherSuccess = () => {
     setShowVoucherSuccess(true);
+    
+    // Log successful voucher redemption
+    AnalyticsUtils.logEvent(AnalyticsEventEnum.PREMIUM_ACCESS_GRANTED, {
+      method: "voucher_code",
+    });
   };
 
   if (premiumLoading) {

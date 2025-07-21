@@ -1,6 +1,10 @@
+"use client";
+
 import { Routes } from "@/src/routes";
 import { capitalize } from "@/src/utils/common.utils";
 import Link from "next/link";
+import { AnalyticsUtils } from "@/src/utils/analytics.utils";
+import { AnalyticsEventEnum } from "@/src/enums/analytics.enums";
 
 type TagsComponentI = {
   tags: string[];
@@ -8,6 +12,15 @@ type TagsComponentI = {
 
 const TagsComponent = (props: TagsComponentI) => {
   const { tags = [] } = props;
+
+  const handleTagClick = (tag: string) => {
+    // Log tag click
+    AnalyticsUtils.logEvent(AnalyticsEventEnum.TAG_CLICK, {
+      tag_name: tag,
+      tag_normalized: tag.toLowerCase().replaceAll(" ", "-"),
+    });
+  };
+
   return (
     <section
       className="mx-auto max-w-screen-xl py-4 px-4 sm:px-6 lg:px-8"
@@ -21,6 +34,7 @@ const TagsComponent = (props: TagsComponentI) => {
             href={`${Routes.tags.url}/${tag
               .toLowerCase()
               .replaceAll(" ", "-")}`}
+            onClick={() => handleTagClick(tag)}
           >
             <span className="bg-background-500 text-secondary-100 py-2 px-4 rounded-lg transition hover:bg-background-500/50 hover:text-secondary-500">
               {capitalize(tag)}

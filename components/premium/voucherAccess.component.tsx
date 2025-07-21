@@ -8,6 +8,8 @@ import { PremiumMessages } from "@/src/constants/premium.constants";
 import { usePremium } from "@/src/hooks/usePremium";
 import { useAppStore } from "@/src/store/app/app.store";
 import { ToastStatusEnum } from "@/src/enums/toast.enum";
+import { AnalyticsUtils } from "@/src/utils/analytics.utils";
+import { AnalyticsEventEnum } from "@/src/enums/analytics.enums";
 
 type VoucherAccessI = {
   onSuccess?: () => void;
@@ -48,6 +50,11 @@ const VoucherAccess = (props: VoucherAccessI) => {
       });
 
       if (response.success && response.valid) {
+        // Log successful voucher verification
+        AnalyticsUtils.logEvent(AnalyticsEventEnum.PREMIUM_VOUCHER_VERIFIED, {
+          voucher_code: voucherCode.trim(),
+        });
+        
         // Marca il voucher come usato
         PremiumService.markVoucherAsUsed(voucherCode);
 
@@ -65,6 +72,12 @@ const VoucherAccess = (props: VoucherAccessI) => {
         // Reset del form
         setVoucherCode("");
       } else {
+        // Log invalid voucher attempt
+        AnalyticsUtils.logEvent(AnalyticsEventEnum.PREMIUM_VOUCHER_INVALID, {
+          voucher_code: voucherCode.trim(),
+          error_message: response.message || "Invalid voucher",
+        });
+        
         showToast({
           type: ToastStatusEnum.ERROR,
           message: response.message || PremiumMessages.INVALID_VOUCHER,

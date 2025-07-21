@@ -12,6 +12,7 @@ import clsx from "clsx";
 import { isMocked } from "@/src/utils/envs.utils";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import ClientComponentsWrapper from "@/components/@core/ClientComponentsWrapper/ClientComponentsWrapper";
+import PageAnalytics from "@/components/@core/analytics/PageAnalytics";
 
 const rubik = Rubik({ subsets: ["latin"] });
 
@@ -53,6 +54,7 @@ export default function RootLayout({
         <body className={clsx(rubik.className, "overflow-x-hidden")}>
           <Header />
           <ClientComponentsWrapper isMocked={isMocked}>
+            <PageAnalytics />
             {children}
           </ClientComponentsWrapper>
           <Footer />
