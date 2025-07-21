@@ -1,12 +1,8 @@
 import { VideoProvidersService } from "@/src/services/videoProviders.service";
 import WallComponent from "@/components/wall/wall.component";
 import VideoProviders from "@/mock/videoProviders/videoProviders.json";
-import dynamic from "next/dynamic";
 import TagList from "@/mock/tags/tags.json";
-
-const PornhubLocal = dynamic(() => import("./pornhubLocal.component"), {
-  ssr: false,
-});
+import PornhubLocalClient from "./pornhubLocalClient.component";
 
 const latest = {
   ordering: ["newest"],
@@ -66,7 +62,7 @@ export default async function LocalPornhub() {
 
   return (
     <>
-      <PornhubLocal contents={contents.pornhub} />
+      <PornhubLocalClient contents={contents.pornhub} />
       <WallComponent contents={contents} title="Local Pornhub" />
     </>
   );

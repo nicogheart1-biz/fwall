@@ -1,7 +1,6 @@
 import { CmsService } from "@/src/services";
 import { CmsPageI } from "@/src/types/cms.types";
-import { calcDelay, capitalize } from "@/src/utils/common.utils";
-import { FrequencyEnum } from "@/src/enums/common.enums";
+import { capitalize } from "@/src/utils/common.utils";
 import { cache } from "react";
 import { VideoProvidersService } from "@/src/services/videoProviders.service";
 import WallComponent from "@/components/wall/wall.component";
@@ -12,7 +11,7 @@ import { SsrRedirect } from "@/src/utils/ssr.utils";
 import { AppConstants } from "@/src/constants";
 
 // cache revalidation
-export const revalidate = calcDelay(6, FrequencyEnum.HOURS);
+export const revalidate = 21600; // 6 hours
 
 const getCmsData = cache(async () => {
   try {
@@ -74,9 +73,10 @@ const getVideosWall = cache(async (searchParam: string) => {
 export async function generateMetadata({
   params,
 }: {
-  params: { tag: string };
+  params: Promise<{ tag: string }>;
 }) {
-  const tag = params.tag.replaceAll("-", " ");
+  const { tag: rawTag } = await params;
+  const tag = rawTag.replaceAll("-", " ");
   if (TagList.tags.indexOf(tag) !== -1) {
     return {
       title: `${capitalize(tag)} Videos`,
@@ -86,11 +86,14 @@ export async function generateMetadata({
 }
 
 export async function generateStaticParams() {
-  return TagList.tags;
+  return TagList.tags.map((tag: string) => ({
+    tag: tag.replaceAll(" ", "-"),
+  }));
 }
 
-export default async function Tag({ params }: { params: { tag: string } }) {
-  const tag = params.tag.replaceAll("-", " ");
+export default async function Tag({ params }: { params: Promise<{ tag: string }> }) {
+  const { tag: rawTag } = await params;
+  const tag = rawTag.replaceAll("-", " ");
   if (TagList.tags.indexOf(tag) === -1) {
     SsrRedirect("/404");
     return null;
@@ -105,7 +108,7 @@ export default async function Tag({ params }: { params: { tag: string } }) {
 
   if (!contents.pornhub?.length) {
     contents.pornhub = (
-      await import(`@/mock/videoProviders/pornhub/tag/${params.tag}.json`)
+      await import(`@/mock/videoProviders/pornhub/tag/${rawTag}.json`)
     ).videos;
   }
 
@@ -115,7 +118,7 @@ export default async function Tag({ params }: { params: { tag: string } }) {
       <WallComponent
         contents={contents}
         title={`"${capitalize(tag)}" Videos`}
-        page={`tag/${params.tag}`}
+        page={`tag/${rawTag}`}
       />
     </>
   );

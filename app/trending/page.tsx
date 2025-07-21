@@ -1,7 +1,5 @@
 import { CmsService } from "@/src/services";
 import { CmsPageI } from "@/src/types/cms.types";
-import { calcDelay } from "@/src/utils/common.utils";
-import { FrequencyEnum } from "@/src/enums/common.enums";
 import { cache } from "react";
 import { VideoProvidersService } from "@/src/services/videoProviders.service";
 import WallComponent from "@/components/wall/wall.component";
@@ -44,7 +42,7 @@ const videoProviders = {
 };
 
 // cache revalidation
-export const revalidate = calcDelay(4, FrequencyEnum.HOURS);
+export const revalidate = 14400; // 4 hours
 
 export const metadata: Metadata = {
   title: Routes.trending.title,
