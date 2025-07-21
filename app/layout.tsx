@@ -13,6 +13,8 @@ import clsx from "clsx";
 import { calcDelay } from "@/src/utils/common.utils";
 import { FrequencyEnum } from "@/src/enums/common.enums";
 import { AdsBlockTypeEnum } from "@/src/enums/ads.enums";
+import { isMocked } from "@/src/utils/envs.utils";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const AdultsBanner = dynamic(
   () => import("@/components/@core/AdultsBanner/adultsBanner.component"),
@@ -95,6 +97,7 @@ export default function RootLayout({
           <ToastManagerComponent />
           <CookieBannerComponent />
           <AdultsBanner />
+          {!isMocked ? <SpeedInsights /> : null}
         </body>
       </html>
     </>
