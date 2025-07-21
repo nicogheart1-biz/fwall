@@ -33,6 +33,12 @@ const AdsColumn = dynamic(
     ssr: false,
   }
 );
+const PremiumHeader = dynamic(
+  () => import("@/components/premium/premiumHeader.component"),
+  {
+    ssr: false,
+  }
+);
 
 interface ClientComponentsWrapperProps {
   isMocked: boolean;
@@ -46,6 +52,7 @@ export default function ClientComponentsWrapper({
   return (
     <>
       <SkipContentComponent />
+      <PremiumHeader />
       <main id="MainContent" className="relative min-h-screen pt-24">
         {!isMocked && <AdsColumn position="left" />}
         {children}

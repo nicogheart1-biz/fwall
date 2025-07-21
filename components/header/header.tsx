@@ -5,10 +5,6 @@ import { Logo } from "@/components";
 import { AppConstants } from "@/src/constants";
 import MenuMobileClient from "@/components/menu/menuMobileClient";
 
-const PremiumHeader = dynamic(() => import("@/components/premium/premiumHeader.component"), {
-  ssr: false,
-});
-
 const Header = () => {
   return (
     <header className="fixed top-0 left-0 w-full shadow z-50 bg-background-900">
@@ -33,7 +29,6 @@ const Header = () => {
           </div>
         </div>
       </div>
-      <PremiumHeader />
     </header>
   );
 };

@@ -1,11 +1,9 @@
 import { Routes } from "@/src/routes";
 import { Metadata } from "next";
-import { FrequencyEnum } from "@/src/enums/common.enums";
-import { calcDelay } from "@/src/utils/common.utils";
 import PremiumAccessClient from "./access.client";
 
 // cache revalidation
-export const revalidate = calcDelay(30, FrequencyEnum.MINUTES);
+export const revalidate = 1800; // 30 minutes
 
 export const metadata: Metadata = {
     title: Routes.premiumAccess.title,

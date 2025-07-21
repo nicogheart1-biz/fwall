@@ -37,12 +37,13 @@ const getVideosWall = cache((videoId: string) => {
 export default async function PremiumVideo({
   params,
 }: {
-  params: { videoId: string };
+  params: Promise<{ videoId: string }>;
 }) {
-  const [provider, videoId] = universalAtob(
-    decodeURIComponent(params.videoId)
+  const { videoId } = await params;
+  const [provider, videoIdDecoded] = universalAtob(
+    decodeURIComponent(videoId)
   ).split(";");
-  const videoDetails = (await getVideoDetails(provider, videoId)) as VideoI[];
+  const videoDetails = (await getVideoDetails(provider, videoIdDecoded)) as VideoI[];
   // console.log("videoDetails", videoDetails);
 
   if (!videoDetails || !videoDetails?.length) {
@@ -50,7 +51,7 @@ export default async function PremiumVideo({
     return null;
   }
 
-  const suggestedContents = (await getVideosWall(videoId)) as {
+  const suggestedContents = (await getVideosWall(videoIdDecoded)) as {
     [videoProvider: string]: any;
   };
 
