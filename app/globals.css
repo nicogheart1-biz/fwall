@@ -1,6 +1,47 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  --color-background-100: #6a7282;
+  --color-background-200: #515b6d;
+  --color-background-300: #384358;
+  --color-background-500: #06142e;
+  --color-background-600: #051229;
+  --color-background-700: #051025;
+  --color-background-900: #020812;
+  --color-background-absolute: #02060e;
+
+  --color-primary-100: #918ba3;
+  --color-primary-200: #7e7894;
+  --color-primary-300: #6c6585;
+  --color-primary-500: #473e66;
+  --color-primary-600: #40385c;
+  --color-primary-700: #393252;
+  --color-primary-900: #2b253d;
+
+  --color-secondary-100: #d7b5d4;
+  --color-secondary-200: #d1a8cd;
+  --color-secondary-300: #ca9cc6;
+  --color-secondary-500: #bd83b8;
+  --color-secondary-600: #aa76a6;
+  --color-secondary-700: #976993;
+  --color-secondary-900: #714f6e;
+
+  --color-white-100: #f9e7e9;
+  --color-white-200: #f8e3e6;
+  --color-white-300: #f7dfe2;
+  --color-white-500: #f5d7db;
+  --color-white-600: #ddc2c5;
+  --color-white-700: #c4acaf;
+  --color-white-900: #938183;
+  --color-pureWhite: #faebed;
+
+  --height-112: 26rem;
+  --height-128: 30rem;
+  --height-144: 36rem;
+  --height-160: 40rem;
+  --height-176: 44rem;
+  --height-192: 48rem;
+}
 
 :root {
   --font-rgb: 254, 254, 254;
