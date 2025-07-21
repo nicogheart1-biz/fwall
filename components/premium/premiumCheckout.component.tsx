@@ -79,7 +79,6 @@ const PremiumCheckoutForm = (props: PremiumCheckoutFormI) => {
     }
 
     try {
-      // Conferma il pagamento
       const { error, paymentIntent } = await stripe.confirmCardPayment(
         clientSecret,
         {
@@ -95,7 +94,6 @@ const PremiumCheckoutForm = (props: PremiumCheckoutFormI) => {
           message: error.message || PremiumMessages.PAYMENT_ERROR,
         });
       } else if (paymentIntent.status === "succeeded") {
-        // Pagamento riuscito, ora creiamo il voucher
         try {
           const voucherResponse = await PremiumService.createVoucher({
             paymentIntentId: paymentIntent.id,
@@ -107,7 +105,6 @@ const PremiumCheckoutForm = (props: PremiumCheckoutFormI) => {
               message: PremiumMessages.PAYMENT_SUCCESS,
             });
 
-            // Attiva automaticamente l'accesso se possibile
             try {
               const accessResponse = await PremiumService.verifyVoucher({
                 code: voucherResponse.voucher.code,
@@ -119,7 +116,6 @@ const PremiumCheckoutForm = (props: PremiumCheckoutFormI) => {
               }
             } catch (accessError) {
               console.error("Errore nell'attivazione automatica:", accessError);
-              // Anche se l'attivazione automatica fallisce, il voucher è comunque valido
               onSuccess?.(voucherResponse.voucher.code);
             }
           } else {
@@ -217,7 +213,7 @@ const PremiumCheckoutForm = (props: PremiumCheckoutFormI) => {
 
       <div className="mt-4 text-xs text-gray-500 text-center">
         <p>Secure Payment via Stripe</p>
-        <p>You&apos;receive a voucher after completing the payment</p>
+        <p>You&apos;ll receive a voucher after completing the payment</p>
       </div>
     </div>
   );

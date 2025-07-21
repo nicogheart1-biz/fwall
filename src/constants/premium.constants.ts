@@ -1,10 +1,12 @@
 export const PremiumConstants = {
-  // Prezzo dell'accesso giornaliero in centesimi ($0.99 = 99 centesimi)
-  DAILY_ACCESS_PRICE: 99,
+  // Prezzo dell'accesso giornaliero in centesimi ($1.49 = 149 centesimi)
+  DAILY_ACCESS_PRICE: 149,
   // Valuta
   CURRENCY: 'usd',
   // Durata dell'accesso in millisecondi (24 ore)
   ACCESS_DURATION: 24 * 60 * 60 * 1000,
+  // Durata di validità del voucher in millisecondi (30 giorni)
+  VOUCHER_VALIDITY_DURATION: 30 * 24 * 60 * 60 * 1000,
   // Chiave localStorage per la sessione premium
   PREMIUM_SESSION_KEY: 'fwall_premium_session',
   // Chiave localStorage per i voucher usati

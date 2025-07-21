@@ -38,8 +38,7 @@ export const PremiumService = {
         request
       )) as VerifyVoucherResponse;
       
-      // Se il voucher è valido, salva la sessione nel localStorage
-      if (response.success && response.valid && response.session) {
+      if (response?.success && response?.valid && response?.session) {
         PremiumService.saveSession(response.session);
       }
       
