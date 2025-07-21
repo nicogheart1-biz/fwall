@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { CreateVoucherRequest, CreateVoucherResponse, PremiumVoucherI } from "@/src/types/premium.types";
 import { PremiumConstants } from "@/src/constants/premium.constants";
+import { premiumDatabaseService } from "@/src/services/premium.database.service";
+import { PaymentService } from "@/src/services/payment.service";
 
 export async function POST(request: NextRequest) {
   try {
@@ -13,22 +15,100 @@ export async function POST(request: NextRequest) {
           success: false,
           voucher: null,
           code: 400,
+          message: "Payment Intent ID è obbligatorio",
         },
         { status: 400 }
       );
     }
 
-    // In un'implementazione reale, qui dovresti:
     // 1. Verificare che il payment intent sia effettivamente riuscito con Stripe
+    try {
+      const paymentVerification = await PaymentService.verifyPaymentIntent(paymentIntentId);
+      
+      if (!paymentVerification.success) {
+        return NextResponse.json(
+          {
+            success: false,
+            voucher: null,
+            code: 400,
+            message: "Payment Intent non valido",
+          },
+          { status: 400 }
+        );
+      }
+
+      // Verifica che il pagamento sia stato completato con successo
+      if (!paymentVerification.data.succeeded || paymentVerification.data.status !== 'succeeded') {
+        return NextResponse.json(
+          {
+            success: false,
+            voucher: null,
+            code: 400,
+            message: "Il pagamento non è stato completato con successo",
+          },
+          { status: 400 }
+        );
+      }
+
+      // Verifica che l'importo corrisponda al prezzo premium
+      if (paymentVerification.data.amount !== PremiumConstants.DAILY_ACCESS_PRICE) {
+        return NextResponse.json(
+          {
+            success: false,
+            voucher: null,
+            code: 400,
+            message: "L'importo del pagamento non corrisponde al prezzo premium",
+          },
+          { status: 400 }
+        );
+      }
+
+    } catch (error) {
+      console.error("Errore durante la verifica del payment intent:", error);
+      return NextResponse.json(
+        {
+          success: false,
+          voucher: null,
+          code: 500,
+          message: "Errore durante la verifica del pagamento",
+        },
+        { status: 500 }
+      );
+    }
+
     // 2. Controllare che non sia già stato usato per creare un voucher
-    // 3. Salvare il voucher nel database
+    try {
+      const isAlreadyUsed = await premiumDatabaseService.isPaymentIntentAlreadyUsed(paymentIntentId);
+      
+      if (isAlreadyUsed) {
+        return NextResponse.json(
+          {
+            success: false,
+            voucher: null,
+            code: 409,
+            message: "Questo pagamento è già stato utilizzato per creare un voucher",
+          },
+          { status: 409 }
+        );
+      }
+    } catch (error) {
+      console.error("Errore durante la verifica dell'utilizzo del payment intent:", error);
+      return NextResponse.json(
+        {
+          success: false,
+          voucher: null,
+          code: 500,
+          message: "Errore durante la verifica dell'utilizzo del pagamento",
+        },
+        { status: 500 }
+      );
+    }
     
-    // Per ora creiamo un voucher mock
     const now = Date.now();
-    const expiresAt = now + PremiumConstants.ACCESS_DURATION;
+    const expiresAt = now + PremiumConstants.VOUCHER_VALIDITY_DURATION; // Durata validità voucher (diversa dall'accesso)
     
-    // Genera un codice voucher univoco (12 caratteri alfanumerici)
-    const voucherCode = generateVoucherCode();
+    // Genera un codice voucher univoco
+    const voucherCode = premiumDatabaseService.generateVoucherCode();
     
     const voucher: PremiumVoucherI = {
       code: voucherCode,
@@ -38,8 +118,20 @@ export async function POST(request: NextRequest) {
       paymentIntentId,
     };
 
-    // In un'implementazione reale, salveresti il voucher nel database qui
-    // await saveVoucherToDatabase(voucher);
+    // Salva il voucher nel database Firebase
+    try {
+      await premiumDatabaseService.createVoucher(voucher);
+    } catch (error) {
+      console.error("Errore durante la creazione del voucher:", error);
+      return NextResponse.json(
+        {
+          success: false,
+          voucher: null,
+          code: 500,
+        },
+        { status: 500 }
+      );
+    }
 
     const response: CreateVoucherResponse = {
       success: true,
@@ -60,14 +152,4 @@ export async function POST(request: NextRequest) {
       { status: 500 }
     );
   }
-}
-
-function generateVoucherCode(): string {
-  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-  let result = '';
-  for (let i = 0; i < 12; i++) {
-    result += chars.charAt(Math.floor(Math.random() * chars.length));
-  }
-  // Formato: XXXX-XXXX-XXXX
-  return `${result.slice(0, 4)}-${result.slice(4, 8)}-${result.slice(8, 12)}`;
 }

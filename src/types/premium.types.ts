@@ -18,8 +18,9 @@ export type CreateVoucherRequest = {
 
 export type CreateVoucherResponse = {
   success: boolean;
-  voucher: PremiumVoucherI;
+  voucher: PremiumVoucherI | null;
   code: number;
+  message?: string;
 };
 
 export type VerifyVoucherRequest = {

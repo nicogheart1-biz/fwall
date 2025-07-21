@@ -1,19 +1,19 @@
 {
   "rules": {
-    "users": {
-      "$uid": {
-        ".read": "auth != null && $uid === auth.uid",
-        ".write": "auth != null && $uid === auth.uid &&(!root.child('metadata').child(auth.uid).child('revokeTime').exists() || auth.token.auth_time > root.child('metadata').child(auth.uid).child('revokeTime').val())",
-        "name": {
-          ".validate": "newData.isString() && newData.val().length < 30"
-        },
-        "surname": {
-          ".validate": "newData.isString() && newData.val().length < 30"
-        },
-        "birthday": {
-          ".validate": "newData.isString() && newData.val().length === 10"
-        },
-        "$other": { ".validate": false }
+    "vouchers": {
+      ".indexOn": ["used", "expiresAt"],
+      ".read": "auth != null",
+      ".write": "auth != null",
+      "$voucherCode": {
+        ".validate": "newData.hasChildren(['code', 'createdAt', 'expiresAt', 'used', 'paymentIntentId']) && newData.child('code').isString() && newData.child('createdAt').isNumber() && newData.child('expiresAt').isNumber() && newData.child('used').isBoolean() && newData.child('paymentIntentId').isString()"
+      }
+    },
+    "premium_sessions": {
+      ".indexOn": ["expiresAt"],
+      ".read": "auth != null",
+      ".write": "auth != null",
+      "$sessionId": {
+        ".validate": "newData.hasChildren(['accessCode', 'expiresAt', 'startedAt']) && newData.child('accessCode').isString() && newData.child('expiresAt').isNumber() && newData.child('startedAt').isNumber()"
       }
     },
     "$other": {

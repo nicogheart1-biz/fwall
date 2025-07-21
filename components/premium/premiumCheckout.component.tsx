@@ -99,7 +99,7 @@ const PremiumCheckoutForm = (props: PremiumCheckoutFormI) => {
             paymentIntentId: paymentIntent.id,
           });
 
-          if (voucherResponse.success) {
+          if (voucherResponse.success && voucherResponse.voucher) {
             showToast({
               type: ToastStatusEnum.SUCCESS,
               message: PremiumMessages.PAYMENT_SUCCESS,
@@ -121,7 +121,7 @@ const PremiumCheckoutForm = (props: PremiumCheckoutFormI) => {
           } else {
             showToast({
               type: ToastStatusEnum.ERROR,
-              message:
+              message: voucherResponse.message || 
                 "Pagamento completato ma errore nella generazione del codice di accesso",
             });
           }

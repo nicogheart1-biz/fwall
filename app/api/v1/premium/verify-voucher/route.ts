@@ -9,11 +9,8 @@ import {
   PremiumMessages,
 } from "@/src/constants/premium.constants";
 import { isMocked } from "@/src/utils/envs.utils";
+import { premiumDatabaseService } from "@/src/services/premium.database.service";
 
-// Storage temporaneo per i voucher (in produzione usare un database)
-const usedVouchers = new Set<string>();
-
-// Voucher di test validi
 const TEST_VOUCHERS = isMocked
   ? ["TEST-PREM-2025", "DEMO-USER-TEST", "FREE-TRIAL-24H"]
   : [];
@@ -50,37 +47,100 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    // Controlla se il voucher è già stato usato
-    if (usedVouchers.has(voucherCode)) {
-      return NextResponse.json({
+    // Gestione dei voucher di test in ambiente mock
+    if (isTestVoucher) {
+      const now = Date.now();
+      const expiresAt = now + PremiumConstants.ACCESS_DURATION;
+
+      // Crea una sessione premium per i test
+      const session: PremiumSessionI = {
+        accessCode: voucherCode,
+        expiresAt,
+        startedAt: now,
+      };
+
+      // Salva la sessione nel database
+      try {
+        await premiumDatabaseService.createPremiumSession(session);
+      } catch (error) {
+        console.error("Errore nella creazione della sessione di test:", error);
+      }
+
+      const response: VerifyVoucherResponse = {
         success: true,
-        valid: false,
-        message: PremiumMessages.VOUCHER_ALREADY_USED,
+        valid: true,
+        session,
+        message: PremiumMessages.ACCESS_GRANTED,
         code: 200,
-      });
+      };
+
+      return NextResponse.json(response);
     }
 
-    // In un'implementazione reale, qui dovresti:
-    // 1. Cercare il voucher nel database
-    // 2. Verificare che non sia scaduto
-    // 3. Verificare che non sia già stato usato
-    // 4. Marcarlo come usato
+    // Verifica reale del voucher nel database Firebase
+    let session: PremiumSessionI;
+    
+    try {
+      const voucher = await premiumDatabaseService.getVoucher(voucherCode);
 
-    // Per i voucher di test o quelli con formato corretto, simuliamo che siano validi
-    // In produzione, dovresti fare una verifica reale nel database
+      // Verifica se il voucher esiste
+      if (!voucher) {
+        return NextResponse.json({
+          success: true,
+          valid: false,
+          message: PremiumMessages.INVALID_VOUCHER,
+          code: 200,
+        });
+      }
 
-    const now = Date.now();
-    const expiresAt = now + PremiumConstants.ACCESS_DURATION;
+      // Verifica se il voucher è già stato usato
+      if (voucher.used) {
+        return NextResponse.json({
+          success: true,
+          valid: false,
+          message: PremiumMessages.VOUCHER_ALREADY_USED,
+          code: 200,
+        });
+      }
 
-    // Crea una sessione premium
-    const session: PremiumSessionI = {
-      accessCode: voucherCode,
-      expiresAt,
-      startedAt: now,
-    };
+      // Verifica se il voucher è scaduto
+      if (premiumDatabaseService.isVoucherExpired(voucher)) {
+        return NextResponse.json({
+          success: true,
+          valid: false,
+          message: "Voucher scaduto",
+          code: 200,
+        });
+      }
 
-    // Marca il voucher come usato
-    usedVouchers.add(voucherCode);
+      // Marca il voucher come usato
+      await premiumDatabaseService.markVoucherAsUsed(voucherCode);
+
+      // Crea una sessione premium
+      const now = Date.now();
+      const expiresAt = now + PremiumConstants.ACCESS_DURATION;
+
+      session = {
+        accessCode: voucherCode,
+        expiresAt,
+        startedAt: now,
+      };
+
+      // Salva la sessione nel database
+      await premiumDatabaseService.createPremiumSession(session);
+
+    } catch (error) {
+      console.error("Errore durante la verifica del voucher:", error);
+      return NextResponse.json(
+        {
+          success: false,
+          valid: false,
+          message: "Errore durante la verifica del voucher",
+          code: 500,
+        },
+        { status: 500 }
+      );
+    }
 
     const response: VerifyVoucherResponse = {
       success: true,

@@ -31,7 +31,7 @@ const PremiumVideoCard = (props: PremiumVideoCardI) => {
           height={200}
           className={clsx(
             "h-48 w-full object-cover transition duration-500 group-hover:scale-105",
-            blur ? "blur-sm" : ""
+            blur ? "blur-xs" : ""
           )}
           priority={false}
         />
