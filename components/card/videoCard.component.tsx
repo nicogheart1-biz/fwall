@@ -1,19 +1,15 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 import { ClockIcon } from "@heroicons/react/24/outline";
-import dynamic from "next/dynamic";
 import { Routes } from "@/src/routes";
 import clsx from "clsx";
 import { VideoI } from "@/src/types/videoProvider.types";
 import { universalBtoa } from "@/src/utils/common.utils";
+import VideoCardPreviewClient from "./videoCardPreviewClient.component";
 
 /*const VideoCardOverlay = dynamic(() => import("./videoCardOverlay.component"), {
   ssr: false,
 });*/
-
-const VideoCardPreview = dynamic(() => import("./videoCardPreview.component"), {
-  ssr: false,
-});
 
 type VideoCardI = VideoI & {
   page?: string;
@@ -47,7 +43,7 @@ const VideoCard = (props: VideoCardI) => {
                 //priority={false}
               />
             ) : null}
-            {thumbs?.length ? <VideoCardPreview {...props} /> : null}
+            {thumbs?.length ? <VideoCardPreviewClient {...props} /> : null}
             {provider ? (
               <span className="absolute top-1 right-1 z-40">
                 <img

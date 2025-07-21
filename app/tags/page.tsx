@@ -1,7 +1,5 @@
 import { CmsService } from "@/src/services";
 import { CmsPageI } from "@/src/types/cms.types";
-import { calcDelay } from "@/src/utils/common.utils";
-import { FrequencyEnum } from "@/src/enums/common.enums";
 import { cache } from "react";
 import { PageComponent } from "@/components/page";
 import TagList from "@/mock/tags/tags.json";
@@ -10,7 +8,7 @@ import { Metadata } from "next";
 import { Routes } from "@/src/routes";
 
 // cache revalidation
-export const revalidate = calcDelay(24, FrequencyEnum.HOURS);
+export const revalidate = 86400 // 24 hours;
 
 export const metadata: Metadata = {
   title: Routes.tags.title,

@@ -1,11 +1,7 @@
 import { VideoCard, PremiumVideoCard } from "@/components";
 import React from "react";
-import dynamic from "next/dynamic";
 import { VideoProvidersUtils } from "@/src/utils/videoProviders.utils";
-
-const WallClient = dynamic(() => import("./wallClient.component"), {
-  ssr: false,
-});
+import WallClientWrapper from "./wallClientWrapper.component";
 
 type WallComponentI = {
   contents?: { [videoProvider: string]: any };
@@ -25,7 +21,7 @@ const WallComponent = (props: WallComponentI) => {
 
   return (
     <>
-      <WallClient
+      <WallClientWrapper
         title={title}
         videos={videos}
         contents={contents}

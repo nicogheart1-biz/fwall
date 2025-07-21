@@ -1,14 +1,12 @@
 import { SimplePage } from "@/components";
-import { FrequencyEnum } from "@/src/enums/common.enums";
 import { Routes } from "@/src/routes";
 import { CmsService } from "@/src/services/cms.service";
 import { CmsPageI } from "@/src/types/cms.types";
-import { calcDelay } from "@/src/utils/common.utils";
 import { Metadata } from "next";
 import { cache } from "react";
 
 // cache revalidation
-export const revalidate = calcDelay(12, FrequencyEnum.HOURS);
+export const revalidate = 43200 // 12 hours;
 
 export const metadata: Metadata = {
   title: Routes.privacyPolicy.title,

@@ -1,5 +1,3 @@
-import { calcDelay, capitalize, universalAtob } from "@/src/utils/common.utils";
-import { FrequencyEnum } from "@/src/enums/common.enums";
 import { cache } from "react";
 import { VideoProvidersService } from "@/src/services/videoProviders.service";
 import VideoPageComponent from "./videoPage.component";
@@ -8,9 +6,10 @@ import { SsrRedirect } from "@/src/utils/ssr.utils";
 import { Routes } from "@/src/routes";
 import VideoProviders from "@/mock/videoProviders/videoProviders.json";
 import WallComponent from "@/components/wall/wall.component";
+import { universalAtob, capitalize } from "@/src/utils/common.utils";
 
 // cache revalidation
-export const revalidate = calcDelay(1, FrequencyEnum.HOURS);
+export const revalidate = 3600; // 1 hour
 
 const pageKeywords = ["feet"];
 const videoProviders = {
@@ -68,10 +67,11 @@ const getVideosWall = cache(async () => {
 export async function generateMetadata({
   params,
 }: {
-  params: { videoId: string };
+  params: Promise<{ videoId: string }>;
 }) {
+  const { videoId } = await params;
   const videoDetails = (await getVideoDetails(
-    decodeURIComponent(params.videoId)
+    decodeURIComponent(videoId)
   )) as VideoI[];
   return {
     title: `${capitalize(videoDetails[0].title) || "Feet"} Video`,
@@ -81,10 +81,11 @@ export async function generateMetadata({
 export default async function Video({
   params,
 }: {
-  params: { videoId: string };
+  params: Promise<{ videoId: string }>;
 }) {
+  const { videoId } = await params;
   const videoDetails = (await getVideoDetails(
-    decodeURIComponent(params.videoId)
+    decodeURIComponent(videoId)
   )) as VideoI[];
   //console.log('videoDetails', videoDetails)
 

@@ -7,11 +7,10 @@ import { CmsContentType } from "@/src/enums/cms.enums";
 
 const requestHandler = async (
   req: Request,
-  context: { params: { contentType: CmsContentType; contentId: string } }
+  context: { params: Promise<{ contentType: CmsContentType; contentId: string }> }
 ) => {
-  const {
-    params: { contentType, contentId },
-  } = context;
+  const params = await context.params;
+  const { contentType, contentId } = params;
   const { method } = req;
 
   if (!(contentType && contentId)) {
@@ -78,7 +77,7 @@ const requestHandler = async (
 
 export async function GET(
   req: Request,
-  context: { params: { contentType: CmsContentType; contentId: string } }
+  context: { params: Promise<{ contentType: CmsContentType; contentId: string }> }
 ) {
   return requestHandler(req, context);
 }
