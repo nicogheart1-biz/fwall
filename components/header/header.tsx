@@ -1,13 +1,9 @@
 import Link from "next/link";
-import dynamic from "next/dynamic";
 import { Routes } from "@/src/routes";
 import Menu from "@/components/menu/menu";
 import { Logo } from "@/components";
 import { AppConstants } from "@/src/constants";
-
-const MenuMobile = dynamic(() => import("@/components/menu/menuMobile"), {
-  ssr: false,
-});
+import MenuMobileClient from "@/components/menu/menuMobileClient";
 
 const Header = () => {
   return (
@@ -28,7 +24,7 @@ const Header = () => {
           <div className="flex items-center gap-4">
             <Menu />
             <div className="block sm:hidden">
-              <MenuMobile />
+                            <MenuMobileClient />
             </div>
           </div>
         </div>
