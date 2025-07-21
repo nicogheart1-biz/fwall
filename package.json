@@ -1,6 +1,6 @@
 {
   "name": "fwall",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "engines": {
     "node": ">=22.0.0"
@@ -30,6 +30,7 @@
     "sharp": "^0.34.3",
     "stripe": "^15.5.0",
     "swiper": "^11.2.10",
+    "tailwindcss": "^4.1.11",
     "zustand": "^5.0.6"
   },
   "devDependencies": {
@@ -40,7 +41,6 @@
     "eslint": "^9",
     "eslint-config-next": "^15.4.2",
     "postcss": "^8.5.6",
-    "tailwindcss": "^4.1.11",
     "typescript": "^5.8.3"
   }
 }
