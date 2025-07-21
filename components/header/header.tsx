@@ -4,6 +4,9 @@ import Menu from "@/components/menu/menu";
 import { Logo } from "@/components";
 import { AppConstants } from "@/src/constants";
 import MenuMobileClient from "@/components/menu/menuMobileClient";
+import { PremiumHeader } from "@/components/premium";
+import clsx from "clsx";
+import { FireIcon } from "@heroicons/react/24/solid";
 
 const Header = () => {
   return (
@@ -21,14 +24,26 @@ const Header = () => {
             </Link>
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2">
+            <Link
+              className={clsx(
+                "inline-flex gap-1 items-center flex-nowrap justify-center whitespace-nowrap rounded-lg px-3.5 py-2.5 text-sm transition shadow font-medium relative",
+                "border-2 border-slate-800 text-secondary-200 bg-gradient-to-r from-slate-800 to-slate-600",
+                "hover:text-secondary-500 hover:border-secondary-500 hover:from-slate-600 hover:to-slate-800"
+              )}
+              href={Routes.premium.url}
+            >
+              <FireIcon className="text-red-500 size-4" />
+              <span>{Routes.premium.label}</span>
+            </Link>
             <Menu />
             <div className="block sm:hidden">
-                            <MenuMobileClient />
+              <MenuMobileClient />
             </div>
           </div>
         </div>
       </div>
+      <PremiumHeader />
     </header>
   );
 };

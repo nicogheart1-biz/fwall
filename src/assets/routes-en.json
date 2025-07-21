@@ -189,10 +189,10 @@
     "label": "Premium",
     "title": "Premium Videos",
     "menu": {
-      "mobile": true,
-      "desktop": true,
-      "header": true,
-      "footer": true
+      "mobile": false,
+      "desktop": false,
+      "header": false,
+      "footer": false
     },
     "private": false,
     "roles": [],

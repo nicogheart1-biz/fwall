@@ -9,11 +9,11 @@ import PremiumVideoCard from "@/components/card/premiumVideoCard.component";
 import PremiumGuard from "@/components/premium/premiumGuard.component";
 import {
   StarIcon,
-  ClockIcon,
   ExclamationTriangleIcon,
 } from "@heroicons/react/24/solid";
 import { Routes } from "@/src/routes";
 import Link from "next/link";
+import clsx from "clsx";
 
 const PremiumAccessClient = () => {
   const { hasAccess, formatTimeRemaining } = usePremium();
@@ -21,7 +21,6 @@ const PremiumAccessClient = () => {
   const [isLoadingVideos, setIsLoadingVideos] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Carica i video premium se ha accesso
   useEffect(() => {
     if (hasAccess) {
       const fetchPremiumVideos = async () => {
@@ -50,10 +49,12 @@ const PremiumAccessClient = () => {
     <div className="max-w-7xl mx-auto space-y-8">
       {/* Header con status */}
       <div className="border-2 border-primary-500 bg-gradient-to-r from-secondary-700 to-secondary-900 rounded-lg p-6 shadow">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <div className="flex items-center justify-center w-12 h-12 bg-primary-700 rounded-full">
-              <StarIcon className="size-8" />
+        <div className="flex flex-wrap gap-4">
+          <div className="flex items-center gap-4 w-full">
+            <div className={clsx("flex items-center justify-center w-8 h-8 min-w-8 min-h-8 bg-primary-700 rounded-full",
+              "md:w-12 md:h-12 md:min-w-12 md:min-h-12"
+            )}>
+              <StarIcon className="size-6 min-w-6 min-h-6 md:size-8 md:min-w-8 md:min-h-8" />
             </div>
             <div>
               <h1 className="text-2xl font-bold text-primary-700">
@@ -63,15 +64,6 @@ const PremiumAccessClient = () => {
                 Welcome to the exclusive premium content area!
               </p>
             </div>
-          </div>
-          <div className="text-right">
-            <div className="flex items-center gap-2 text-secondary-100 mb-1">
-              <ClockIcon className="size-4" />
-              <span className="text-sm font-medium">Time remaining</span>
-            </div>
-            <p className="text-lg font-bold text-primary-900">
-              {formatTimeRemaining()}
-            </p>
           </div>
         </div>
       </div>

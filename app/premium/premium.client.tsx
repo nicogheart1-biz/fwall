@@ -12,6 +12,8 @@ import { PremiumVideoI } from "@/src/types/premium.types";
 import { LoaderSpinner } from "@/components";
 import { StarIcon, LockClosedIcon } from "@heroicons/react/24/solid";
 import { PremiumConstants } from "@/src/constants/premium.constants";
+import { useRouter } from "next/navigation";
+import { Routes } from "@/src/routes";
 
 const PremiumPageClient = () => {
   const { hasAccess, isLoading: premiumLoading } = usePremium();
@@ -19,6 +21,7 @@ const PremiumPageClient = () => {
   const [premiumVideos, setPremiumVideos] = useState<PremiumVideoI[]>([]);
   const [isLoadingVideos, setIsLoadingVideos] = useState(false);
   const [showVoucherSuccess, setShowVoucherSuccess] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchPremiumVideos = async () => {
@@ -65,6 +68,7 @@ const PremiumPageClient = () => {
   }
 
   if (hasAccess) {
+    router.push(Routes.premiumAccess.url);
     return (
       <div className="text-center py-12">
         <div className="max-w-md mx-auto">

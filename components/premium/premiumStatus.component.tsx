@@ -11,34 +11,33 @@ type PremiumStatusI = {
 
 const PremiumStatus = (props: PremiumStatusI) => {
   const { onUpgrade } = props;
-  const { hasAccess, formatTimeRemaining, clearAccess } =
-    usePremium();
+  const { hasAccess, formatTimeRemaining, clearAccess } = usePremium();
 
   if (hasAccess) {
     return (
-      <div className="border-2 border-primary-500 bg-gradient-to-r from-secondary-700 to-secondary-900 rounded-lg p-6 shadow">
+      <div className="bg-green-50 border-2 border-green-200 rounded-lg p-6 text-center shadow">
         <div className="flex items-center gap-3 mb-3">
-          <div className="flex items-center justify-center w-10 h-10 bg-primary-200 rounded-full">
+          <div className="flex items-center justify-center w-10 h-10 bg-green-600 rounded-full">
             <StarIcon className="h-6 w-6 text-white" />
           </div>
           <div>
-            <h3 className="text-lg font-semibold text-primary-700">
+            <h3 className="text-lg font-semibold text-green-800">
               Premium Access Active
             </h3>
-            <p className="text-sm text-primary-600">
+            <p className="text-sm text-green-700">
               Welcome to the exclusive area!
             </p>
           </div>
         </div>
 
-        <div className="bg-white-100/50 rounded-lg p-4 mb-4">
+        <div className="bg-green-100 rounded-lg p-4 mb-4">
           <div className="flex items-center gap-2 mb-2">
-            <ClockIcon className="h-4 w-4 text-primary-600" />
-            <span className="text-sm font-medium text-primary-700">
+            <ClockIcon className="h-4 w-4 text-green-600" />
+            <span className="text-sm font-medium text-green-700">
               Remaining Time
             </span>
           </div>
-          <p className="text-lg font-bold text-primary-900">
+          <p className="text-lg font-bold text-green-900">
             {formatTimeRemaining()}
           </p>
         </div>
