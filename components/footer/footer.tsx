@@ -6,6 +6,7 @@ import { Routes } from "@/src/routes";
 import { AppConstants } from "@/src/constants";
 import RtaLogo from "@/src/assets/img/rta-logo.gif";
 import Image from "next/image";
+import { FireIcon } from "@heroicons/react/24/solid";
 
 const Footer = () => {
   return (
@@ -68,6 +69,20 @@ const Footer = () => {
             </Link>
           </li>
         </ul>
+
+        <div className="w-full my-10 text-center">
+          <Link
+              className={clsx(
+                "inline-flex gap-1 items-center flex-nowrap justify-center whitespace-nowrap rounded-lg px-3.5 py-2.5 text-sm shadow font-medium transition relative",
+                "border-2 border-slate-300 text-secondary-700 bg-gradient-to-r from-slate-300 to-slate-100",
+                "hover:text-secondary-900 hover:border-secondary-700 hover:from-slate-100 hover:to-slate-300"
+              )}
+              href={Routes.premium.url}
+            >
+              <FireIcon className="text-red-500 size-4" />
+              <span>{Routes.premium.label}</span>
+            </Link>
+        </div>
 
         <ul className="mt-10 flex justify-center gap-6 md:gap-8">
           <li>

@@ -1,3 +1,5 @@
+"use client";
+
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 import { ClockIcon } from "@heroicons/react/24/outline";
@@ -6,6 +8,8 @@ import clsx from "clsx";
 import { VideoI } from "@/src/types/videoProvider.types";
 import { universalBtoa } from "@/src/utils/common.utils";
 import VideoCardPreviewClient from "./videoCardPreviewClient.component";
+import { AnalyticsUtils } from "@/src/utils/analytics.utils";
+import { AnalyticsEventEnum } from "@/src/enums/analytics.enums";
 
 /*const VideoCardOverlay = dynamic(() => import("./videoCardOverlay.component"), {
   ssr: false,
@@ -18,6 +22,16 @@ type VideoCardI = VideoI & {
 const VideoCard = (props: VideoCardI) => {
   const { cover, id, length, page, provider, title, thumbs = [], url } = props;
 
+  const handleClick = () => {
+    // Log video card click
+    AnalyticsUtils.logEvent(AnalyticsEventEnum.VIDEO_CARD_CLICK, {
+      video_id: id,
+      provider: provider,
+      title: title,
+      page: page || "unknown",
+    });
+  };
+
   //console.log('props', props)
   return (
     <Link
@@ -27,6 +41,7 @@ const VideoCard = (props: VideoCardI) => {
       )}`}
       target="_blank"
       className="flex flex-col justify-between gap-2"
+      onClick={handleClick}
     >
       <div className="relative p-2 bg-background-500/10 overflow-hidden rounded transition text-white-500 hover:bg-background-500/25 hover:text-white-100">
         {/*<VideoCardOverlay />*/}

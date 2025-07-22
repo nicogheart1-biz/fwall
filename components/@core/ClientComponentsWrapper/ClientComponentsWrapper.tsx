@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import dynamic from "next/dynamic";
 import { AdsBlockTypeEnum } from "@/src/enums/ads.enums";
@@ -33,17 +33,27 @@ const AdsColumn = dynamic(
     ssr: false,
   }
 );
+const PremiumHeader = dynamic(
+  () => import("@/components/premium/premiumHeader.component"),
+  {
+    ssr: false,
+  }
+);
 
 interface ClientComponentsWrapperProps {
   isMocked: boolean;
   children: ReactNode;
 }
 
-export default function ClientComponentsWrapper({ isMocked, children }: ClientComponentsWrapperProps) {
+export default function ClientComponentsWrapper({
+  isMocked,
+  children,
+}: ClientComponentsWrapperProps) {
   return (
     <>
       <SkipContentComponent />
-      <main id="MainContent" className="relative min-h-screen pt-20">
+      <PremiumHeader />
+      <main id="MainContent" className="relative min-h-screen pt-24">
         {!isMocked && <AdsColumn position="left" />}
         {children}
         {!isMocked && <AdsColumn position="right" />}

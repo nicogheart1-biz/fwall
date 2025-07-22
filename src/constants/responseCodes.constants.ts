@@ -34,4 +34,55 @@ export const ResponseCodesConstants: { [key: string]: ErrorI } = {
     code: 7006,
   },
   // endregion reCAPTCHA
+
+  // region PAYMENT
+  PAYMENT_INTENT_SUCCESS: {
+    code: 8001,
+  },
+  PAYMENT_INTENT_ERROR: {
+    code: 8002,
+  },
+  PAYMENT_INTENT_BAD_REQUEST: {
+    code: 8003,
+  },
+  PAYMENT_INTENT_NOT_FOUND: {
+    code: 8004,
+  },
+  PAYMENT_INTENT_METHOD_NOT_ALLOWED: {
+    code: 8006,
+  },
+  // endregion PAYMENT
+
+  // region PREMIUM
+  PREMIUM_VOUCHER_SUCCESS: {
+    code: 9001,
+  },
+  PREMIUM_VOUCHER_ERROR: {
+    code: 9002,
+  },
+  PREMIUM_VOUCHER_BAD_REQUEST: {
+    code: 9003,
+  },
+  PREMIUM_VOUCHER_NOT_FOUND: {
+    code: 9004,
+  },
+  PREMIUM_VOUCHER_EXPIRED: {
+    code: 9005,
+  },
+  PREMIUM_VOUCHER_ALREADY_USED: {
+    code: 9006,
+  },
+  PREMIUM_VIDEOS_SUCCESS: {
+    code: 9101,
+  },
+  PREMIUM_VIDEOS_ERROR: {
+    code: 9102,
+  },
+  PREMIUM_VIDEOS_BAD_REQUEST: {
+    code: 9103,
+  },
+  PREMIUM_VIDEOS_UNAUTHORIZED: {
+    code: 9104,
+  },
+  // endregion PREMIUM
 };

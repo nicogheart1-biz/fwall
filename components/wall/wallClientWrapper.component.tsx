@@ -12,6 +12,7 @@ type WallClientWrapperProps = {
   title?: string;
   videoProviders?: {[videoProvider: string]: any};
   videos: any[];
+  premium?: boolean;
 };
 
 export default function WallClientWrapper(props: WallClientWrapperProps) {

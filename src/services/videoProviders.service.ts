@@ -126,6 +126,20 @@ export const VideoProvidersService = {
 
               break;
             }
+            case "feet-video": {
+              const response = await require("@/mock/premium/videos.json");
+              if (response?.length) {
+                const video = response.find((v: any) => v.id === videoId);
+                resolve(
+                  VideoProvidersUtils.formatVideos({
+                    [videoProvider.id]: [video],
+                  })
+                );
+              } else {
+                reject();
+              }
+              break;
+            }
           }
         } else {
           reject();

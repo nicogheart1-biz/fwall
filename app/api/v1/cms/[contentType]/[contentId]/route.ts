@@ -16,7 +16,7 @@ const requestHandler = async (
   if (!(contentType && contentId)) {
     return NextResponse.json(
       {
-        code: ResponseCodesConstants.USER_DETAILS_BAD_REQUEST.code,
+        code: ResponseCodesConstants.CMS_CONTENT_BAD_REQUEST.code,
         success: false,
       },
       { status: 400 }

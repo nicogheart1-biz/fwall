@@ -78,6 +78,22 @@ export const VideoProvidersUtils = {
               });
               break;
             }
+            case "feet-video": {
+              contents[videoProvider].forEach((video: any) => {
+                videos.push({
+                  //...video,
+                  cover: video.cover || "",
+                  embedUrl: video.embedUrl,
+                  id: video.id,
+                  length: video.duration,
+                  provider: videoProvider,
+                  title: video.title.toLowerCase() || "Premium Feet Video",
+                  thumbs: [],
+                  url: video.url,
+                });
+              });
+              break;
+            }
           }
         }
       });
