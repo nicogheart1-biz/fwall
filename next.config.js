@@ -4,18 +4,18 @@ const { PHASE_DEVELOPMENT_SERVER } = require("next/constants");
 const commonConfig = {
   reactStrictMode: false,
   poweredByHeader: false,
-  experimental: {
-    esmExternals: 'loose',
-  },
-  webpack: (config, { isServer }) => {
-    if (!isServer) {
-      config.resolve.fallback = {
-        ...config.resolve.fallback,
-        fs: false,
-      };
-    }
-    return config;
-  },
+  // experimental: {
+  //   esmExternals: 'loose',
+  // },
+  // webpack: (config, { isServer }) => {
+  //   if (!isServer) {
+  //     config.resolve.fallback = {
+  //       ...config.resolve.fallback,
+  //       fs: false,
+  //     };
+  //   }
+  //   return config;
+  // },
   images: {
     remotePatterns: [
       {
