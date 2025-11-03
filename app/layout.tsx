@@ -5,8 +5,8 @@ import {
   PermitGuardComponent,
   SessionManagerComponent,
 } from "@/components/@core";
-import "@/components/@core/skipContent/skip-content.style.css";
 import { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import { AppConstants } from "@/src/constants";
 import clsx from "clsx";
 import { isMocked } from "@/src/utils/envs.utils";
@@ -52,6 +52,7 @@ export default function RootLayout({
           <meta name="RATING" content="RTA-5042-1996-1400-1577-RTA" />
         </head>
         <body className={clsx(rubik.className, "overflow-x-hidden")}>
+          {!isMocked ? <Analytics /> : null}
           <Header />
           <ClientComponentsWrapper isMocked={isMocked}>
             <PageAnalytics />

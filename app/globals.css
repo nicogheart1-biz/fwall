@@ -59,3 +59,28 @@ body {
 .share-video-btn {
   display: none !important;
 }
+
+.skip-main {
+  height: 1px;
+  left: -999px;
+  overflow: hidden;
+  position: absolute;
+  top: auto;
+  width: 1px;
+  z-index: -9999;
+
+  &:focus,
+  &:active {
+    background-color: white;
+    color: blue;
+    font-size: 1.4em;
+    height: auto;
+    left: 0;
+    margin: 10px;
+    overflow: auto;
+    padding: 5px;
+    top: 0;
+    width: auto;
+    z-index: 9999;
+  }
+}
