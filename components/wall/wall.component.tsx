@@ -1,5 +1,4 @@
 import { VideoCard } from "@/components";
-import React from "react";
 import { VideoProvidersUtils } from "@/src/utils/videoProviders.utils";
 import WallClientWrapper from "./wallClientWrapper.component";
 
