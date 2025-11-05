@@ -8,6 +8,7 @@ const PornhubLocal = dynamic(() => import("./pornhubLocal.component"), {
 
 interface PornhubLocalClientProps {
   contents: any;
+  title?: string;
 }
 
 export default function PornhubLocalClient(props: PornhubLocalClientProps) {

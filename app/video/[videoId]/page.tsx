@@ -33,8 +33,8 @@ const videoProviders = {
   redtube: {
     ...VideoProviders.redtube,
     queries: [
-      `?data=redtube.Videos.searchVideos&output=json&search=${pageKeywords[0]}&thumbsize=big&page=1&ordering=newest&period=weekly`,
-      `?data=redtube.Videos.searchVideos&output=json&search=${pageKeywords[0]}&thumbsize=big&page=2&ordering=newest&period=weekly`,
+      `?data=redtube.Videos.searchVideos&output=json&search=${pageKeywords[0]}&thumbsize=big&page=1&ordering=newest`,
+      `?data=redtube.Videos.searchVideos&output=json&search=${pageKeywords[0]}&thumbsize=big&page=2&ordering=newest`,
     ],
   },
 };
@@ -49,8 +49,8 @@ const getVideoDetails = cache(async (videoId: string) => {
     );
     return response;
   } catch (error) {
+    console.error(`Failed to fetch video ${videoId} details, ${error}`);
     SsrRedirect(Routes.home.url);
-    throw new Error(`Failed to fetch video ${videoId} details, ${error}`);
   }
 });
 
@@ -73,6 +73,9 @@ export async function generateMetadata({
   const videoDetails = (await getVideoDetails(
     decodeURIComponent(videoId)
   )) as VideoI[];
+  if (!videoDetails?.[0]?.id) {
+    return;
+  }
   return {
     title: `${capitalize(videoDetails[0].title) || "Feet"} Video`,
   };
@@ -89,6 +92,10 @@ export default async function Video({
   )) as VideoI[];
   //console.log('videoDetails', videoDetails)
 
+  if (!videoDetails?.[0]?.id) {
+    SsrRedirect(Routes.home.url);
+  }
+
   const suggestedContents = (await getVideosWall()) as {
     [videoProvider: string]: any;
   };
@@ -101,7 +108,7 @@ export default async function Video({
 
   return (
     <section className="mx-auto max-w-screen-xl py-4 px-4 sm:px-6 lg:px-8">
-      <VideoPageComponent videoDetails={videoDetails[0]} />
+      {videoDetails?.[0] && <VideoPageComponent videoDetails={videoDetails[0]} />}
       <WallComponent
         contents={suggestedContents}
         title="Related Videos"

@@ -20,7 +20,7 @@ const tags = TagList.tags.map(tag => ({
   keywords: [tag.replace(" ", "-")],
 }));
 
-const section = tags[15];
+const section = latest; //latest; //trending;
 
 const queries: any[] = [];
 section.keywords.forEach((key) => {
@@ -48,7 +48,7 @@ const videoProviders = {
 
 const getVideosWall = async () => {
   try {
-    console.log("videoProviders", videoProviders.pornhub.queries);
+    // console.log("videoProviders", videoProviders.pornhub.queries);
     // @ts-ignore
     const response = await VideoProvidersService.getVideos(videoProviders);
     return response;
@@ -62,7 +62,7 @@ export default async function LocalPornhub() {
 
   return (
     <>
-      <PornhubLocalClient contents={contents.pornhub} />
+      <PornhubLocalClient contents={contents.pornhub} title={section.keywords.join(", ")} />
       <WallComponent contents={contents} title="Local Pornhub" />
     </>
   );
