@@ -11,7 +11,8 @@ const AdsHorizontalBanner = () => {
           style={{ backgroundColor: "#02060e" }}
           width="900"
           height="250"
-          allowTransparency={true}
+          // @ts-ignore
+          allowtransparency="true"
           name="spot_id_10006954"
           src={`//a.adtng.com/get/10006954?ata=${AdsAda}`}
         ></iframe>
@@ -20,7 +21,8 @@ const AdsHorizontalBanner = () => {
           style={{ backgroundColor: "#02060e" }}
           width="728"
           height="90"
-          allowTransparency={true}
+          // @ts-ignore
+          allowtransparency="true"
           name="spot_id_10002481"
           src={`//a.adtng.com/get/10002481?ata=${AdsAda}`}
         ></iframe>

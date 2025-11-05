@@ -25,7 +25,7 @@ const VideoCard = (props: VideoCardI) => {
       href={`${Routes.video.url}${encodeURIComponent(
         universalBtoa(`${provider};${id}${page ? `;${page}` : ""}`)
       )}`}
-      target="_blank"
+      // target="_blank"
       className="flex flex-col justify-between gap-2"
     >
       <div className="relative p-2 bg-background-500/10 overflow-hidden rounded transition text-white-500 hover:bg-background-500/25 hover:text-white-100">
