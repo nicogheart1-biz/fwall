@@ -6,6 +6,7 @@ const firebaseConfig = {
   authDomain: FirebaseConstants.authDomain,
   projectId: FirebaseConstants.projectId,
   storageBucket: FirebaseConstants.storageBucket,
+  dbURL: FirebaseConstants.dbURL,
   messagingSenderId: FirebaseConstants.messagingSenderId,
   appId: FirebaseConstants.appId,
   measurementId: FirebaseConstants.measurementId,

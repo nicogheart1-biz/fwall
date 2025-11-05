@@ -25,7 +25,7 @@ const TabGroup = (props: TabGroupI) => {
 
   return (
     <div>
-      <div className="sm:hidden">
+      <div className="hidden">
         <label htmlFor="Tab" className="sr-only">
           Tab
         </label>
@@ -42,7 +42,7 @@ const TabGroup = (props: TabGroupI) => {
         </select>
       </div>
 
-      <div className="hidden sm:block">
+      <div className="block">
         <div className="border-b border-gray-200">
           <nav className="-mb-px flex gap-6">
             {tabs.map((tab) => (
@@ -51,8 +51,8 @@ const TabGroup = (props: TabGroupI) => {
                 href="#"
                 className={`shrink-0 p-3 border font-medium text-sm transition ${
                   activeTab.label === tab.label
-                    ? "rounded-t-lg border-gray-300 border-b-white-100 text-primary-600"
-                    : "border-transparent text-gray-500 hover:text-gray-700"
+                    ? "rounded-t-lg border-gray-300 border-b-white-100 text-secondary-500"
+                    : "border-transparent text-primary-300 hover:text-secondary-600"
                 }`}
                 onClick={() => {
                   setActiveTab(tab);

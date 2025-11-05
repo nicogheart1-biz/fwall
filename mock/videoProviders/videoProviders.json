@@ -21,5 +21,11 @@
     "api": "https://api.redtube.com/",
     "details": "https://api.redtube.com/?data=redtube.Videos.getVideoById&video_id=*VIDEOID*V&output=json&thumbsize=all",
     "active": true
+  },
+  "feet-video": {
+    "name": "Feet-Video",
+    "id": "feet-video",
+    "website": "https://feet-video.com/",
+    "active": true
   }
 }

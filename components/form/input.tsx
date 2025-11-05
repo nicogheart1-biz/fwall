@@ -27,7 +27,7 @@ const Input = (props: InputI) => {
     <label
       htmlFor={name || label}
       className={clsx(
-        "relative block p-3 rounded-md border border-gray-200 bg-white-100 shadow-sm focus-within:border-primary-600 focus-within:ring-1 focus-within:ring-blue-600",
+        "relative block p-3 rounded-md border border-gray-300 bg-white-100 shadow-sm focus-within:border-secondary-600 focus-within:ring-1 focus-within:ring-primary-200",
         icon && "pr-10",
         error && "border-red-500",
         disabled && "!bg-gray-100 cursor-not-allowed"
@@ -37,7 +37,7 @@ const Input = (props: InputI) => {
         {...{ ...filteredProps, id, name, required, disabled, type }}
         id={id || name || label}
         className={clsx(
-          "w-full peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0",
+          "w-full peer border-none text-primary-500 bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0",
           disabled && "cursor-not-allowed"
         )}
       />

@@ -183,5 +183,58 @@
       "changeFrequency": "yearly",
       "priority": 0.8
     }
+  },
+  "premium": {
+    "url": "/premium",
+    "label": "Premium",
+    "title": "Premium Videos",
+    "menu": {
+      "mobile": false,
+      "desktop": false,
+      "header": false,
+      "footer": false
+    },
+    "private": false,
+    "roles": [],
+    "seo": {
+      "changeFrequency": "daily",
+      "priority": 0.9
+    }
+  },
+  "premiumAccess": {
+    "url": "/premium/access",
+    "label": "Premium Access",
+    "title": "Premium Access Area",
+    "menu": {
+      "mobile": false,
+      "desktop": false,
+      "header": false,
+      "footer": false
+    },
+    "private": false,
+    "roles": [],
+    "seo": {
+      "changeFrequency": "never",
+      "priority": 0.1,
+      "index": false
+    }
+  },
+  "premiumAccessVideo": {
+    "url": "/premium/access/video/",
+    "label": "Premium Access Video",
+    "title": "Premium Access Video",
+    "menu": {
+      "mobile": false,
+      "desktop": false,
+      "header": false,
+      "footer": false
+    },
+    "private": false,
+    "roles": [],
+    "seo": {
+      "changeFrequency": "never",
+      "priority": 0.1,
+      "index": false
+    }
   }
 }
