@@ -24,6 +24,7 @@ const Select = (props: SelectI) => {
     options = [],
     placeholder,
     required = false,
+    ...filteredProps
   } = props;
 
   return (
@@ -36,7 +37,7 @@ const Select = (props: SelectI) => {
       )}
     >
       <select
-        {...{ ...props, error: undefined, icon: undefined }}
+        {...{ ...filteredProps, name, placeholder, required }}
         id={id || name || label}
         defaultValue=""
         className="w-full peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 disabled:cursor-not-allowed"
