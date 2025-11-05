@@ -20,6 +20,7 @@ const Input = (props: InputI) => {
     name,
     required = false,
     type = "text",
+    ...filteredProps
   } = props;
 
   return (
@@ -33,7 +34,7 @@ const Input = (props: InputI) => {
       )}
     >
       <input
-        {...{ ...props, type, error: undefined, icon: undefined }}
+        {...{ ...filteredProps, id, name, required, disabled, type }}
         id={id || name || label}
         className={clsx(
           "w-full peer border-none text-primary-500 bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0",

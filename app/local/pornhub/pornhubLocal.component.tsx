@@ -2,7 +2,7 @@
 
 import { VideoProvidersUtils } from "@/src/utils/videoProviders.utils";
 
-const PornhubLocal = (props: { contents: any }) => {
+const PornhubLocal = (props: { title?: string; contents: any }) => {
   console.log("contents", {
     videos: VideoProvidersUtils.randomSort(
       props.contents.map((item: any) => ({
@@ -16,7 +16,18 @@ const PornhubLocal = (props: { contents: any }) => {
     ),
   });
 
-  return null;
+  return (
+    <div>
+      <button
+        style={{ padding: 16, backgroundColor: "white", color: "black" }}
+        onClick={() =>
+          navigator.clipboard.writeText(JSON.stringify(props.contents))
+        }
+      >
+        COPIA {props.title?.toUpperCase() || ""}
+      </button>
+    </div>
+  );
 };
 
 export default PornhubLocal;

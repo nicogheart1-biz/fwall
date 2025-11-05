@@ -38,6 +38,7 @@ const Button = (props: ButtonI) => {
     danger = false,
     isLoading = false,
     full = false,
+    ...filteredProps
   } = props;
 
   const btnClass = `${ButtonStyle.baseBtnStyle} ${
@@ -64,17 +65,7 @@ const Button = (props: ButtonI) => {
         isLoading && ButtonStyle.loadingBtnStyle,
         full && ButtonStyle.fullBtnStyle
       )}
-      {...{
-        ...props,
-        action: undefined,
-        analyticEvent: undefined,
-        primary: undefined,
-        secondary: undefined,
-        danger: undefined,
-        text: undefined,
-        isLoading: undefined,
-        full: undefined,
-      }}
+      {...filteredProps}
       disabled={isDisabled}
       onClick={() => {
         if (analyticEvent) {

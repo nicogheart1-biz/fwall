@@ -8,7 +8,8 @@ const AdsSquareBanner = () => {
         style={{ backgroundColor: "#02060e" }}
         width="315"
         height="300"
-        allowTransparency={true}
+        // @ts-ignore
+        allowtransparency="true"
         name="spot_id_10002484"
         src={`//a.adtng.com/get/10002484?ata=${AdsAda}`}
       ></iframe>

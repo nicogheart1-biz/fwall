@@ -39,7 +39,7 @@ const VideoCard = (props: VideoCardI) => {
       href={`${Routes.video.url}${encodeURIComponent(
         universalBtoa(`${provider};${id}${page ? `;${page}` : ""}`)
       )}`}
-      target="_blank"
+      // target="_blank"
       className="flex flex-col justify-between gap-2"
       onClick={handleClick}
     >
