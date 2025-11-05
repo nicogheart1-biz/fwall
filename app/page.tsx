@@ -34,10 +34,10 @@ const videoProviders = {
   redtube: {
     ...VideoProviders.redtube,
     queries: [
-      `?data=redtube.Videos.searchVideos&output=json&search=${pageKeywords[0]}&thumbsize=big&page=1&ordering=newest&period=weekly`,
-      `?data=redtube.Videos.searchVideos&output=json&search=${pageKeywords[0]}&thumbsize=big&page=2&ordering=newest&period=weekly`,
-      `?data=redtube.Videos.searchVideos&output=json&search=${pageKeywords[1]}&thumbsize=big&page=1&ordering=newest&period=weekly`,
-      `?data=redtube.Videos.searchVideos&output=json&search=${pageKeywords[1]}&thumbsize=big&page=2&ordering=newest&period=weekly`,
+      `?data=redtube.Videos.searchVideos&output=json&search=${pageKeywords[0]}&thumbsize=big&page=1&ordering=newest`,
+      `?data=redtube.Videos.searchVideos&output=json&search=${pageKeywords[0]}&thumbsize=big&page=2&ordering=newest`,
+      `?data=redtube.Videos.searchVideos&output=json&search=${pageKeywords[1]}&thumbsize=big&page=1&ordering=newest`,
+      `?data=redtube.Videos.searchVideos&output=json&search=${pageKeywords[1]}&thumbsize=big&page=2&ordering=newest`,
     ],
   },
 };
