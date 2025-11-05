@@ -34,6 +34,10 @@ const commonConfig = {
         protocol: "https",
         hostname: "ei.rdtcdn.com",
       },
+      {
+        protocol: "https",
+        hostname: "static-eu-cdn.eporner.com",
+      },
     ],
   },
 };
