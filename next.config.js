@@ -4,6 +4,18 @@ const { PHASE_DEVELOPMENT_SERVER } = require("next/constants");
 const commonConfig = {
   reactStrictMode: false,
   poweredByHeader: false,
+  // experimental: {
+  //   esmExternals: 'loose',
+  // },
+  // webpack: (config, { isServer }) => {
+  //   if (!isServer) {
+  //     config.resolve.fallback = {
+  //       ...config.resolve.fallback,
+  //       fs: false,
+  //     };
+  //   }
+  //   return config;
+  // },
   images: {
     remotePatterns: [
       {
@@ -21,6 +33,10 @@ const commonConfig = {
       {
         protocol: "https",
         hostname: "ei.rdtcdn.com",
+      },
+      {
+        protocol: "https",
+        hostname: "static-eu-cdn.eporner.com",
       },
     ],
   },

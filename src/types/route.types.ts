@@ -7,6 +7,7 @@ export type RouteI = {
     desktop: boolean;
     header: boolean;
     footer: boolean;
+    order?: number;
   };
   private: boolean;
   roles: string[];

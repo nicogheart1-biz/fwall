@@ -1,5 +1,5 @@
 "use client";
-import { PaginationComponent, VideoCard } from "@/components";
+import { PaginationComponent, PremiumVideoCard, VideoCard } from "@/components";
 import { scrollToId } from "@/src/utils/common.utils";
 import { useEffect, useState } from "react";
 import AdsBlock from "@/components/ads/adsBlock.component";
@@ -10,6 +10,7 @@ type WallClientI = {
   page?: string;
   title?: string;
   videos: any[];
+  premium?: boolean;
 };
 
 const pageSize = 24;
@@ -19,6 +20,7 @@ const WallClient = (props: WallClientI) => {
     page: pageName,
     title,
     videos: eVideos = [],
+    premium = false,
   } = props;
   const [videos, setVideos] = useState(eVideos);
   const [page, setPage] = useState(1);
@@ -58,28 +60,38 @@ const WallClient = (props: WallClientI) => {
     >
       {title ? <h2 className="py-4 text-lg font-medium">{title}</h2> : null}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 lg:gap-6">
-        {videoSection.first.map((video) => (
-          <VideoCard key={video.id} {...video} page={pageName} />
-        ))}
+        {videoSection.first.map((video) =>
+          premium ? (
+            <PremiumVideoCard key={video.id} video={video} />
+          ) : (
+            <VideoCard key={video.id} {...video} page={pageName} />
+          )
+        )}
       </div>
       {videoSection.second?.length ? (
         <>
-          <AdsBlock type={AdsBlockTypeEnum.HORIZONTAL} />
+          {!premium && <AdsBlock type={AdsBlockTypeEnum.HORIZONTAL} />}
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 lg:gap-6">
-            {videoSection.second.map((video) => (
-              <VideoCard key={video.id} {...video} page={pageName} />
-            ))}
+            {videoSection.second.map((video) =>
+              premium ? (
+                <PremiumVideoCard key={video.id} video={video} />
+              ) : (
+                <VideoCard key={video.id} {...video} page={pageName} />
+              )
+            )}
           </div>
         </>
       ) : null}
-      <PaginationComponent
-        pages={videos.length / pageSize}
-        currentPage={page}
-        onPageChange={(newPage) => {
-          setPage(newPage);
-          scrollToId("video-grid");
-        }}
-      />
+      {videos.length / pageSize > 1 && (
+        <PaginationComponent
+          pages={videos.length / pageSize}
+          currentPage={page}
+          onPageChange={(newPage) => {
+            setPage(newPage);
+            scrollToId("video-grid");
+          }}
+        />
+      )}
     </section>
   );
 };

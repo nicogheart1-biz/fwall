@@ -56,6 +56,10 @@ body {
   color: rgb(var(--font-rgb));
 }
 
+.share-video-btn {
+  display: none !important;
+}
+
 .skip-main {
   height: 1px;
   left: -999px;
